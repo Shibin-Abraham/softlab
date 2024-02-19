@@ -70,3 +70,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 bg - #282c34
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/Shibin-Abraham/softlab.git
+git branch -M main
+git push -u origin main

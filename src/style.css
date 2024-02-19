@@ -461,7 +461,7 @@ body{
 }
 .main section .container-2 .top{
   width: 100%;
-  height: 5rem;
+  height: 4rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -482,6 +482,109 @@ body{
   height: 1.5rem;
   color: var(--color-info-light);
 }
+.main section .container-2 .mid{
+  width: 100%;
+  height: 15rem;
+}
+.main section .container-2 .mid h2{
+  font-weight: 700;
+  margin-left: 2rem;
+  color: var(--color-info-light);
+}
+.main section .container-2 .mid .card-section{
+  width: 90%;
+  height: 12rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  overflow: scroll;
+}
+.main section .container-2 .mid .card-section::-webkit-scrollbar{
+  display: none;
+}
+.container-2 .mid .card-section .row{
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  transition: all .9s ease;
+}
+.container-2 .mid .card-section .row:hover{
+  background: var(--color-dark);
+}
+.container-2 .mid .card-section .row svg{
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-info-light);
+}
+.container-2 .mid .card-section .row div{
+  margin-left: 1rem;
+  color: var(--color-info-dark);
+}
+.main section .container-2 .bottom{
+  width: 100%;
+  height: 24rem;
+}
+.main section .container-2 .bottom h3{
+  font-weight: 600;
+  margin-left: 2rem;
+  color: var(--color-info-light);
+  margin-top: 1rem;
+}
+.main section .container-2 .bottom .card-section{
+  width: 100%;
+  height: 21rem;
+  margin-top: .4rem;
+  overflow: scroll;
+}
+.main section .container-2 .bottom .card-section::-webkit-scrollbar{
+  display: none;
+}
+.main section .container-2 .bottom .card-section .row{
+  width: 90%;
+  height: 4rem;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  transition: all .5s ease;
+}
+.main section .container-2 .bottom .card-section .row:hover{
+  margin-left: 1.5rem;
+}
+.main section .container-2 .bottom .card-section .row .icon{
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: .5rem;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+.main section .container-2 .bottom .card-section .row .icon svg{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.main section .container-2 .bottom .card-section .row .data{
+  width: 17rem;
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+}
+.main section .container-2 .bottom .card-section .row .data::-webkit-scrollbar{
+  display: none;
+}
+.main section .container-2 .bottom .card-section .row .data p{
+  font-size: .8rem;
+  color: var(--color-info-dark);
+  margin-left: 1rem;
+}
+
 /** dashboard container-2 section  end **/
 
 /********************* Dashboard style end **************************/
