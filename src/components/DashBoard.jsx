@@ -209,7 +209,7 @@ export default function DashBoard(){
                         </div>
                     </div>
                     <div className="bottom">
-                        <h3>Upcoming Warranties</h3>
+                        <h3>Alert and Notification</h3>
                         <div className="card-section">
                             <div className="row">
                                 <div className="icon">
