@@ -40,7 +40,7 @@ function DashBoard(){
                 <div className="container-1">
                     <h1>Dashboard</h1>
                     <div className="date">
-                        <input type="date" />
+                        <input type="date"/>
                     </div>
                     <div className="card-section">
                         <div className="card-1">

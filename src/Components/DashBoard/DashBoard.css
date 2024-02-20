@@ -4,13 +4,16 @@
 .main{
     width: 80vw;
     height: 100vh;
-    
   }
   .main section{
     margin: 1rem 0rem 0rem 1rem;
     width: 78vw;
-    height: 96vh;
+    height: 96%;
     display: flex;
+    overflow-y: scroll;
+  }
+  .main section::-webkit-scrollbar{
+    display: none;
   }
   .main section .container-1{
     width: 55vw;
@@ -37,7 +40,7 @@
   }
   .main section .container-1 .card-section{ 
     width: 100%;
-    height: 27vh;
+    height: 27%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -231,7 +234,7 @@
   /** dashboard recent activities section **/
   .main section .container-1 .table-container{
     width: 100%;
-    height: 55vh;
+    height: 58%;
   }
   .main section .container-1 .table-container h2{
     color: var(--color-info-light);
@@ -239,7 +242,7 @@
   .main section .container-1 .table-container .table-section{
     margin-top: .5rem;
     width: 100%;
-    height: 50vh;
+    height: 90%;
     box-shadow: var(--box-shadow-1);
     border-radius: var(--border-radius-2);
     background: var(--color-light);
@@ -285,11 +288,10 @@
   .main section .container-2{
     width: 50vh;
     height: 100%;
-    
   }
   .main section .container-2 .top{
     width: 100%;
-    height: 4rem;
+    height: 8%;
     display: flex;
     justify-content: flex-end;
   }
@@ -312,7 +314,7 @@
   }
   .main section .container-2 .mid{
     width: 100%;
-    height: 15rem;
+    height: 35%;
   }
   .main section .container-2 .mid h2{
     font-weight: 700;
@@ -353,7 +355,7 @@
   }
   .main section .container-2 .bottom{
     width: 100%;
-    height: 24rem;
+    height: 52%;
   }
   .main section .container-2 .bottom h3{
     font-weight: 600;
@@ -363,7 +365,7 @@
   }
   .main section .container-2 .bottom .card-section{
     width: 100%;
-    height: 21rem;
+    height: 20rem;
     margin-top: .4rem;
     overflow: scroll;
   }

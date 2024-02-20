@@ -1,0 +1,94 @@
+@import url("../../global.css");
+
+.users{
+    width: 80vw;
+    height: 100vh;
+  }
+  .users section{
+    margin: 1rem 0rem 0rem 1rem;
+    width: 100%;
+    height: 95%;
+  }
+  .users section h1{
+    font-size: 1.9rem;
+    color: var(--color-white);
+  }
+  .users section .container{
+    margin-top: 1rem;
+    width: 100%;
+    height: 85%;
+    overflow-y: scroll;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-2);
+    background: var(--color-light);
+  }
+  .users section .container::-webkit-scrollbar{
+    display: none;
+  }
+  .users section .container .table-section{
+    width: 100%;
+    height: 100%;
+  }
+  .users section .container .table-section table{
+    width: 100%;
+  }
+  .users section .container .table-section table thead{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-white);
+    background: var(--color-blue-shade);
+  }
+  .users section .container .table-section table tbody{
+    width: 100%;
+    height: 100%;
+  }
+  .users section .container .table-section table tbody tr{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+    transition: all .1s ease;
+  }
+  .users section .container .table-section table tbody tr:hover{
+    color: var(--color-white);
+  }
+  .users section .container .table-section table tbody tr td{
+    text-align: center;
+  }
+  .users section .container .table-section table tbody tr button{
+    width: 4rem;
+    height: 2rem;
+    font-size: .9rem;
+    background: none;
+    border-radius: var(--border-radius-1);
+    margin-left: .5rem;
+    transition: all .7s ease;
+  }
+  .users section .container .table-section table tbody tr button:nth-child(1){
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
+  }
+  .users section .container .table-section table tbody tr button:nth-child(2){
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+  .users section .container .table-section table tbody tr button:nth-child(3){
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+  }
+  .users section .container .table-section table tbody tr button:nth-child(1):hover{
+    color: var(--color-white);
+    border: none;
+    background: var(--color-warning);
+  }
+  .users section .container .table-section table tbody tr button:nth-child(2):hover{
+    color: var(--color-white);
+    border: none;
+    background: var(--color-primary);
+  }
+  .users section .container .table-section table tbody tr button:nth-child(3):hover{
+    color: var(--color-white);
+    border: none;
+    background: var(--color-danger);
+  }
