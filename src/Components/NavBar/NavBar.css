@@ -1,0 +1,119 @@
+@import url("../../global.css");
+
+/********************* nav bar *************************/
+.nav-bar{
+    width: 18vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .nav-bar .header{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .nav-bar .header h2{
+    color: var(--color-white);
+  }
+  .nav-bar .header h2 span{
+    color: var(--color-danger);
+  }
+  .nav-bar .header img{
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    margin-right: 0.8rem;
+  }
+  
+  .nav-bar .side-bar{
+    width: 80%;
+    height: 76vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .nav-bar .side-bar .bar{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    top: 1rem;
+    flex-direction: column;
+    position: relative;
+    transition: all ease .3s;
+  }
+  .nav-bar .side-bar .bar div{
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    align-items: center;
+    gap: .5rem;
+    border-radius: 2px;
+    color: var(--color-info-dark);
+    transition: all ease .3s;
+  }
+  .nav-bar .side-bar .bar div h3{
+    font-weight: 500;
+    width: 50%;
+    margin-left: 1rem;
+  }
+  .nav-bar .side-bar .bar div svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: margin-left ease .3s;
+    margin-left: 1rem;
+  }
+  .nav-bar .side-bar .bar div:hover{
+    color: var(--color-primary);
+  }
+  .nav-bar .side-bar .bar div:hover svg{
+    margin-left: 2rem;
+  }
+  .nav-bar .side-bar .bar div:last-child{
+    position: absolute;
+    width: 100%;
+  }
+  .nav-bar .logout{
+    width: 80%;
+    height: 8vh;
+    display: flex;
+    position: relative;
+    color: var(--color-info-dark);
+    transition: all ease .3s;
+  }
+  .nav-bar .logout svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+  }
+  .nav-bar .logout h3{
+    font-weight: 500;
+    width: 50%;
+    margin-left: 1rem;
+  }
+  .nav-bar .logout:hover{
+    color: var(--color-primary);
+    margin-left: 2rem;
+  }
+  .active div{
+    background: var(--color-black);
+    color: var(--color-primary);
+    margin-left: 1rem;
+    transition: all ease .3s;
+  }
+  .active div h3{
+    color: var(--color-primary);
+  }
+  .active div svg{
+    color: var(--color-primary);
+  }
+  .active div:before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+  }
+  /********************* navbar style end **************************/

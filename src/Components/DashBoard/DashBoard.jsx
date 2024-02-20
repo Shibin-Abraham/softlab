@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
+import "./DashBoard.css"
 
-export default function DashBoard(){
+function DashBoard(){
 
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
@@ -279,3 +280,5 @@ export default function DashBoard(){
         </div>
     )
 }
+
+export default DashBoard;

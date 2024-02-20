@@ -1,8 +1,8 @@
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import './style.css';
+import './App.css';
 
-import NavBar from './components/NavBar.jsx';
-import DashBoard from './components/DashBoard.jsx';
+import NavBar from './Components/NavBar/NavBar.jsx';
+import DashBoard from './Components/DashBoard/DashBoard.jsx';
 
 function App() {
   return (
