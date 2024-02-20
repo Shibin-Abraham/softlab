@@ -1,0 +1,53 @@
+@import url("../../../global.css");
+
+.delete-popup{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+}
+.delete-popup .content{
+    border-radius: var(--border-radius-2);
+    min-width: 20rem;
+    min-height: 20rem;
+    background: var(--color-light);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.delete-popup .content svg{
+    color: var(--color-warning);
+    width: 60%;
+    height: 60%;
+}
+.delete-popup .content .btn #cancel{
+    width: 7rem;
+    height: 2rem;
+    border: none;
+    margin-top: 2rem;
+    margin-right: 1rem;
+    color: var(--color-white);
+    background: var(--color-primary);
+}
+.delete-popup .content .btn #delete{
+    width: 7rem;
+    height: 2rem;
+    border: none;
+    margin-top: 2rem;
+    margin-right: 1rem;
+    color: var(--color-white);
+    background: var(--color-danger);
+}
+.delete-popup .content .btn #cancel:hover{
+    background: #4752bb;
+}
+.delete-popup .content .btn #delete:hover{
+    background: #a43f47;
+}

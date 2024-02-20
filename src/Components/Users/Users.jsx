@@ -40,6 +40,38 @@ function Users() {
                             <td> 20-02-24</td>
                             {<Action/>}
                         </tr>
+                        <tr>
+                            <td> soft lab</td>
+                            <td> softlab@gmail.com</td>
+                            <td> 1913022024</td>
+                            <td> Lab Manager</td>
+                            <td> 20-02-24</td>
+                            {<Action/>}
+                        </tr>
+                        <tr>
+                            <td> soft lab</td>
+                            <td> softlab@gmail.com</td>
+                            <td> 1913022024</td>
+                            <td> Lab Manager</td>
+                            <td> 20-02-24</td>
+                            {<Action/>}
+                        </tr>
+                        <tr>
+                            <td> soft lab</td>
+                            <td> softlab@gmail.com</td>
+                            <td> 1913022024</td>
+                            <td> Lab Manager</td>
+                            <td> 20-02-24</td>
+                            {<Action/>}
+                        </tr>
+                        <tr>
+                            <td> soft lab</td>
+                            <td> softlab@gmail.com</td>
+                            <td> 1913022024</td>
+                            <td> Lab Manager</td>
+                            <td> 20-02-24</td>
+                            {<Action/>}
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -63,7 +63,7 @@
     background: none;
     border-radius: var(--border-radius-1);
     margin-left: .5rem;
-    transition: all .7s ease;
+    transition: all .5s ease;
   }
   .users section .container .table-section table tbody tr button:nth-child(1){
     color: var(--color-warning);
