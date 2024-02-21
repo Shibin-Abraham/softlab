@@ -177,7 +177,7 @@ function DashBoard(){
                                 </svg>
                                 <div>
                                     <h4>Name</h4>
-                                    <p>Lan Manager</p>
+                                    <p>Lab Manager</p>
                                 </div>
                             </div>
                             <div className="row">
