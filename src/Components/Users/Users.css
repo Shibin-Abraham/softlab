@@ -37,7 +37,7 @@
     height: 3rem;
     font-size: 1rem;
     color: var(--color-white);
-    background: var(--color-blue-shade);
+    /*background: var(--color-blue-shade);*/
   }
   .users section .container .table-section table tbody{
     width: 100%;
@@ -54,7 +54,11 @@
     color: var(--color-white);
   }
   .users section .container .table-section table tbody tr td{
+    border-bottom: 1px solid var(--color-dark-variant);
     text-align: center;
+  }
+  .users section .container .table-section table tbody tr:first-child td{
+    border-top: 1px solid var(--color-dark-variant);
   }
   .users section .container .table-section table tbody tr button{
     width: 4rem;
