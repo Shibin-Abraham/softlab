@@ -13,58 +13,117 @@
     font-size: 1.9rem;
     color: var(--color-white);
   }
-  .stock-details section .container{
-    margin-top: 1rem;
+  .stock-details section .top{
     width: 95%;
-    height: 85%;
-    overflow-y: scroll;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .stock-details section .container::-webkit-scrollbar{
-    display: none;
-  }
-  .stock-details section .container .top{
-    width: 99%;
     height: 10%;
+    border-radius: var(--border-radius-1);
+    background: var(--color-black);
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .stock-details section .container .top input{
+  .stock-details section .top input{
+    margin-left: .5rem;
+    font-size: 1rem;
+    font-weight: 300;
     width: 70%;
-    height: 75%;
+    height: 60%;
     color: var(--color-white);
-    border: 2px solid var(--color-primary);
+    border: 1px solid var(--color-primary);
     background: none;
     border-radius: var(--border-radius-1);
     transition: all .7s ease;
+    text-align: left;
   }
-  .stock-details section .container .top input:focus{
-    width: 76%;
-    outline: 2px solid var(--color-primary);
-    background: none;
-    border-radius: var(--border-radius-1);
+  .stock-details section input:hover{
+    width: 71%;
+    outline: none;
   }
-  .stock-details section .container .top div{
+  .stock-details section .top input:focus{
+    width: 71%;
+    outline: none;
+  }
+  .stock-details section .top input::placeholder{
+    margin-left: 10px;
+    color: var(--color-primary);
+  }
+  .stock-details section .top div{
+    margin-right: .5rem;
     width: 25%;
-    height: 75%;
+    height: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
     border: 1px dashed var(--color-primary);
     border-radius: var(--border-radius-1);
+    transition: all .5s ease;
   }
-  .stock-details section .container .top div svg{
-    width: 2rem;
-    height: 2rem;
+  .stock-details section .top div svg{
+    width: 1.5rem;
+    height: 1.5rem;
   }
-  .stock-details section .container .top div h2{
+  .stock-details section .top div h3{
     margin-left: .5rem;
     font-weight: 400; 
+  }
+  .stock-details section .top div:hover{
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .stock-details section .container{
+    margin-top: 1rem;
+    width: 95%;
+    height: 75%;
+    overflow-y: scroll;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-2);
+    background: var(--color-light);
+
+  }
+  .stock-details section .container::-webkit-scrollbar{
+    display: none;
+  }
+  .stock-details section .container .table-section table{
+    width: 100%;
+  }
+  .stock-details section .container .table-section table thead{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-white);
+    /*background: var(--color-blue-shade);*/
+  }
+  .stock-details section .container .table-section table tbody{
+    width: 100%;
+    height: 100%;
+  }
+  .stock-details section .container .table-section table tbody tr{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+    transition: all .1s ease;
+  }
+  .stock-details section .container .table-section table tbody tr:hover{
+    color: var(--color-white);
+  }
+  .stock-details section .container .table-section table tbody tr td{
+    border-bottom: 1px solid var(--color-dark-variant);
+    text-align: center;
+    border-bottom: 1px solid var(--color-dark-variant);
+  }
+  .stock-details section .container .table-section table tbody tr:first-child td{
+    border-top: 1px solid var(--color-dark-variant);
+  }
+  .stock-details section .container .table-section table tbody tr td svg{
+    width: 2.3rem;
+    height: 2.2rem;
+    color: var(--color-primary);
+  }
+  .stock-details section .container .table-section table tbody tr td svg:hover{
+    width: 2.5rem;
+    height: 2.4rem;
   }
