@@ -1,0 +1,128 @@
+@import url('../../global.css');
+
+.item-details{
+    width: 80vw;
+    height: 100vh;
+}
+.item-details section{
+    margin: 1rem 0rem 0rem 1rem;
+    width: 100%;
+    height: 95%;
+  }
+  .item-details section h1{
+    font-size: 1.9rem;
+    color: var(--color-white);
+  }
+  .item-details section .top{
+    width: 95%;
+    height: 10%;
+    border-radius: var(--border-radius-1);
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .item-details section .top input{
+    margin-left: .5rem;
+    font-size: 1rem;
+    font-weight: 300;
+    width: 70%;
+    height: 60%;
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: none;
+    border-radius: var(--border-radius-1);
+    transition: all .7s ease;
+    text-align: left;
+  }
+  .item-details section input:hover{
+    width: 71%;
+    outline: none;
+  }
+  .item-details section .top input:focus{
+    width: 71%;
+    outline: none;
+  }
+  .item-details section .top input::placeholder{
+    margin-left: 10px;
+    color: var(--color-primary);
+  }
+  .item-details section .top div{
+    margin-right: .5rem;
+    width: 25%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px dashed var(--color-primary);
+    border-radius: var(--border-radius-1);
+    transition: all .5s ease;
+  }
+  .item-details section .top div svg{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .item-details section .top div h3{
+    margin-left: .5rem;
+    font-weight: 400; 
+  }
+  .item-details section .top div:hover{
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+  }
+  .item-details section .container{
+    margin-top: 1rem;
+    width: 95%;
+    height: 75%;
+    overflow-y: scroll;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-2);
+    background: var(--color-light);
+
+  }
+  .item-details section .container::-webkit-scrollbar{
+    display: none;
+  }
+  .item-details section .container .table-section table{
+    width: 100%;
+  }
+  .item-details section .container .table-section table thead{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-white);
+    /*background: var(--color-blue-shade);*/
+  }
+  .item-details section .container .table-section table tbody{
+    width: 100%;
+    height: 100%;
+  }
+  .item-details section .container .table-section table tbody tr{
+    width: 100%;
+    height: 3rem;
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+    transition: all .1s ease;
+  }
+  .item-details section .container .table-section table tbody tr:hover{
+    color: var(--color-white);
+  }
+  .item-details section .container .table-section table tbody tr td{
+    border-bottom: 1px solid var(--color-dark-variant);
+    text-align: center;
+    border-bottom: 1px solid var(--color-dark-variant);
+  }
+  .item-details section .container .table-section table tbody tr:first-child td{
+    border-top: 1px solid var(--color-dark-variant);
+  }
+  .item-details section .container .table-section table tbody tr td svg{
+    width: 2.3rem;
+    height: 2.2rem;
+    color: var(--color-primary);
+  }
+  .item-details section .container .table-section table tbody tr td svg:hover{
+    width: 2.5rem;
+    height: 2.4rem;
+  }
