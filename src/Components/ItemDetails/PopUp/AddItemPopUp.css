@@ -1,0 +1,107 @@
+@import url('../../../global.css');
+
+.item-popup{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 70%;
+    right: 0;
+    z-index: 10;
+    background: none;
+}
+.item-popup .content{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-dark);
+    border-top-left-radius: var(--border-radius-1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all ease-in-out .3s;
+    transform: translateX(500px);
+}
+.item-popup .content .top{
+    width: 100%;
+    height: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--color-primary);
+}
+.item-popup .content .top h2{
+    font-weight: 500;
+    color: var(--color-white);
+    margin-left: .5rem;
+}
+.item-popup .content .top svg{
+    color: var(--color-dark);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.item-popup .content .top svg:hover{
+    color: var(--color-black);
+}
+.item-popup .content form{
+    width: 90%;
+    height: 100%;
+    color: var(--color-dark-variant);
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.item-popup .content form::-webkit-scrollbar{
+    display: none;
+}
+.item-popup .content form .input{
+    width: 100%;
+    height: 4.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: .1rem;
+}
+.item-popup .content form .input select,input{
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--color-info-dark);
+    width: 100%;
+    height: 3.1rem;
+    background: none;
+    outline: none;
+    color: var(--color-dark-variant);
+    font-size: 1.1rem;
+    margin: 0;
+}
+.item-popup .content form .input p{
+    color: var(--color-info-dark);
+    font-size: .9rem;
+}
+.item-popup .content form .input span{
+    color: var(--color-danger);
+    font-size: .6rem;
+}
+.item-popup .content form .btn{
+    width: 100%;
+    height: 3rem;
+}
+.item-popup .content form .btn input[type=submit]{
+    width: 100%;
+    height: 3rem;
+    outline: none;
+    border: none;
+    color: var(--color-white);
+    background: var(--color-primary);
+    font-size: 1.1rem;
+    border-radius: var(--border-radius-1);
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+.item-popup .content form .btn input[type=submit]:hover{
+    background: var(--color-primary-variant);
+}
+
+.item-popup .content.popup-active{
+    transform: translateX(0px);
+}
