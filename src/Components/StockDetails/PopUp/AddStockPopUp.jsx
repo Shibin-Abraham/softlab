@@ -10,7 +10,13 @@ function AddStockPopUp(props) {
 
     const {register, handleSubmit ,formState:{errors}} = useForm();
     const onSubmit = (data)=>{
-        console.log(data)
+        if(data){//data submited then close the AddStockPopUo and show the success message
+            setPopUpActive('')//close AddStockPopUp 
+            props.setGlobalPopUp({id:1,header:'SUCCESS',message:'Data has been saved successfully'}) // show the success message
+            setTimeout(()=>{props.setStockPopUp(false)},300)
+        }else{
+            props.setGlobalPopUp(4)
+        }
     }
 
   return (
@@ -38,7 +44,7 @@ function AddStockPopUp(props) {
             </div>
             <div className='input'>
                 <p> Sub Indent No</p>
-                <input type='text' {...register("subindent",{required:true})}/>
+                <input type='text' {...register("subindent",{required:true,minLength:1,maxLength:10})}/>
                 <span>
                     {errors.subindent?.type ==="minLength"&& "Sub-Indent No must contain 1 digit or number"}
                     {errors.subindent?.type ==="maxLength"&& "Sub-Indent No must be less than 10 length "}
@@ -56,16 +62,16 @@ function AddStockPopUp(props) {
             </div>
             <div className='input'>
                 <p> Invoice ID</p>
-                <input type='text' {...register("invoiceid",{required:true,minLength:1,maxLength:10})}/>
+                <input type='text' {...register("invoiceid",{required:true,minLength:1,maxLength:20})}/>
                 <span>
                     {errors.invoiceid?.type ==="required"&& "Invoice ID Required"}
                     {errors.invoiceid?.type ==="minLength"&& "This field must contain 1 character or number"}
-                    {errors.invoiceid?.type ==="maxLength"&& "This field must be less than 10 length"}
+                    {errors.invoiceid?.type ==="maxLength"&& "This field must be less than 20 length"}
                 </span>
             </div>
             <div className='input'>
                 <p> Invoice Date</p>
-                <input type='text' {...register("date",{required:true,pattern:/^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$/g})}/>
+                <input type='text' {...register("date",{required:true,pattern:/^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$/g})} placeholder='dd-mm-yyyy'/>
                 <span>
                     {errors.date?.type ==="required"&& "Invoice Date Required"}
                     {errors.date?.type ==="pattern"&& "DD-MM-YYYY"}

@@ -2,15 +2,21 @@ import React,{useState} from 'react'
 import './StockDetails.css';
 import ViewPopUp from './PopUp/ViewPopUp';
 import AddStockPopUp from './PopUp/AddStockPopUp';
+import GlobalPopUp from '../GlobalPopUp/GlobalPopUp';
 
 function StockDetails() {
     let [viewPopUp,setViewPopUp] = useState(false)
     let [stockPopUp,setStockPopUp] = useState(false)
-    
+    let [globalPopUp,setGlobalPopUp] = useState({})                     // format {id:globalPopUp,message:'Data has been updated'} {id:globalPopUp,message:'Waringgggggggggg'}    {id:globalPopUp,message:'Something went wrong'}      
+
   return (
     <div className='stock-details'>
-        {stockPopUp && <AddStockPopUp setStockPopUp={setStockPopUp}/>}
-        {viewPopUp && <ViewPopUp setViewPopUp={setViewPopUp}/>}
+        {stockPopUp && <AddStockPopUp setStockPopUp={setStockPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {viewPopUp && <ViewPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
+        {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         <section>
             <h1>Stock Details</h1> 
             <div className='top'>

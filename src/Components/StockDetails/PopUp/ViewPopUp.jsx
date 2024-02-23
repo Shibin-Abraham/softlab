@@ -5,7 +5,10 @@ import './ViewPopUp.css'
 function ViewPopUp(props) {
     const {register, handleSubmit ,formState:{errors}} = useForm();
     const onSubmit = (data)=>{
-        console.log(data)
+        if(data){
+            props.setViewPopUp(false)
+            props.setGlobalPopUp({id:1,header:'Updated',message:'Data has been updated'})
+        }
     }
   return (
     <div className='view-popup'>
@@ -90,7 +93,7 @@ function ViewPopUp(props) {
                 </span>
             </div>
             <div className="btn">
-                <button>Delete</button>
+            <input type="button" value="Delete" onClick={()=>props.setGlobalPopUp({id:2,header:'Deleted',message:'Data has been deleted successfully'})}/>
                 <input type="submit" value="Update" />
             </div>
             </form>

@@ -83,7 +83,7 @@
     align-items: center;
     justify-content: space-between;
 }
-.view-popup .content .data-section .btn button,input[type=submit]{
+.view-popup .content .data-section .btn input[type=button],input[type=submit]{
     width: 45%;
     height: 80%;
     outline: none;
@@ -91,12 +91,12 @@
     border-radius: var(--border-radius-1);
     font-size: 1rem;
 }
-.view-popup .content .data-section .btn button:nth-child(1){
+.view-popup .content .data-section .btn input[type=button]{
     color: var(--color-danger);
     border: 1px solid var(--color-danger);
     border-radius: var(--border-radius-1);
 }
-.view-popup .content .data-section .btn button:nth-child(1):hover{
+.view-popup .content .data-section .btn input[type=button]:hover{
     color: var(--color-white);
     background: var(--color-danger);
 }
