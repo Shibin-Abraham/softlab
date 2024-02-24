@@ -1,0 +1,118 @@
+@import url('../../../global.css');
+
+.borrower-view-popup{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+}
+.borrower-view-popup .content{
+    border-radius: var(--border-radius-2);
+    width: 30rem;
+    height: 85vh;
+    background: var(--color-light);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.borrower-view-popup .content .top-section{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-primary);
+}
+.borrower-view-popup .content .top-section h2{
+    color: var(--color-white);
+    margin-left: 1rem;
+}
+.borrower-view-popup .content .top-section svg{
+    color: var(--color-dark);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.borrower-view-popup .content .top-section svg:hover{
+    color: var(--color-black);
+}
+.borrower-view-popup .content .data-section{
+    width: 90%;
+    height: 97%;
+    color: var(--color-dark-variant);
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.borrower-view-popup .content .data-section::-webkit-scrollbar{
+    display: none;
+}
+.borrower-view-popup .content .data-section .input{
+    margin-bottom: .3rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.borrower-view-popup .content .data-section .input select,input{
+    border: none;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--color-info-dark);
+    width: 100%;
+    height: 3rem;
+    background: none;
+    outline: none;
+    color: var(--color-dark-variant);
+    font-size: 1.1rem;
+}
+.borrower-view-popup .content .data-section .input p{
+    color: var(--color-primary);
+    font-size: 1rem;
+}
+.borrower-view-popup .content .data-section .input span{
+    color: var(--color-danger);
+    font-size: .7rem;
+    
+}
+.borrower-view-popup .content .data-section .btn{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.borrower-view-popup .content .data-section .btn input[type=button],input[type=submit]{
+    width: 45%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-radius: var(--border-radius-1);
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+.borrower-view-popup .content .data-section .btn input[type=button]{
+    color: var(--color-white);
+    background: var(--color-success-2);
+    border-radius: var(--border-radius-1);
+}
+.borrower-view-popup .content .data-section .btn input[type=button]:hover{
+    color: var(--color-white);
+    background: var(--color-success-2-variant);
+}
+.borrower-view-popup .content .data-section .btn input[type=submit]{
+    width: 45%;
+    color: var(--color-white);
+    background: var(--color-primary);
+    border-radius: var(--border-radius-1);
+}
+.borrower-view-popup .content .data-section .btn input[type=submit]:hover{
+    color: var(--color-white);
+    background: var(--color-primary-variant);
+}

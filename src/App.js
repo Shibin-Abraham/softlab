@@ -6,6 +6,7 @@ import DashBoard from './Components/DashBoard/DashBoard.jsx';
 import Users from './Components/Users/Users.jsx';
 import StockDetails from './Components/StockDetails/StockDetails.jsx';
 import ItemDetails from './Components/ItemDetails/ItemDetails.jsx';
+import Borrowers from './Components/Borrowers/Borrowers.jsx';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/users' element={<Users />} />
           <Route path='/stock' element={<StockDetails />} />
           <Route path='/items' element={<ItemDetails />} />
+          <Route path='/borrowers' element={<Borrowers />} />
         </Routes>
     </BrowserRouter>
   );

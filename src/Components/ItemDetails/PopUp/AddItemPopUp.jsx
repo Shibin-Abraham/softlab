@@ -13,7 +13,7 @@ function AddItemPopUp(props) {
         if(data){//data submited then close the AddStockPopUo and show the success message
             setPopUpActive('')//close AddStockPopUp 
             props.setGlobalPopUp({id:1,header:'SUCCESS',message:'Data has been saved successfully'}) // show the success message
-            setTimeout(()=>{props.setItemPopUp(false)},300)
+            setTimeout(()=>{props.setAddItemPopUp(false)},300)
         }else{
             props.setGlobalPopUp(4)
         }
@@ -25,11 +25,11 @@ function AddItemPopUp(props) {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6" onClick={()=>{
                 setPopUpActive('')
                 setTimeout(()=>{
-                    props.setItemPopUp(false)},300)
+                    props.setAddItemPopUp(false)},300)
                 }}>
                 <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z" clipRule="evenodd" />
             </svg>
-            <h2>Add Items</h2>
+            <h2>Add Item</h2>
         </div>
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className='input'>
@@ -140,7 +140,7 @@ function AddItemPopUp(props) {
                 </span>
             </div>
             <div className="btn">
-                <input type="submit" value="Add Stock" />
+                <input type="submit" value="Add Item" />
             </div>
             </form>
       </div>

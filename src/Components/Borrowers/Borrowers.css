@@ -1,28 +1,28 @@
 @import url('../../global.css');
 
-.item-details{
+.borrower-details{
     width: 80vw;
     height: 100vh;
 }
-.item-details section{
+.borrower-details section{
     margin: 1rem 0rem 0rem 1rem;
     width: 100%;
     height: 95%;
   }
-  .item-details section h1{
+  .borrower-details section .top h1{
     font-size: 1.9rem;
     color: var(--color-white);
   }
-  .item-details section .top{
+  .borrower-details section .top{
     width: 95%;
     height: 10%;
     border-radius: var(--border-radius-1);
-    background: var(--color-black);
+    background: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .item-details section .top input{
+  .borrower-details section .top input{
     margin-left: .5rem;
     font-size: 1rem;
     font-weight: 300;
@@ -35,19 +35,19 @@
     transition: all .7s ease;
     text-align: left;
   }
-  .item-details section input:hover{
+  .borrower-details section input:hover{
     width: 71%;
     outline: none;
   }
-  .item-details section .top input:focus{
+  .borrower-details section .top input:focus{
     width: 71%;
     outline: none;
   }
-  .item-details section .top input::placeholder{
+  .borrower-details section .top input::placeholder{
     margin-left: 10px;
     color: var(--color-primary);
   }
-  .item-details section .top div{
+  .borrower-details section .top div{
     margin-right: .5rem;
     width: 25%;
     height: 60%;
@@ -60,22 +60,22 @@
     transition: all .5s ease;
     background: var(--color-primary);
   }
-  .item-details section .top div svg{
+  .borrower-details section .top div svg{
     width: 1.5rem;
     height: 1.5rem;
   }
-  .item-details section .top div h3{
+  .borrower-details section .top div h3{
     margin-left: .5rem;
     font-weight: 400; 
   }
-  .item-details section .top div:hover h3{
+  .borrower-details section .top div:hover h3{
     font-weight: 500; 
   }
-  .item-details section .top div:hover{
+  .borrower-details section .top div:hover{
     background: var(--color-primary-variant);
   }
-  .item-details section .container{
-    margin-top: 1rem;
+  .borrower-details section .container{
+    margin-top: 0rem;
     width: 95%;
     height: 75%;
     overflow-y: scroll;
@@ -84,47 +84,47 @@
     background: var(--color-light);
 
   }
-  .item-details section .container::-webkit-scrollbar{
+  .borrower-details section .container::-webkit-scrollbar{
     display: none;
   }
-  .item-details section .container .table-section table{
+  .borrower-details section .container .table-section table{
     width: 100%;
   }
-  .item-details section .container .table-section table thead{
+  .borrower-details section .container .table-section table thead{
     width: 100%;
-    height: 3rem;
+    height: 3.5rem;
     font-size: 1rem;
     color: var(--color-white);
     /*background: var(--color-blue-shade);*/
   }
-  .item-details section .container .table-section table tbody{
+  .borrower-details section .container .table-section table tbody{
     width: 100%;
     height: 100%;
   }
-  .item-details section .container .table-section table tbody tr{
+  .borrower-details section .container .table-section table tbody tr{
     width: 100%;
     height: 3rem;
     font-size: 1rem;
     color: var(--color-dark-variant);
     transition: all .1s ease;
   }
-  .item-details section .container .table-section table tbody tr:hover{
+  .borrower-details section .container .table-section table tbody tr:hover{
     color: var(--color-white);
   }
-  .item-details section .container .table-section table tbody tr td{
+  .borrower-details section .container .table-section table tbody tr td{
     border-bottom: 1px solid var(--color-dark-variant);
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
   }
-  .item-details section .container .table-section table tbody tr:first-child td{
+  .borrower-details section .container .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
   }
-  .item-details section .container .table-section table tbody tr td svg{
+  .borrower-details section .container .table-section table tbody tr td svg{
     width: 2.3rem;
     height: 2.2rem;
     color: var(--color-primary);
   }
-  .item-details section .container .table-section table tbody tr td svg:hover{
+  .borrower-details section .container .table-section table tbody tr td svg:hover{
     width: 2.5rem;
     height: 2.4rem;
   }
