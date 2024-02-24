@@ -41,7 +41,7 @@ function Borrowers() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Shibin</td>
+                                <td>soft lab</td>
                                 <td>LAP-002</td>
                                 <td>Laptop</td>
                                 <td>Software lab 1</td>
@@ -53,7 +53,7 @@ function Borrowers() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Shibin</td>
+                                <td>soft lab</td>
                                 <td>LAP-002</td>
                                 <td>Laptop</td>
                                 <td>Software lab 1</td>
@@ -65,7 +65,7 @@ function Borrowers() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Shibin</td>
+                                <td>soft lab</td>
                                 <td>LAP-002</td>
                                 <td>Laptop</td>
                                 <td>Software lab 1</td>
