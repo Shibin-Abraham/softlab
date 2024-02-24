@@ -54,11 +54,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-white);
+    color: var(--color-primary);
     border: 1px dashed var(--color-primary);
     border-radius: var(--border-radius-1);
     transition: all .5s ease;
-    background: var(--color-primary);
   }
   .item-details section .top div svg{
     width: 1.5rem;
