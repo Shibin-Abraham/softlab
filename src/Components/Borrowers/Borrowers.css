@@ -71,7 +71,9 @@
     font-weight: 500; 
   }
   .borrower-details section .top div:hover{
-    background: var(--color-primary-variant);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
   }
   .borrower-details section .container{
     margin-top: 0rem;
