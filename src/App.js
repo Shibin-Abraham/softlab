@@ -7,6 +7,7 @@ import Users from './Components/Users/Users.jsx';
 import StockDetails from './Components/StockDetails/StockDetails.jsx';
 import ItemDetails from './Components/ItemDetails/ItemDetails.jsx';
 import Borrowers from './Components/Borrowers/Borrowers.jsx';
+import AuditLog from './Components/AuditLog/AuditLog.jsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/stock' element={<StockDetails />} />
           <Route path='/items' element={<ItemDetails />} />
           <Route path='/borrowers' element={<Borrowers />} />
+          <Route path='/audit' element={<AuditLog />} />
         </Routes>
     </BrowserRouter>
   );

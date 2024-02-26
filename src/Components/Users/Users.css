@@ -50,6 +50,9 @@
     color: var(--color-dark-variant);
     transition: all .1s ease;
   }
+  .users section .container .table-section table tbody tr:nth-child(even){
+    background: var(--color-light-variant-2);
+  }
   .users section .container .table-section table tbody tr:hover{
     color: var(--color-white);
   }

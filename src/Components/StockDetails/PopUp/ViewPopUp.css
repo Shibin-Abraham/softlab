@@ -86,13 +86,14 @@
 }
 .view-popup .content .data-section .btn input[type=button],input[type=submit]{
     width: 45%;
-    height: 80%;
+    
     outline: none;
     background: none;
     border-radius: var(--border-radius-1);
     font-size: 1rem;
 }
 .view-popup .content .data-section .btn input[type=button]{
+    height: 85%;
     color: var(--color-danger);
     border: 1px solid var(--color-danger);
     border-radius: var(--border-radius-1);
@@ -102,7 +103,8 @@
     background: var(--color-danger);
 }
 .view-popup .content .data-section .btn input[type=submit]{
-    width: 45%;
+    margin: 0;
+    height: 85%;
     color: var(--color-primary);
     border: 1px solid var(--color-primary);
     border-radius: var(--border-radius-1);
