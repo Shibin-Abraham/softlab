@@ -6,7 +6,7 @@ function AuditLog() {
     <div className='audit-log'>
         <section>
             <div className="top">
-                <h1>Borrowers</h1>
+                <h1>Audit Log</h1>
             </div>
             <div className="container">
                 <div className='box'>
