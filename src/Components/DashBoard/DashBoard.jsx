@@ -8,7 +8,7 @@ function DashBoard(){
     let [borrowCount,setBorrowCount] = useState(0)
     const limi =70
     const limi2 =82
-    const limi3 =50
+    const limi3 =30
     useEffect(()=>{
         const interval = setInterval(()=>{
             setStockCount(stockCount===limi?stockCount:stockCount+1)
@@ -54,7 +54,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Total Stocks</p>
-                                    <h2>2.00</h2>
+                                    <h2>7.00</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#7380ec ${stockCount*3.6}deg,#36384f ${stockCount*3.6}deg)`}}>
@@ -64,7 +64,6 @@ function DashBoard(){
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div className="card-2">
                         <div className="top">
@@ -77,7 +76,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Total Items</p>
-                                    <h2>2.00</h2>
+                                    <h2>36.00</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#41f1b6 ${itemCount*3.6}deg,#36384f ${itemCount*3.6}deg)`}}>
@@ -100,7 +99,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Borrowed</p>
-                                    <h2>2.00</h2>
+                                    <h2>3.00</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#ff7782 ${borrowCount*3.6}deg,#36384f ${borrowCount*3.6}deg)`}}>

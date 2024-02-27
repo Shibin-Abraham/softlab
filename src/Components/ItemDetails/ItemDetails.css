@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: .8rem;
   }
   .item-details section .top input{
     margin-left: .5rem;

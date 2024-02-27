@@ -36,7 +36,7 @@ function Users() {
                             <td> soft lab</td>
                             <td> softlab@gmail.com</td>
                             <td> 1913022024</td>
-                            <td> Lab Manager</td>
+                            <td> Lab Assistant</td>
                             <td> 20-02-24</td>
                             {<Action/>}
                         </tr>
@@ -44,7 +44,7 @@ function Users() {
                             <td> soft lab</td>
                             <td> softlab@gmail.com</td>
                             <td> 1913022024</td>
-                            <td> Lab Manager</td>
+                            <td> Lab Assistant</td>
                             <td> 20-02-24</td>
                             {<Action/>}
                         </tr>
@@ -52,7 +52,7 @@ function Users() {
                             <td> soft lab</td>
                             <td> softlab@gmail.com</td>
                             <td> 1913022024</td>
-                            <td> Lab Manager</td>
+                            <td>  Lab Assistant</td>
                             <td> 20-02-24</td>
                             {<Action/>}
                         </tr>

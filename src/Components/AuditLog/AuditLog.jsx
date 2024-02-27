@@ -30,6 +30,11 @@ function AuditLog() {
                         <p>Stock Details updated for Stock No:lab-stock-2, indent:lab-stock-2</p>
                         <h5>By: Soft lab</h5>
                     </div>
+                    <div className="card">
+                        <h4> 02-18-2024 15:40:14</h4>
+                        <p>Stock Details updated for Stock No:lab-stock-3, indent:lab-stock-6</p>
+                        <h5>By: Soft lab</h5>
+                    </div>
                 
                 </div>
                 
