@@ -9,62 +9,87 @@
     width: 100%;
     height: 95%;
   }
-  .users section h1{
+  .users section .top-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .users section .top-container h1{
     font-size: 1.9rem;
     color: var(--color-white);
   }
-  .users section .container{
-    margin-top: 1rem;
+  .users section .top-container button{
+    width: 24%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-1);
+    transition: all .5s ease;
+  }
+  .users section .mid-box{
     width: 100%;
     height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .users section .mid-box .container{
+    margin-top: 1rem;
+    width: 74%;
+    height: 100%;
     overflow-y: scroll;
     box-shadow: var(--box-shadow-1);
     border-radius: var(--border-radius-2);
     background: var(--color-light);
   }
-  .users section .container::-webkit-scrollbar{
+  .users section .mid-box .container::-webkit-scrollbar{
     display: none;
   }
-  .users section .container .table-section{
+  .users section .mid-box .container .table-section{
     width: 100%;
     height: 100%;
   }
-  .users section .container .table-section table{
+  .users section .mid-box .container .table-section table{
     width: 100%;
   }
-  .users section .container .table-section table thead{
+  .users section .mid-box .container .table-section table thead{
     width: 100%;
     height: 4rem;
     font-size: 1rem;
     color: var(--color-white);
     /*background: var(--color-blue-shade);*/
   }
-  .users section .container .table-section table tbody{
+  .users section .mid-box .container .table-section table tbody{
     width: 100%;
     height: 100%;
   }
-  .users section .container .table-section table tbody tr{
+  .users section .mid-box .container .table-section table tbody tr{
     width: 100%;
     height: 4rem;
     font-size: 1rem;
     color: var(--color-dark-variant);
     transition: all .1s ease;
   }
-  .users section .container .table-section table tbody tr:nth-child(even){
+  .users section .mid-box .container .table-section table tbody tr:nth-child(even){
     background: var(--color-light-variant-2);
   }
-  .users section .container .table-section table tbody tr:hover{
+  .users section .mid-box .container .table-section table tbody tr:hover{
     color: var(--color-white);
   }
-  .users section .container .table-section table tbody tr td{
+  .users section .mid-box .container .table-section table tbody tr td{
     border-bottom: 1px solid var(--color-dark-variant);
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
   }
-  .users section .container .table-section table tbody tr:first-child td{
+  .users section .mid-box .container .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
   }
-  .users section .container .table-section table tbody tr button{
+  .users section .mid-box .container .table-section table tbody tr button{
     width: 4rem;
     height: 2rem;
     font-size: .9rem;
@@ -73,30 +98,43 @@
     margin-left: .5rem;
     transition: all .5s ease;
   }
-  .users section .container .table-section table tbody tr button:nth-child(1){
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(1){
     color: var(--color-warning);
     border: 1px solid var(--color-warning);
   }
-  .users section .container .table-section table tbody tr button:nth-child(2){
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(2){
     color: var(--color-primary);
     border: 1px solid var(--color-primary);
   }
-  .users section .container .table-section table tbody tr button:nth-child(3){
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(3){
     color: var(--color-danger);
     border: 1px solid var(--color-danger);
   }
-  .users section .container .table-section table tbody tr button:nth-child(1):hover{
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(1):hover{
     color: var(--color-white);
     border: none;
     background: var(--color-warning);
   }
-  .users section .container .table-section table tbody tr button:nth-child(2):hover{
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(2):hover{
     color: var(--color-white);
     border: none;
     background: var(--color-primary);
   }
-  .users section .container .table-section table tbody tr button:nth-child(3):hover{
+  .users section .mid-box .container .table-section table tbody tr button:nth-child(3):hover{
     color: var(--color-white);
     border: none;
     background: var(--color-danger);
+  }
+
+  .users section .mid-box .container-2{
+    margin-top: 1rem;
+    width: 24%;
+    height: 100%;
+    overflow-y: scroll;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-2);
+    background: var(--color-light);
+  }
+  .users section .mid-box .container-2::-webkit-scrollbar{
+    display: none;
   }
