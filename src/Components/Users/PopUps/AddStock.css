@@ -1,6 +1,6 @@
 @import url("../../../global.css");
 
-.popup{
+.add-role-popup{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -12,17 +12,17 @@
     justify-content: center;
     background: rgba(0, 0, 0, 0.8);
 }
-.popup .content{
+.add-role-popup .content{
     border-radius: var(--border-radius-2);
     min-width: 30rem;
-    min-height: 20rem;
+    min-height: 10rem;
     background: var(--color-light);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.popup .content .top-section{
+.add-role-popup .content .top-section{
     width: 100%;
     height: 3%;
     display: flex;
@@ -30,25 +30,26 @@
     justify-content: space-between;
     background: var(--color-primary);
 }
-.popup .content .top-section h3{
+.add-role-popup .content .top-section h3{
     margin-left: 1rem;
+    color: var(--color-info-light);
 }
-.popup .content .top-section svg{
+.add-role-popup .content .top-section svg{
     color: var(--color-dark);
     width: 2.5rem;
     height: 2.5rem;
 }
-.popup .content .top-section svg:hover{
+.add-role-popup .content .top-section svg:hover{
     color: var(--color-black);
 }
-.popup .content .data-section{
+.add-role-popup .content .data-section{
     width: 90%;
     height: 97%;
     color: var(--color-dark-variant);
     display: flex;
     flex-direction: column;
 }
-.popup .content .data-section div{
+.add-role-popup .content .data-section div{
     margin-bottom: .8rem;
     width: 100%;
     height: 3rem;
@@ -56,34 +57,30 @@
     align-items: center;
     border-bottom: 1px solid var(--color-info-dark);
 }
-.popup .content .data-section input,select{
+.add-role-popup .content .data-section div input[type=text]{
+    border: none;
+    background: none;
+}
+.add-role-popup .content .data-section input,select{
     color: var(--color-dark-variant);
     width: 100%;
     height: 2.5rem;
-    margin-top: .2rem;
+    margin-top: .7rem;
     font-size: 1rem;
     border: none;
 }
-.popup .content .data-section div input[type=text]{
-    background: none;
-    border: none;
-}
-.popup .content .data-section div input[type=text]:hover{
-    background: none;
-    border: none;
-}
-.popup .content .data-section select{
+.add-role-popup .content .data-section select{
     background: none;
     border-bottom: 1px solid var(--color-info-dark);
 }
-.popup .content .data-section input{
+.add-role-popup .content .data-section input{
     border-radius: var(--border-radius-1);
     color: var(--color-info-light);
     background: var(--color-primary);
 }
-.popup .content .data-section select:hover{
+.add-role-popup .content .data-section select:hover{
     color: var(--color-info-light);
 }
-.popup .content .data-section input:hover{
+.add-role-popup .content .data-section input:hover{
     background: #6373ff;
 }

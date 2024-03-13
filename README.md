@@ -75,3 +75,5 @@ bg - #282c34
 git remote add origin https://github.com/Shibin-Abraham/softlab.git
 git branch -M main
 git push -u origin main
+
+indent component -- upload image of indent register and stock id
