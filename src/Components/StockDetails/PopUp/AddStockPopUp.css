@@ -51,23 +51,37 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    margin-top: 1rem;
 }
 .stock-popup .content form::-webkit-scrollbar{
     display: none;
 }
 .stock-popup .content form .input{
     width: 100%;
-    height: 4.8rem;
+    height: 5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: .1rem;
+    margin-bottom: 1rem;
+}
+.stock-popup .content form .input:nth-child(1){
+    margin-bottom: 1rem;
 }
 .stock-popup .content form .input input{
     border-radius: var(--border-radius-1);
     border: 1px solid var(--color-info-dark);
     width: 100%;
-    height: 3.1rem;
+    height: 3.2rem;
+    background: none;
+    outline: none;
+    color: var(--color-dark-variant);
+    font-size: 1.1rem;   
+}
+.stock-popup .content form .input select{
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--color-info-dark);
+    width: 100%;
+    height: 3.2rem;
     background: none;
     outline: none;
     color: var(--color-dark-variant);
@@ -75,16 +89,16 @@
 }
 .stock-popup .content form .input p{
     color: var(--color-info-dark);
-    font-size: .9rem;
+    font-size: 1rem;
 }
 .stock-popup .content form .input span{
     color: var(--color-danger);
-    font-size: .6rem;
+    font-size: .8rem;
 }
 .stock-popup .content form .btn{
     width: 100%;
     height: 3rem;
-}
+} 
 .stock-popup .content form .btn input[type=submit]{
     width: 100%;
     height: 100%;
@@ -94,6 +108,7 @@
     background: var(--color-primary);
     font-size: 1.1rem;
     border-radius: var(--border-radius-1);
+    margin: 0;
 }
 .stock-popup .content form .btn input[type=submit]:hover{
     background: var(--color-primary-variant);

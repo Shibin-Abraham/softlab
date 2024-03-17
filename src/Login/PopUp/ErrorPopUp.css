@@ -1,0 +1,49 @@
+@import url('../../global.css');
+
+.error-popup{
+    position: fixed;
+    top: 0;
+    bottom: 70%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-popup .content{
+    position: absolute;
+    width: 30%;
+    height: 7vh;
+    background: var(--color-danger);
+    border-radius: var(--border-radius-1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all ease-in-out .3s;
+    transform: translateY(-500px);
+}
+.error-popup .content svg{
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+}
+.error-popup .content p{
+    margin-left: .5rem;
+    font-size: 1rem;
+    color: var(--color-white);
+}
+.error-popup .content button{
+    width: 2rem;
+    height: 2rem;
+    border-radius: .3rem;
+    background: none;
+    font-size: 1.2rem;
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+}
+.error-popup .content.popup-active{
+    transform: translateY(0px);
+}

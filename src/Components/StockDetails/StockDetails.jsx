@@ -25,7 +25,7 @@ function StockDetails() {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                         <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                         </svg>
-                        <h3>Add Stock</h3>
+                        <h3>Add Stock Data</h3>
                     </div>
                 </div>
             <div className="container">
@@ -33,8 +33,6 @@ function StockDetails() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Indent No</th>
-                                <th>Sub Indent No</th>
                                 <th>Stock Type</th>
                                 <th>Invoice ID</th>
                                 <th>Category</th>
@@ -43,8 +41,6 @@ function StockDetails() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Lab-stock-5</td>
-                                <td>3</td>
                                 <td>TEQIP</td>
                                 <td>INV-004</td>
                                 <td>Batteries</td>
@@ -56,8 +52,6 @@ function StockDetails() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lab-stock-5</td>
-                                <td>3</td>
                                 <td>TEQIP</td>
                                 <td>INV-004</td>
                                 <td>Batteries</td>
@@ -69,8 +63,6 @@ function StockDetails() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lab-stock-5</td>
-                                <td>3</td>
                                 <td>TEQIP</td>
                                 <td>INV-004</td>
                                 <td>Batteries</td>
@@ -82,8 +74,6 @@ function StockDetails() {
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lab-stock-5</td>
-                                <td>3</td>
                                 <td>TEQIP</td>
                                 <td>INV-004</td>
                                 <td>Batteries</td>

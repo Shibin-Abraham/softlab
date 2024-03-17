@@ -1,0 +1,47 @@
+@import url('../../global.css');
+
+.confirmation{
+    position: fixed;
+    top: 0;
+    bottom: 70%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.confirmation .content{
+    position: absolute;
+    width: 30%;
+    height: 7vh;
+    background: var(--color-success-2-variant);
+    border-radius: var(--border-radius-1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: all ease-in-out .3s;
+    transform: translateY(-500px);
+}
+.confirmation .content svg{
+    width: 3rem;
+    height: 3rem;
+}
+.confirmation .content p{
+    font-size: 1rem;
+    color: var(--color-white);
+}
+.confirmation .content button{
+    width: 2rem;
+    height: 2rem;
+    border-radius: .3rem;
+    background: none;
+    font-size: 1.2rem;
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+}
+.confirmation .content.popup-active{
+    transform: translateY(0px);
+}

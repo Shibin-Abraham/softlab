@@ -6,6 +6,7 @@
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
+    --color-info-dark-2: #7a7892b1;
     --color-info-light: #dce1eb;
     --color-dark: #1a1b25;
     --color-blue-shade: #46485cdc;
@@ -39,3 +40,20 @@
   .danger{
     color: var(--color-danger);
   }
+  .loader{
+    pointer-events: none;
+    width: 25px;
+    height: 25px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: loader .7s ease infinite;
+   }
+   @keyframes loader{
+    0%{
+     transform: rotate(0turn);
+    }
+    100%{
+     transform: rotate(1turn);
+    }
+   }

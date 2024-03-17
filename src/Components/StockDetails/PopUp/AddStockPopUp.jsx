@@ -33,31 +33,17 @@ function AddStockPopUp(props) {
             <h2>Add Stock Details</h2>
         </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='input'>
-                <p> Indent No</p>
-                <input type='text' {...register("indentno",{required:true,minLength:1,maxLength:10})}/>
-                <span>
-                    {errors.indentno?.type ==="minLength"&& "Indent No must contain 1 character or number"}
-                    {errors.indentno?.type ==="maxLength"&& "Indent No must be less than 10 length "}
-                    {errors.indentno?.type ==="required"&& "Indent No Required"}
-                </span>
-            </div>
-            <div className='input'>
-                <p> Sub Indent No</p>
-                <input type='text' {...register("subindent",{required:true,minLength:1,maxLength:10})}/>
-                <span>
-                    {errors.subindent?.type ==="minLength"&& "Sub-Indent No must contain 1 digit or number"}
-                    {errors.subindent?.type ==="maxLength"&& "Sub-Indent No must be less than 10 length "}
-                    {errors.subindent?.type ==="required"&& "Sub-Indent No Required"}
-                </span>
-            </div>
+            
             <div className='input'>
                 <p> Stock type</p>
-                <input type='text' {...register("stocktype",{required:true,minLength:1,maxLength:20})}/>
+                <select>
+                    <option>TEQIP</option>
+                    <option>TEQIP</option>
+                    <option>TEQIP</option>
+                    <option>TEQIP</option>
+                </select>
                 <span>
-                    {errors.stocktype?.type ==="minLength"&& "This field must contain 1 character"}
-                    {errors.stocktype?.type ==="maxLength"&& "This field must be less than 20 length characters"}
-                    {errors.stocktype?.type ==="required"&& "Stock type Required"}
+                    
                 </span>
             </div>
             <div className='input'>
@@ -105,7 +91,7 @@ function AddStockPopUp(props) {
                 </span>
             </div>
             <div className="btn">
-                <input type="submit" value="Add Stock" />
+                <input type="submit" value="SUBMIT" />
             </div>
             </form>
       </div>

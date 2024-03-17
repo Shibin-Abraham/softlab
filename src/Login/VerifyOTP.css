@@ -1,0 +1,103 @@
+@import url('../global.css');
+
+.otp{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #02010c;
+}
+.otp .content{
+    border-radius: var(--border-radius-2);
+    min-width: 30rem;
+    background: #12102fd3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.otp .content .top-section{
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+}
+.otp .content .data-section{
+    width: 90%;
+    color: var(--color-info-dark);
+    display: flex;
+    flex-direction: column;
+}
+.otp .content .data-section .input{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.otp-input{
+    color: aliceblue;
+}
+/*.otp .content .data-section .input input[type=email],input[type=password]{
+    width: 100%;
+    height: 3.5rem;
+    border: 1px solid var(--color-info-dark-2);
+    background: none;
+    text-align: start;
+    color: var(--color-white);
+}
+.otp .content .data-section .input input[type=email]::placeholder,input[type=password]::placeholder{
+    color: var(--color-info-dark-2);
+}*/
+.otp .content .data-section .btn{
+    margin-top: .2rem;
+    width: 100%;
+    height: 2.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.otp .content .data-section .btn button{
+    letter-spacing: .1rem;
+    border-radius: .2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-white);
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    background: var(--color-primary-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.otp .content .data-section .btn button:hover{
+    background: var(--color-primary-2);
+}
+.otp .content .footer{
+    width: 90%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.otp .content .footer p{
+    color: #677483ae;
+}
+.otp .content .footer p:hover{
+    color: #a0a0a0e1;
+}
+.otp .content .footer p span{
+    color: #5e2dff;
+}
