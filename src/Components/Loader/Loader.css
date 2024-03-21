@@ -1,0 +1,31 @@
+@import url('../../global.css');
+
+.s-loader{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #030303a0;
+}
+.s-loader .spinner{
+    pointer-events: none;
+    width: 75px;
+    height: 75px;
+    border: 10px solid transparent;
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spinner .7s ease infinite;
+}
+@keyframes spinner{
+    0%{
+        transform: rotate(0turn);
+    }
+    100%{
+        transform: rotate(1turn);
+    }
+}

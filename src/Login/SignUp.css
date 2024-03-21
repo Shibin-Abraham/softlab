@@ -33,6 +33,10 @@
     color: var(--color-info-dark);
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+.signup .content .data-section span{
+    color: var(--color-danger);
 }
 .signup .content .data-section .input{
     width: 100%;
@@ -75,15 +79,21 @@
     flex-direction: column;
     align-items: center;
 }
-.signup .content .data-section .btn input[type=submit]{
+.signup .content .data-section .btn button[type=submit]{
+    border-radius: var(--border-radius-1);
     color: var(--color-white);
     width: 100%;
     height: 100%;
     border: none;
     margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
     background: var(--color-primary-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.signup .content .data-section .btn input[type=submit]:hover{
+.signup .content .data-section .btn button[type=submit]:hover{
     background: var(--color-primary-2);
 }
 .signup .content .footer{

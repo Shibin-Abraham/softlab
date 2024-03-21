@@ -44,6 +44,10 @@
     justify-content: center;
     margin-bottom: 1rem;
 }
+.otp .content .data-section .input span{
+    color: var(--color-danger);
+    margin-top: 1rem;
+}
 .otp-input{
     color: aliceblue;
 }
