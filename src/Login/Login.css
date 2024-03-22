@@ -33,6 +33,11 @@
     color: var(--color-info-dark);
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+.login .content .data-section span{
+    font-size: 1rem;
+    color: var(--color-danger);
 }
 .login .content .data-section .input{
     width: 100%;
@@ -68,15 +73,21 @@
     flex-direction: column;
     align-items: center;
 }
-.login .content .data-section .btn input[type=submit]{
+.login .content .data-section .btn button[type=submit]{
     color: var(--color-white);
+    border-radius: var(--border-radius-1);
     width: 100%;
     height: 100%;
     border: none;
     margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
     background: var(--color-primary-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.login .content .data-section .btn input[type=submit]:hover{
+.login .content .data-section .btn button[type=submit]:hover{
     background: var(--color-primary-2);
 }
 .login .content .footer{

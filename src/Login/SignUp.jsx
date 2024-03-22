@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import './SignUp.css'
 import { useForm} from 'react-hook-form'
-import { NavLink,useNavigate} from "react-router-dom";
-import GlobalPopUp from '../Components/GlobalPopUp/GlobalPopUp';
-import axios from 'axios';
+import { NavLink,useNavigate} from "react-router-dom"
+import GlobalPopUp from '../Components/GlobalPopUp/GlobalPopUp'
+import axios from 'axios'
 
 function SignUp() {
   const [role,setRole] = useState([])
@@ -119,7 +119,7 @@ function SignUp() {
                   
                   <div className='input'>
                     <p>Email</p>
-                    <input type="email" placeholder=' Email address' {...register('email',{required:true,pattern:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i})}/>
+                    <input type="email" placeholder=' Email address' {...register('email',{required:true,pattern:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i})} autoComplete='off'/>
                     <span>
                       {errors.email?.type === "required" && "Email address required"}
                       {errors.email?.type === "pattern" && "Please enter a valid Email"}
@@ -127,7 +127,7 @@ function SignUp() {
                   </div>
                   <div className='input'>
                     <p>Phone</p>
-                    <input type="tel" placeholder=' Phone Number' {...register('phone',{required:true,pattern:/^[0-9+-]{10}$/i})}/>
+                    <input type="tel" placeholder=' Phone Number' {...register('phone',{required:true,pattern:/^[0-9+-]{10}$/i})} autoComplete='off'/>
                     <span>
                       {errors.phone?.type === "required" && "Phone number required"}
                       {errors.phone?.type === "pattern" && "Please enter 10 digit mobile number"}
@@ -166,7 +166,7 @@ function SignUp() {
               </form>
             </div>
             <div className='footer'>
-              <p>Already have an account?<NavLink to='/login'> <span>Login</span></NavLink></p>
+              <p>Already have an account?<NavLink to='/login' replace> <span>Login</span></NavLink></p>
               
             </div>
         </div>
