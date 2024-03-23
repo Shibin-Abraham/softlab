@@ -53,7 +53,7 @@ function DashBoard(){
                             </div>
                             <div className="mid">
                                 <div>
-                                    <p>Total Stocks</p>
+                                    <p>Stocks</p>
                                     <h2>7.00</h2>
                                 </div>
                                 <div className="circle">

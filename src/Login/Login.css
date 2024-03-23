@@ -35,9 +35,12 @@
     flex-direction: column;
     text-align: center;
 }
-.login .content .data-section span{
+.login .content .data-section #error-msg{
     font-size: 1rem;
     color: var(--color-danger);
+    animation: blink-animation 1s steps(5, start) infinite;
+    -webkit-animation: blink-animation 1s steps(5, start) infinite;
+    transition: all ease 1s;
 }
 .login .content .data-section .input{
     width: 100%;
@@ -132,5 +135,16 @@
     }
     20% {
       transform: translateY(-15px)
+    }
+  }
+/* error message blinking animation*/
+  @keyframes blink-animation {
+    to {
+      visibility: hidden;
+    }
+  }
+  @-webkit-keyframes blink-animation {
+    to {
+      visibility: hidden;
     }
   }

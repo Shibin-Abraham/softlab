@@ -10,7 +10,7 @@
     --color-info-light: #dce1eb;
     --color-dark: #1a1b25;
     --color-blue-shade: #46485cdc;
-    --color-light: #242531;
+    --color-light: #12141f;
     --color-primary-variant: #6474ff;
     --color-dark-variant: #677483;
     --color-background: #f6f6f9;
@@ -22,7 +22,8 @@
     --border-radius-2: 0.8rem;
     --border-radius-3: 1.2rem;
     --color-light-variant: #282a37;
-    --color-light-variant-2:#21222d;
+    --color-light-variant-3: #161927;
+    --color-light-variant-2:rgb(18, 19, 32);
   
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;

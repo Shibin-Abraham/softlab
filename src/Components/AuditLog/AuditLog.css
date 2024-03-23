@@ -48,7 +48,7 @@
     align-items: center;
   }
   .audit-log section .container .box .card:nth-child(odd){
-    background: var(--color-light-variant);
+    background: var(--color-light-variant-2);
   }
   .audit-log section .container .box .card:hover{
     margin-left: 1rem;

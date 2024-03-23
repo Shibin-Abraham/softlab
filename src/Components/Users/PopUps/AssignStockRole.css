@@ -57,6 +57,11 @@
     align-items: center;
     border-bottom: 1px solid var(--color-info-dark);
 }
+.assign-stock-role-popup .content .data-section input{
+    border-radius: var(--border-radius-1);
+    color: var(--color-info-light);
+    background: var(--color-primary);
+}
 .assign-stock-role-popup .content .data-section div input[type=text]{
     border: none;
     background: none;
@@ -71,12 +76,11 @@
 }
 .assign-stock-role-popup .content .data-section select{
     background: none;
+    border: none;
     border-bottom: 1px solid var(--color-info-dark);
 }
-.assign-stock-role-popup .content .data-section input{
-    border-radius: var(--border-radius-1);
-    color: var(--color-info-light);
-    background: var(--color-primary);
+.assign-stock-role-popup .content .data-section select option{
+    background: var(--color-light);
 }
 .assign-stock-role-popup .content .data-section select:hover{
     color: var(--color-info-light);

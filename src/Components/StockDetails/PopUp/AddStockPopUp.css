@@ -13,7 +13,7 @@
     position: absolute;
     width: 100%;
     height: 100vh;
-    background: var(--color-dark);
+    background: var(--color-light-variant-3);
     border-top-left-radius: var(--border-radius-1);
     overflow: hidden;
     display: flex;

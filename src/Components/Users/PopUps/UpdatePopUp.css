@@ -64,6 +64,11 @@
     font-size: 1rem;
     border: none;
 }
+.popup .content .data-section input{
+    border-radius: var(--border-radius-1);
+    color: var(--color-info-light);
+    background: var(--color-primary);
+}
 .popup .content .data-section div input[type=text]{
     background: none;
     border: none;
@@ -74,12 +79,11 @@
 }
 .popup .content .data-section select{
     background: none;
+    border: none;
     border-bottom: 1px solid var(--color-info-dark);
 }
-.popup .content .data-section input{
-    border-radius: var(--border-radius-1);
-    color: var(--color-info-light);
-    background: var(--color-primary);
+.popup .content .data-section select option{
+    background: var(--color-light);
 }
 .popup .content .data-section select:hover{
     color: var(--color-info-light);
