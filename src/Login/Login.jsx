@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import './Login.css'
 import { useForm } from 'react-hook-form'
-import { NavLink} from "react-router-dom"
+import { NavLink,useNavigate} from "react-router-dom"
 import axios from 'axios'
 import GlobalPopUp from '../Components/GlobalPopUp/GlobalPopUp'
 
@@ -11,6 +11,7 @@ function Login() {
   const [errorMsg,setErrorMsg] = useState('')
 
   const {register,handleSubmit,formState:{errors}} = useForm();
+  const navigate = useNavigate()
 
   let onSubmit = (data)=>{
     if(data){
@@ -33,7 +34,8 @@ function Login() {
   }
   function checkResponse(res){
     if(res.data.statuscode === 200 && res.data.JWT !== null){
-      setGlobalPopUp({id:1,header:`Success`,message:`Successfully loged in`})
+      //setGlobalPopUp({id:1,header:`Success`,message:`Successfully loged in`})
+      navigate('/',{replace:true})
     }else if(res.data.statuscode === 401 && res.data.password){
       setErrorMsg('Invalid password')
       setGlobalPopUp({id:4,header:`Invalid input`,message:`Invalid password, Please try again`})

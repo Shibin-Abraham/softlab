@@ -15,7 +15,6 @@ import VerifyOTP from './Login/VerifyOTP.jsx';
 function App() {
   return (
     <BrowserRouter>
-
       <NavBar />
         <Routes>
           {/*<Route path="/" element={<Login />}/>*/}
