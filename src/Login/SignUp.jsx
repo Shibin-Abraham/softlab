@@ -68,7 +68,7 @@ function SignUp() {
         setGlobalPopUp({id:4,header:'Email send error',message:'Invalid email address or check your network'})
       }else if(res.data.statuscode === 403){
         setLoader(false)
-        setReponseError('email already exist')
+        setReponseError('email already exists')
       }else if(res.data.statuscode === 503){
         setLoader(false)
         setGlobalPopUp({id:4,header:'Server error',message:'server under maintainess'})

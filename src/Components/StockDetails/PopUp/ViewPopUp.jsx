@@ -22,7 +22,7 @@ function ViewPopUp(props) {
         <div className="data-section">
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className='input'>
-                <p> Indent No</p>
+                <p> Stock Name</p>
                 <input type='text' {...register("indentno",{required:true,minLength:1,maxLength:10})}/>
                 <span>
                     {errors.indentno?.type ==="minLength"&& "Indent No must contain 1 character or number"}

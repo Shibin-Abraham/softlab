@@ -1,11 +1,15 @@
-import React,{ useState } from 'react'
+import React,{ useState,useContext } from 'react'
 import './Login.css'
 import { useForm } from 'react-hook-form'
 import { NavLink,useNavigate} from "react-router-dom"
 import axios from 'axios'
 import GlobalPopUp from '../Components/GlobalPopUp/GlobalPopUp'
+import { DispatchContext } from '../Components/AuthProvider/AuthProvider'
 
-function Login() {
+function Login(props) {
+
+  const dispatch = useContext(DispatchContext) //dispatch for uupdate global AuthProvider
+
   let [loader,setLoader] = useState(false)
   const [globalPopUp,setGlobalPopUp] = useState({})
   const [errorMsg,setErrorMsg] = useState('')
@@ -35,6 +39,11 @@ function Login() {
   function checkResponse(res){
     if(res.data.statuscode === 200 && res.data.JWT !== null){
       //setGlobalPopUp({id:1,header:`Success`,message:`Successfully loged in`})
+      console.log(res.data)
+      dispatch({
+        type:'auth_login'
+      })
+      props.setNav(res.data.rid)
       navigate('/',{replace:true})
     }else if(res.data.statuscode === 401 && res.data.password){
       setErrorMsg('Invalid password')

@@ -33,17 +33,20 @@ function AddStockPopUp(props) {
             <h2>Add Stock Details</h2>
         </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-            
+                
+            <div className='input'>
+                <p> Stock Name</p>
+                <select>
+                    <option>TEQIP-01</option>
+                </select>
+            </div>
             <div className='input'>
                 <p> Stock type</p>
-                <select>
-                    <option>TEQIP</option>
-                    <option>TEQIP</option>
-                    <option>TEQIP</option>
-                    <option>TEQIP</option>
-                </select>
+                <input type='text' {...register("stocktype",{required:true,minLength:2,maxLength:20})}/>
                 <span>
-                    
+                    {errors.stocktype?.type ==="required"&& "Stock Type Required"}
+                    {errors.stocktype?.type ==="minLength"&& "This field must contain 2 character"}
+                    {errors.stocktype?.type ==="maxLength"&& "This field must be less than 20 length"}
                 </span>
             </div>
             <div className='input'>
@@ -65,12 +68,9 @@ function AddStockPopUp(props) {
             </div>
             <div className='input'>
                 <p> Category</p>
-                <input type='text' {...register("category",{required:true,minLength:2,maxLength:20})}/>
-                <span>
-                    {errors.category?.type ==="required"&& "Category Required"}
-                    {errors.category?.type ==="minLength"&& "This field must contain 2 character"}
-                    {errors.category?.type ==="maxLength"&& "This field must be less than 20 length"}
-                </span>
+                <select>
+                    <option>TEQIP</option>
+                </select>
             </div>
             <div className='input'>
                 <p> Supplier Name</p>

@@ -90,15 +90,17 @@ function Users() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>TEQIP</td>
+                            <td>TEQIP-01</td>
                         </tr>
                         <tr>
-                            <td>TEQIP</td>
+                            <td>TEQIP-02</td>
                         </tr>
                         <tr>
-                            <td>TEQIP</td>
+                            <td>TEQIP-03</td>
                         </tr>
-                        
+                        <tr>
+                            <td>TEQIP-04</td>
+                        </tr>
                     </tbody>
                 </table>
                 {newStock && <AddStock setNewStock={setNewStock} />}
@@ -124,28 +126,28 @@ function Users() {
                             <tr>
                                 <td> soft lab</td>
                                 <td> softlab@gmail.com</td>
-                                <td>TEQP</td>
+                                <td>TEQP-01</td>
                                 <td> Manager</td>
                                 <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
                             </tr>
                             <tr>
                                 <td> soft lab</td>
                                 <td> softlab@gmail.com</td>
-                                <td>TEQP</td>
+                                <td>TEQP-02</td>
                                 <td> Assistent</td>
                                 <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
                             </tr>
                             <tr>
                                 <td> soft lab</td>
                                 <td> softlab@gmail.com</td>
-                                <td>TEQP</td>
+                                <td>TEQP-03</td>
                                 <td> Assistent</td>
                                 <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
                             </tr>
                             <tr>
                                 <td> soft lab</td>
                                 <td> softlab@gmail.com</td>
-                                <td>TEQP</td>
+                                <td>TEQP-04</td>
                                 <td> Assistent</td>
                                 <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
                                 {updatePopUp && <UpdatePopUp setUpdatePopUp={setUpdatePopUp} />}

@@ -23,9 +23,9 @@ function AssignStockRole(props) {
                   <option value="">softlab@gmail.com</option>
               </select>
               <select>
-                  <option value="">TEQIP</option>
-                  <option value="">TEQIP</option>
-                  <option value="">TEQIP</option>
+                  <option value="">TEQIP-01</option>
+                  <option value="">TEQIP-02</option>
+                  <option value="">TEQIP-03</option>
               </select>
                 <div>
                     <input type="text" placeholder='Enter the Role'/>
