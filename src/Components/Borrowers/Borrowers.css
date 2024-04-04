@@ -22,31 +22,6 @@
     align-items: center;
     justify-content: space-between;
   }
-  .borrower-details section .top input{
-    margin-left: .5rem;
-    font-size: 1rem;
-    font-weight: 300;
-    width: 70%;
-    height: 60%;
-    color: var(--color-white);
-    border: 1px solid var(--color-primary);
-    background: none;
-    border-radius: var(--border-radius-1);
-    transition: all .7s ease;
-    text-align: left;
-  }
-  .borrower-details section input:hover{
-    width: 71%;
-    outline: none;
-  }
-  .borrower-details section .top input:focus{
-    width: 71%;
-    outline: none;
-  }
-  .borrower-details section .top input::placeholder{
-    margin-left: 10px;
-    color: var(--color-primary);
-  }
   .borrower-details section .top div{
     margin-right: .5rem;
     width: 25%;

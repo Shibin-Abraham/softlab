@@ -1,4 +1,4 @@
-import React,{ useState,useContext } from 'react'
+import React,{ useState,useContext,useEffect } from 'react'
 import './Login.css'
 import { useForm } from 'react-hook-form'
 import { NavLink,useNavigate} from "react-router-dom"
@@ -6,8 +6,8 @@ import axios from 'axios'
 import GlobalPopUp from '../Components/GlobalPopUp/GlobalPopUp'
 import { DispatchContext } from '../Components/AuthProvider/AuthProvider'
 
-function Login(props) {
-
+function Login({setNav}) {
+  
   const dispatch = useContext(DispatchContext) //dispatch for uupdate global AuthProvider
 
   let [loader,setLoader] = useState(false)
@@ -16,6 +16,38 @@ function Login(props) {
 
   const {register,handleSubmit,formState:{errors}} = useForm();
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    axios({
+      method: 'POST',
+      url: 'http://localhost/soft-lab-api/route/middleware/remember-me.php',
+      data: {JWT: localStorage.getItem('token')!==null?localStorage.getItem('token'):''}
+    }).then((res)=>{
+      if(res.data.statuscode === 200){
+        if(res.data.status === '0'){  // check wheather account is active or not 
+          navigate('/inactive',{replace:true})
+        }else{
+          dispatch({
+            type: 'auth_login',
+            JWT: localStorage.getItem('token')!==null?localStorage.getItem('token'):'',
+            u_id: res.data.u_id,
+            name: res.data.name,
+            email: res.data.email,
+            phone: res.data.phone,
+            join_date: res.data.join_date,
+            status: res.data.status,
+            r_id: res.data.r_id,
+            r_name: res.data.r_name
+          })
+          console.log("****",res)
+          setNav(res.data.r_id)
+          navigate('/',{replace:true})
+        }
+      }
+    }).catch((err)=>{
+      navigate('/login',{replace:true})
+    })
+  },[dispatch,setNav,navigate])
 
   let onSubmit = (data)=>{
     if(data){
@@ -32,19 +64,33 @@ function Login(props) {
         checkResponse(res)
       }).catch((err)=>{
         setLoader(false)
-        setGlobalPopUp({id:4,header:`${err.message}`,message:`${err}`})
+        setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
       })
     }
   }
   function checkResponse(res){
     if(res.data.statuscode === 200 && res.data.JWT !== null){
       //setGlobalPopUp({id:1,header:`Success`,message:`Successfully loged in`})
-      console.log(res.data)
-      dispatch({
-        type:'auth_login'
-      })
-      props.setNav(res.data.rid)
-      navigate('/',{replace:true})
+      if(res.data.status === '0'){  // check wheather account is active or not 
+        navigate('/inactive',{replace:true})
+      }else{
+        console.log("inside res f()",res.data)
+        localStorage.setItem('token',res.data.JWT)
+        dispatch({
+          type: 'auth_login',
+          JWT: res.data.JWT,
+          u_id: res.data.u_id,
+          name: res.data.name,
+          email: res.data.email,
+          phone: res.data.phone,
+          join_date: res.data.join_date,
+          status: res.data.status,
+          r_id: res.data.r_id,
+          r_name: res.data.r_name
+        })
+        setNav(res.data.rid)
+        navigate('/',{replace:true})
+      }
     }else if(res.data.statuscode === 401 && res.data.password){
       setErrorMsg('Invalid password')
       setGlobalPopUp({id:4,header:`Invalid input`,message:`Invalid password, Please try again`})

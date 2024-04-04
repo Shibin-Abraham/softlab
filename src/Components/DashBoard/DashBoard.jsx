@@ -1,8 +1,10 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect, useContext} from "react";
 import "./DashBoard.css"
+import { StateContext } from "../AuthProvider/AuthProvider";
 
 function DashBoard(){
 
+    const userData = useContext(StateContext)
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
     let [borrowCount,setBorrowCount] = useState(0)
@@ -156,8 +158,8 @@ function DashBoard(){
                 <div className="container-2">
                     <div className="top">
                         <div className="text">
-                        <h4>Soft Lab</h4>
-                        <p>HOD</p>
+                        <h4>{userData.name}</h4>
+                        <p>{userData.r_name}</p>
                         </div>
                         <div className="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

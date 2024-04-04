@@ -296,6 +296,9 @@
     margin-right: 1rem;
     color: var(--color-white);
   }
+  .main section .container-2 .top .text h4{
+    text-transform: uppercase;
+  }
   .main section .container-2 .top .icon{
     width: 2rem;
     height: 2rem;

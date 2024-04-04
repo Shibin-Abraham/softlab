@@ -1,4 +1,4 @@
-import { useState,useContext } from 'react';
+import { useState,useContext} from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './Components/NavBar/NavBar.jsx';
@@ -13,6 +13,7 @@ import SignUp from './Login/SignUp.jsx';
 import VerifyOTP from './Login/VerifyOTP.jsx';
 import PrivateRoutes from './Components/Utils/PrivateRoutes.jsx';
 import { StateContext } from './Components/AuthProvider/AuthProvider.jsx';
+import InActive from './Login/InActive.jsx';
 
 
 function App() {
@@ -28,9 +29,10 @@ function App() {
           <Route path='/login' element={<Login setNav={setNav}/>} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/verifyotp' element={<VerifyOTP />} />
+          <Route path='/inactive' element={<InActive />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<DashBoard />}/>
-            {nav ==='1' && <Route path='/users' element={<Users />} />}
+            <Route path='/users' element={<Users />} />
             <Route path='/stock' element={<StockDetails />} />
             <Route path='/items' element={<ItemDetails />} />
             <Route path='/borrowers' element={<Borrowers />} />

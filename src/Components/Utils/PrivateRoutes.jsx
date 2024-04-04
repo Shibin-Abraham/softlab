@@ -5,7 +5,7 @@ import { StateContext } from '../AuthProvider/AuthProvider'
 
 function PrivateRoutes() {
   const authData = useContext(StateContext)
-    
+  
   return (
     authData.authentication?<Outlet />:<Navigate to='/login' />
   )
