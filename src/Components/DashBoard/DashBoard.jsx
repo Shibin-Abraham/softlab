@@ -3,7 +3,6 @@ import "./DashBoard.css"
 import { StateContext } from "../AuthProvider/AuthProvider";
 
 function DashBoard(){
-
     const userData = useContext(StateContext)
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
@@ -34,6 +33,7 @@ function DashBoard(){
         return ()=>clearInterval(interval)
         
     },[borrowCount])
+    
 
     return (
         <div className="main">

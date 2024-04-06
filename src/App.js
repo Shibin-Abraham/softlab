@@ -32,7 +32,7 @@ function App() {
           <Route path='/inactive' element={<InActive />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<DashBoard />}/>
-            <Route path='/users' element={<Users />} />
+            {nav === '1' && <Route path='/users' element={<Users />} />}
             <Route path='/stock' element={<StockDetails />} />
             <Route path='/items' element={<ItemDetails />} />
             <Route path='/borrowers' element={<Borrowers />} />

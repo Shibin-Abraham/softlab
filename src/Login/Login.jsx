@@ -88,7 +88,7 @@ function Login({setNav}) {
           r_id: res.data.r_id,
           r_name: res.data.r_name
         })
-        setNav(res.data.rid)
+        setNav(res.data.r_id)
         navigate('/',{replace:true})
       }
     }else if(res.data.statuscode === 401 && res.data.password){
