@@ -1,15 +1,56 @@
-import React,{useState,useEffect, useContext} from "react";
+import React,{useState,useEffect, useContext, useCallback} from "react";
 import "./DashBoard.css"
-import { StateContext } from "../AuthProvider/AuthProvider";
+import { DispatchContext, StateContext } from "../AuthProvider/AuthProvider";
+import axios from "axios";
+import GlobalPopUp from "../GlobalPopUp/GlobalPopUp";
+import { useNavigate } from "react-router-dom";
 
 function DashBoard(){
+    const [globalPopUp,setGlobalPopUp] = useState({})
+    const authData = useContext(StateContext)
     const userData = useContext(StateContext)
+    
+    let [allUsersData,setAllUsersData] = useState([])
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
     let [borrowCount,setBorrowCount] = useState(0)
     const limi =70
     const limi2 =82
     const limi3 =30
+    const navigate = useNavigate()
+    const dispatch = useContext(DispatchContext)
+    
+
+    let getUsersData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/users-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("active users",res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setAllUsersData(res.data.filter((value)=>value.status === '1'))
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+    /********* API call **********/ 
+    useEffect(()=>{
+        getUsersData()
+    },[getUsersData])
+
     useEffect(()=>{
         const interval = setInterval(()=>{
             setStockCount(stockCount===limi?stockCount:stockCount+1)
@@ -34,15 +75,29 @@ function DashBoard(){
         
     },[borrowCount])
     
-
+    console.log('allusers data',allUsersData)
+    
+    function getDate() {
+        const today = new Date();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+        let date = today.getDate();
+        date = date<10?`0${date}`:date
+        month = month<10?`0${month}`:month
+        return `${year}-${month}-${date}`;
+      }
     return (
         <div className="main">
+        {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
+        {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
             <section>
                 {/* container 1 start */}
                 <div className="container-1">
                     <h1>Dashboard</h1>
                     <div className="date">
-                        <input type="date"/>
+                        <input type="date" value={getDate()}/>
                     </div>
                     <div className="card-section">
                         <div className="card-1">
@@ -170,42 +225,21 @@ function DashBoard(){
                     <div className="mid">
                         <h2>Users</h2>
                         <div className="card-section">
-                            <div className="row">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
-                                </svg>
-                                <div>
-                                    <h4>Name</h4>
-                                    <p>Lab Manager</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
-                                </svg>
-                                <div>
-                                    <h4>Name</h4>
-                                    <p>Lab Assistant</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
-                                </svg>
-                                <div>
-                                    <h4>Name</h4>
-                                    <p>Position</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
-                                </svg>
-                                <div>
-                                    <h4>Name</h4>
-                                    <p>Position</p>
-                                </div>
-                            </div>
+                        {
+                            allUsersData.map((data)=>{
+                                return(
+                                    <div className="row">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                        <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
+                                        </svg>
+                                        <div>
+                                            <h4>{data.name}</h4>
+                                            <p>{data.r_name}</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                         </div>
                     </div>
                     <div className="bottom">
