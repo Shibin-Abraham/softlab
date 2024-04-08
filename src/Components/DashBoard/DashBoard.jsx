@@ -11,15 +11,22 @@ function DashBoard(){
     const userData = useContext(StateContext)
     
     let [allUsersData,setAllUsersData] = useState([])
+
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
     let [borrowCount,setBorrowCount] = useState(0)
-    const limi =70
-    const limi2 =82
-    const limi3 =30
+
+    const [stockPercentage,setStockPercentage] = useState(0)
+    const [itemPercentage,setItemPercentage] = useState(0)
+    const [borrowPercentage,setBorrowPercentage] = useState(0)
+
     const navigate = useNavigate()
+
     const dispatch = useContext(DispatchContext)
-    
+
+    const [noOfStock,setNoOfStock] = useState(0)
+    const [noOfItem,setNoOfItem] = useState(0)
+    const [noOfBorrow,setNoOfBorrow] = useState(0)
 
     let getUsersData = useCallback(()=>{
         axios({
@@ -46,34 +53,88 @@ function DashBoard(){
             setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
           })
     },[authData.JWT,dispatch,navigate])
+
+    let getStockCount = useCallback(()=>{
+        axios({
+            method: 'GET',
+            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=1',
+          }).then((res)=>{
+            console.log("stock countttttt",res)
+            if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }else if(res.data.statuscode === 200 && res.data.percentage !== 0 ){
+                setStockPercentage(res.data.percentage)
+                setNoOfStock(res.data.count)
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[setStockPercentage,setNoOfStock])
+
+    let getItemCount = useCallback(()=>{
+        axios({
+            method: 'GET',
+            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=2',
+          }).then((res)=>{
+            console.log("stock countttttt",res)
+            if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }else if(res.data.statuscode === 200 && res.data.percentage !== 0 ){
+                setItemPercentage(res.data.percentage)
+                setNoOfItem(res.data.count)
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[setItemPercentage,setNoOfItem])
+
+    let getBorrowCount = useCallback(()=>{
+        axios({
+            method: 'GET',
+            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=3',
+          }).then((res)=>{
+            console.log("stock countttttt",res)
+            if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }else if(res.data.statuscode === 200 && res.data.percentage !== 0 ){
+                setBorrowPercentage(res.data.percentage)
+                setNoOfBorrow(res.data.count)
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[setBorrowPercentage,setNoOfBorrow])
     /********* API call **********/ 
     useEffect(()=>{
         getUsersData()
-    },[getUsersData])
+        getStockCount()
+        getItemCount()
+        getBorrowCount()
+    },[getUsersData,getStockCount,getItemCount,getBorrowCount])
 
     useEffect(()=>{
         const interval = setInterval(()=>{
-            setStockCount(stockCount===limi?stockCount:stockCount+1)
+            setStockCount(stockCount===stockPercentage?stockCount:stockCount+1)
         },25)
         return ()=>clearInterval(interval)
         
-    },[stockCount])
+    },[stockCount,stockPercentage])
 
     useEffect(()=>{
         const interval = setInterval(()=>{
-            setItemCount(itemCount===limi2?itemCount:itemCount+1)
+            setItemCount(itemCount===itemPercentage?itemCount:itemCount+1)
         },25)
         return ()=>clearInterval(interval)
         
-    },[itemCount])
+    },[itemCount,itemPercentage])
 
     useEffect(()=>{
         const interval = setInterval(()=>{
-            setBorrowCount(borrowCount===limi3?borrowCount:borrowCount+1)
+            setBorrowCount(borrowCount===borrowPercentage?borrowCount:borrowCount+1)
         },25)
         return ()=>clearInterval(interval)
         
-    },[borrowCount])
+    },[borrowCount,borrowPercentage])
     
     console.log('allusers data',allUsersData)
     
@@ -97,7 +158,7 @@ function DashBoard(){
                 <div className="container-1">
                     <h1>Dashboard</h1>
                     <div className="date">
-                        <input type="date" value={getDate()}/>
+                        <input type="date" defaultValue={getDate()} />
                     </div>
                     <div className="card-section">
                         <div className="card-1">
@@ -110,8 +171,8 @@ function DashBoard(){
                             </div>
                             <div className="mid">
                                 <div>
-                                    <p>Stocks</p>
-                                    <h2>7.00</h2>
+                                    <p>Live Stocks</p>
+                                    <h2>{`${noOfStock}.00`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#7380ec ${stockCount*3.6}deg,#36384f ${stockCount*3.6}deg)`}}>
@@ -132,8 +193,8 @@ function DashBoard(){
                             </div>
                             <div className="mid">
                                 <div>
-                                    <p>Total Items</p>
-                                    <h2>36.00</h2>
+                                    <p>Live Items</p>
+                                    <h2>{`${noOfItem}.00`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#41f1b6 ${itemCount*3.6}deg,#36384f ${itemCount*3.6}deg)`}}>
@@ -154,7 +215,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Borrowed</p>
-                                    <h2>3.00</h2>
+                                    <h2>{`${noOfBorrow}.00`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#ff7782 ${borrowCount*3.6}deg,#36384f ${borrowCount*3.6}deg)`}}>
@@ -228,7 +289,7 @@ function DashBoard(){
                         {
                             allUsersData.map((data)=>{
                                 return(
-                                    <div className="row">
+                                    <div key={data.id} className="row">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                                         <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
                                         </svg>
