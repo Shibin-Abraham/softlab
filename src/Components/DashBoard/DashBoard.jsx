@@ -11,6 +11,8 @@ function DashBoard(){
     const userData = useContext(StateContext)
     
     let [allUsersData,setAllUsersData] = useState([])
+    let [recentActivityData,setRecentActivityData] = useState([])
+    let [warrantyData,setWarrantyData] = useState([])
 
     let [stockCount,setStockCount] = useState(0)
     let [itemCount,setItemCount] = useState(0)
@@ -41,6 +43,69 @@ function DashBoard(){
             if(res.data.length !== undefined){
                 console.log(res.data) 
                 setAllUsersData(res.data.filter((value)=>value.status === '1'))
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+    let getRecentActivityData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/recent-activity-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("recent activity data",res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setRecentActivityData(res.data.sort((a,b)=>b.id - a.id)) //sort by decending order for show latest data
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+    let getWarrantyData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/warranty-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",typeof(res))
+            if(res.data.length !== 0){
+                console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",res.data) 
+                setWarrantyData(res.data.filter((value)=>{
+                        let string1=getDate()
+                        string1=string1.split("-")
+                        let c_date = parseInt(string1[0])
+                        console.log("c "+c_date)
+                        string1 = value.warranty.split("-")
+                        let w_date = parseInt(string1[0])
+                        console.log("w "+w_date)
+                    return (
+                        w_date - c_date <= 2
+                    )
+                }))
             }else if(res.data.statuscode === 401){ //token expired
                 localStorage.removeItem('token')
                 dispatch({type:'auth_logout'})
@@ -110,7 +175,9 @@ function DashBoard(){
         getStockCount()
         getItemCount()
         getBorrowCount()
-    },[getUsersData,getStockCount,getItemCount,getBorrowCount])
+        getRecentActivityData()
+        getWarrantyData()
+    },[getUsersData,getStockCount,getItemCount,getBorrowCount,getRecentActivityData,getWarrantyData])
 
     useEffect(()=>{
         const interval = setInterval(()=>{
@@ -137,7 +204,8 @@ function DashBoard(){
     },[borrowCount,borrowPercentage])
     
     console.log('allusers data',allUsersData)
-    
+    console.log('recentActivityData -------',recentActivityData)
+    console.log('warranty $$$$$$$$',warrantyData)
     function getDate() {
         const today = new Date();
         let month = today.getMonth() + 1;
@@ -225,7 +293,6 @@ function DashBoard(){
                                     </div>
                                 </div>
                             </div>
-                           
                         </div>
                     </div>
                     <div className="table-container">
@@ -242,28 +309,19 @@ function DashBoard(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>soft lab</td>
-                                        <td>softlab@gmail.com</td>
-                                        <td>19/02/2024</td>
-                                        <td>Stock-BAT01 Item-Laptop</td>
-                                        <td className="primary">Added</td>
-                                    </tr>
-                                    <tr>
-                                        <td>soft lab</td>
-                                        <td>softlab@gmail.com</td>
-                                        <td>19/02/2024</td>
-                                        <td>Stock-BAT01 Item-Laptop</td>
-                                        <td className="success">Updated</td>
-                                    </tr>
-                                    <tr>
-                                        <td>soft lab</td>
-                                        <td>softlab@gmail.com</td>
-                                        <td>19/02/2024</td>
-                                        <td>Stock-BAT01 Item-Laptop</td>
-                                        <td className="danger">Deleted</td>
-                                    </tr>
-                                   
+                                    {
+                                        recentActivityData.map((data)=>{
+                                            return(
+                                                <tr key={data.id}>
+                                                    <td>{data.name}</td>
+                                                    <td>{data.email}</td>
+                                                    <td>{data.date}</td>
+                                                    <td>{data.details}</td>
+                                                    <td className={data.operation}>{data.operation}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -304,69 +362,35 @@ function DashBoard(){
                         </div>
                     </div>
                     <div className="bottom">
-                        <h3>Alert and Notification</h3>
+                        <h3>Warranty Alert</h3>
                         <div className="card-section">
-                            <div className="row">
-                                <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
-                                </svg>
+                            {
+                                warrantyData.length!==0?warrantyData.map((data)=>{
+                                    return(
+                                        <div key={data.id} className="row">
+                                            <div className="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                            <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
+                                            </svg>
+                                            </div>
+                                            <div className="data">
+                                                <p>{data.brand_name}</p>
+                                                <p>{data.name}</p>
+                                                <p>{data.warranty}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }):<div className="row">
+                                    <div className="icon-s">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path fillRule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
+                                    </svg>
+                                    </div>
+                                    <div className="data">
+                                        <p>no warranty alert</p>
+                                    </div>
                                 </div>
-                                <div className="data">
-                                    <p>Brand name</p>
-                                    <p>Item name</p>
-                                    <p>19-02-2024</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
-                                </svg>
-                                </div>
-                                <div className="data">
-                                    <p>Brand name</p>
-                                    <p>Item name</p>
-                                    <p>19-02-2024</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
-                                </svg>
-                                </div>
-                                <div className="data">
-                                    <p>Brand name</p>
-                                    <p>Item name</p>
-                                    <p>19-02-2024</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
-                                </svg>
-                                </div>
-                                <div className="data">
-                                    <p>Brand name</p>
-                                    <p>Item name</p>
-                                    <p>19-02-2024</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <div className="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 0 1 1.032 0 11.209 11.209 0 0 0 7.877 3.08.75.75 0 0 1 .722.515 12.74 12.74 0 0 1 .635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 0 1-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 0 1 .722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75ZM12 15a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75H12Z" clipRule="evenodd" />
-                                </svg>
-                                </div>
-                                <div className="data">
-                                    <p>Brand name</p>
-                                    <p>Item name</p>
-                                    <p>19-02-2024</p>
-                                </div>
-                            </div>
-                            
+                            }
                         </div>
                     </div>
                 </div>

@@ -262,6 +262,7 @@
     height: 3rem;
     border-bottom: 1px solid var(--color-dark-variant);
     color: var(--color-dark-variant);
+    
   }
   .container-1 .table-container .table-section table tbody tr:hover td{
     color: var(--color-info-light);
@@ -269,13 +270,19 @@
   .container-1 .table-container .table-section table tbody tr:last-child td{
     border-bottom: none;
   }
-  .container-1 .table-container .table-section table tbody tr td.primary{
+  .container-1 .table-container .table-section table tbody tr td::first-letter{
+    text-transform: uppercase;
+  }
+  .container-1 .table-container .table-section table tbody tr td:nth-child(2)::first-letter{
+    text-transform: lowercase;
+  }
+  .container-1 .table-container .table-section table tbody tr td.added{
     color: var(--color-primary);
   }
-  .container-1 .table-container .table-section table tbody tr td.success{
+  .container-1 .table-container .table-section table tbody tr td.updated{
     color: var(--color-success);
   }
-  .container-1 .table-container .table-section table tbody tr td.danger{
+  .container-1 .table-container .table-section table tbody tr td.deleted{
     color: var(--color-danger);
   }
   
@@ -402,6 +409,20 @@
     border-radius: 50%;
     background: var(--color-danger);
   }
+  .main section .container-2 .bottom .card-section .row .icon-s{
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: .5rem;
+    border-radius: 50%;
+    background: var(--color-success);
+  }
+  .main section .container-2 .bottom .card-section .row .icon-s svg{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   .main section .container-2 .bottom .card-section .row .icon svg{
     width: 1.5rem;
     height: 1.5rem;
@@ -410,17 +431,24 @@
     width: 17rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     overflow-x: scroll;
   }
   .main section .container-2 .bottom .card-section .row .data::-webkit-scrollbar{
     display: none;
   }
   .main section .container-2 .bottom .card-section .row .data p{
-    font-size: .8rem;
+    font-size: .9rem;
     color: var(--color-info-dark);
     margin-left: 1rem;
   }
-  
+  .main section .container-2 .bottom .card-section .row .data p:first-child{
+    text-transform: uppercase;
+  }
+  .main section .container-2 .bottom .card-section .row .data p::first-letter{
+    text-transform: uppercase;
+  }
+
   /** dashboard container-2 section  end **/
   
   /********************* Dashboard style end **************************/
