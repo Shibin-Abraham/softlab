@@ -41,15 +41,7 @@
   .danger{
     color: var(--color-danger);
   }
-  .added{
-    color: var(--color-primary);
-  }
-  .updated{
-    color: var(--color-success);
-  }
-  .deleted{
-    color: var(--color-danger);
-  }
+  
   .loader{
     pointer-events: none;
     width: 30px;

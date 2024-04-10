@@ -92,7 +92,7 @@ function DashBoard(){
               }
           }).then((res)=>{
             console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",typeof(res))
-            if(res.data.length !== 0){
+            if(res.data.length !== undefined){
                 console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",res.data) 
                 setWarrantyData(res.data.filter((value)=>{
                         let string1=getDate()
@@ -103,7 +103,7 @@ function DashBoard(){
                         let w_date = parseInt(string1[0])
                         console.log("w "+w_date)
                     return (
-                        w_date - c_date <= 2
+                        w_date - c_date <= 1
                     )
                 }))
             }else if(res.data.statuscode === 401){ //token expired
