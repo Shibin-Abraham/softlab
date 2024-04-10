@@ -95,8 +95,8 @@ function Login({setNav}) {
       setErrorMsg('Invalid password')
       setGlobalPopUp({id:4,header:`Invalid input`,message:`Invalid password, Please try again`})
     }else if(res.data.statuscode === 401){
-      setErrorMsg('Invalid email address')
-      setGlobalPopUp({id:3,header:`Invalid input`,message:`Invalid email address, Please try again`})
+      setErrorMsg('Email not found')
+      setGlobalPopUp({id:4,header:`Email not found`,message:`Email not found, Please goto signup page`})
     }else if(res.data.statuscode === 400){
       setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
     }

@@ -53,10 +53,20 @@
     background: var(--color-light);
     transition: all .3s ease;
   }
-  .main section .container-1 .card-section .card-1:hover,.card-2:hover,.card-3:hover{
+  .main section .container-1 .card-section .card-1:hover{
     width: 31%;
     height: 155px;
-    box-shadow: var(--box-shadow-2);
+    box-shadow: var(--box-shadow-p);
+  }
+  .main section .container-1 .card-section .card-2:hover{
+    width: 31%;
+    height: 155px;
+    box-shadow: var(--box-shadow-s);
+  }
+  .main section .container-1 .card-section .card-3:hover{
+    width: 31%;
+    height: 155px;
+    box-shadow: var(--box-shadow-d);
   }
   .main section .container-1 .card-section .card-1 .top{
     margin: .8rem 0rem 0rem .8rem;

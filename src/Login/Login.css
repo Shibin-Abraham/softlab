@@ -124,7 +124,7 @@
     display: inline-block;
     color: #ffffff;
     text-transform: uppercase;
-    animation: waviy 1.3s infinite;
+    animation: waviy 5000ms infinite;
     animation-delay: calc(.1s * var(--i));
     margin-left: .1rem;
     

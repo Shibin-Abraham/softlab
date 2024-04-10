@@ -90,7 +90,12 @@ function Users() {
                                             <td>{data.phone}</td>
                                             <td> {data.join_date}</td>
                                             
-                                            {<Action status={data.status==="1"?"Reject":"Assign"} id={data.id} getUsersData={getUsersData}/>}
+                                            {<Action 
+                                                status={data.status==="1"?"Reject":"Assign"} 
+                                                id={data.id} 
+                                                getUsersData={getUsersData} 
+                                                setGlobalPopUp={setGlobalPopUp}
+                                             />}
                                         </tr>
                                     )
                                 })

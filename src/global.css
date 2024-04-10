@@ -30,7 +30,9 @@
   
     --box-shadow: 0px 2px 4px var(--color-primary);
     --box-shadow-1: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    --box-shadow-2: 0px 10px 10px -10px var(--color-primary);
+    --box-shadow-p: 0px 10px 10px -10px var(--color-primary);
+    --box-shadow-d: 0px 10px 10px -10px var(--color-danger);
+    --box-shadow-s: 0px 10px 10px -10px var(--color-success);
   }
   .primary{
     color: var(--color-primary);

@@ -1,7 +1,8 @@
 import React,{useContext, useEffect, useState} from 'react'
 import DeletePopUp from './PopUps/DeletePopUp'
-import { StateContext } from '../AuthProvider/AuthProvider'
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Action(props) {
     let [deletePopUp,setDeletePopUp] = useState(false)
@@ -9,7 +10,10 @@ function Action(props) {
     let [status,setStatus] = useState('')
 
     const authData = useContext(StateContext)
-    
+    const navigate = useNavigate()
+
+    const dispatch = useContext(DispatchContext)
+
     function assignUser(){
       axios({
         method: 'POST',
@@ -21,29 +25,21 @@ function Action(props) {
         data: {u_id: props.id,status: props.status}
       }).then((res)=>{
         console.log("onclick resulttttttttttttttttttttttttttt",res)
-        props.getUsersData()
-        /*setUserState((previous)=>{
-            previous==='Assign'?setStatus('Active'):setStatus('Pending')
-            return previous==='Assign'?'Reject':'Assign'
-        })*/
-        /*setUserState((previous)=>{
-            previous==='Assign'?setStatus('Active'):setStatus('Pending')
-            return previous==='Assign'?'Reject':'Assign'
-        })*/
-        /*if(res.data.length !== undefined){
-            console.log(res.data) 
-            setRecentActivityData(res.data.sort((a,b)=>b.id - a.id)) //sort by decending order for show latest data
+        if(res.data.statuscode === 200){
+          props.getUsersData()
         }else if(res.data.statuscode === 401){ //token expired
             localStorage.removeItem('token')
             dispatch({type:'auth_logout'})
             navigate('/login',{replace:true})
             //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
         }else if(res.data.statuscode === 400){
-            setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
-        }*/
+            props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+        }else if(res.data.statuscode === 500){
+          props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+      }
       }).catch((err)=>{
         console.log(err)
-        //setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+        props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
       })
         
     }
@@ -59,8 +55,9 @@ function Action(props) {
     <td>
         <button onClick={()=>assignUser()}>{userState}</button>
         <button onClick={()=>setDeletePopUp(true)}>archive</button>
+        {deletePopUp && <DeletePopUp setDeletePopUp={setDeletePopUp} id={props.id} getUsersData={props.getUsersData} setGlobalPopUp={props.setGlobalPopUp} />}
     </td>
-    {deletePopUp && <DeletePopUp setDeletePopUp={setDeletePopUp} />}
+    
     </>
   )
 }

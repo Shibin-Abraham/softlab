@@ -1,8 +1,49 @@
 import React from 'react'
 import './DeletePopUp.css'
+import {useNavigate} from "react-router-dom"
+import { useContext } from 'react'
+import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider'
+import axios from "axios";
 
 function DeletePopUp(props) {
+
+  const navigate = useNavigate()
+
+  const dispatch = useContext(DispatchContext)
+  const authData = useContext(StateContext)
+
+  function setArchiveUser(){
+    axios({
+      method: 'POST',
+      url: 'http://localhost/soft-lab-api/route/services/set-archive-user.php',
+      headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          'Authorization': authData.JWT, 
+        },
+      data: {u_id: props.id}
+    }).then((res)=>{
+      console.log("archive user",res)
+      if(res.data.statuscode === 200){
+        console.log("archive userrrrrrrrrrr",res.data)
+        props.getUsersData()
+      }else if(res.data.statuscode === 401){ //token expired
+          localStorage.removeItem('token')
+          dispatch({type:'auth_logout'})
+          navigate('/login',{replace:true})
+          //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      }else if(res.data.statuscode === 400){
+          props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+      }else if(res.data.statuscode === 500){
+        props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+    }
+    }).catch((err)=>{
+      console.log(err)
+      props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+    })
+  }
+  
   return (
+    <>
     <div className='delete-popup'>
       <div className="content">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
@@ -12,10 +53,11 @@ function DeletePopUp(props) {
         <p>Are you sure you want to Archive? </p>
         <div className='btn'>
             <button id='cancel' onClick={()=>props.setDeletePopUp(false)}>Cancel</button>
-            <button id='delete' onClick={()=>props.setDeletePopUp(false)}>Yes</button>
+            <button id='delete' onClick={()=>setArchiveUser()}>Yes</button>
         </div>
       </div>
     </div>
+    </>
   )
 }
 
