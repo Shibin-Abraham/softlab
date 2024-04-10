@@ -1,18 +1,65 @@
-import React,{useState} from 'react';
-
+import React,{useContext, useEffect, useState} from 'react';
 import './Users.css';
 import Action from './Action';
 import AddStock from './PopUps/AddStock';
 import UpdatePopUp from './PopUps/UpdatePopUp'
 import AssignStockRole from './PopUps/AssignStockRole';
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider';
+import axios from "axios";
+import GlobalPopUp from "../GlobalPopUp/GlobalPopUp";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from 'react';
 
 function Users() {
+    const [globalPopUp,setGlobalPopUp] = useState({})
     let [newStock,setNewStock] = useState(false)
     let [assignStockRole,setAssignStockRole] = useState(false)
     let [updatePopUp,setUpdatePopUp] = useState(false)
     
+    let [allUsersData,setAllUsersData] = useState([])
+
+    const navigate = useNavigate()
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+
+    let getUsersData = useCallback(()=>{
+        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/users-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("active users 11111111",res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+    useEffect(()=>{
+        getUsersData()
+    },[getUsersData])
+
   return (
     <div className='users'>
+        {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
+        {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
       <section>
         <div className="top-container">
             <h1>Users</h1>
@@ -34,46 +81,20 @@ function Users() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>6235287817</td>
-                                <td> 12-03-2024</td>
-                                
-                                {<Action/>}
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>6235287817</td>
-                                <td> 12-03-2024</td>
-                                
-                                {<Action/>}
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>6235287817</td>
-                                <td> 12-03-2024</td>
-                                
-                                {<Action/>}
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>6235287817</td>
-                                <td> 12-03-2024</td>
-                                
-                                {<Action/>}
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>6235287817</td>
-                                <td> 12-03-2024</td>
-                                
-                                {<Action/>}
-                            </tr>
+                            {
+                                allUsersData.map((data)=>{
+                                    return(
+                                        <tr key={data.id}>
+                                            <td> {data.name}</td>
+                                            <td> {data.email}</td>
+                                            <td>{data.phone}</td>
+                                            <td> {data.join_date}</td>
+                                            
+                                            {<Action status={data.status==="1"?"Reject":"Assign"} id={data.id} getUsersData={getUsersData}/>}
+                                        </tr>
+                                    )
+                                })
+                            }
                             
                         </tbody>
                     </table>

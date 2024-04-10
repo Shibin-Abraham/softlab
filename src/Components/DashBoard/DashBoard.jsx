@@ -91,7 +91,7 @@ function DashBoard(){
                 'Authorization': authData.JWT, 
               }
           }).then((res)=>{
-            console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",typeof(res))
+            console.log("all users",typeof(res))
             if(res.data.length !== undefined){
                 console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",res.data) 
                 setWarrantyData(res.data.filter((value)=>{
