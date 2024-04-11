@@ -18,6 +18,7 @@ function Users() {
     
     let [allUsersData,setAllUsersData] = useState([])
     let [allStockData,setAllStockData] = useState([])
+    let [allStockHandlingData,setAllStockHandlingData] = useState([])
 
     const navigate = useNavigate()
 
@@ -78,10 +79,38 @@ function Users() {
           })
     },[authData.JWT,dispatch,navigate])
 
+    let getStockHandlingUsers = useCallback(()=>{
+        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/get-stock-handling-users-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("stock dataa 222222222",res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setAllStockHandlingData(res.data)
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
     useEffect(()=>{
         getUsersData()
         getStockData()
-    },[getUsersData,getStockData])
+        getStockHandlingUsers()
+    },[getUsersData,getStockData,getStockHandlingUsers])
 
   return (
     <div className='users'>
@@ -145,18 +174,19 @@ function Users() {
                     </thead>
                     <tbody>
 
-                        {allStockData.map((data)=>{
+                        {allStockData.length!==0?allStockData.map((data)=>{
                             return (
                                 <tr key={data.id}>
                                     <td>{data.name}</td>
                                 </tr>
                             )
-                        })}
+                            }):<tr><td>No data available</td></tr>
+                        }
                         
                     </tbody>
                 </table>
                 {newStock && <AddStock setNewStock={setNewStock} data={allStockData} getStockData={getStockData} />}
-                {assignStockRole && <AssignStockRole setAssignStockRole={setAssignStockRole} />}
+                {assignStockRole && <AssignStockRole setAssignStockRole={setAssignStockRole} allStockData={allStockData} allUsersData={allUsersData} getStockHandlingUsers={getStockHandlingUsers} />}
             </div>
             <div className='container-3-control'>
                 <h2>Stock Handling Users</h2>
@@ -175,37 +205,38 @@ function Users() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>TEQP-01</td>
-                                <td> Manager</td>
-                                <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>TEQP-02</td>
-                                <td> Assistent</td>
-                                <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>TEQP-03</td>
-                                <td> Assistent</td>
-                                <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
-                            </tr>
-                            <tr>
-                                <td> soft lab</td>
-                                <td> softlab@gmail.com</td>
-                                <td>TEQP-04</td>
-                                <td> Assistent</td>
-                                <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
-                                {updatePopUp && <UpdatePopUp setUpdatePopUp={setUpdatePopUp} />}
-                            </tr>
+                            {
+                                allStockHandlingData.length!==0?allStockHandlingData.map((data)=>{
+                                    let userName = allUsersData.map((u)=>{   
+                                        return (
+                                            u.id===data.u_id&&u.name
+                                        )
+                                    })
+                                    let userEmail = allUsersData.map((u)=>{   
+                                        return (
+                                            u.id===data.u_id&&u.email
+                                        )
+                                    })
+                                    let stockInHand = allStockData.map((s)=>{   
+                                        return (
+                                            s.id===data.s_id&&s.name
+                                        )
+                                    })
+                                    return (
+                                        <tr key={data.id}>
+                                            <td>{userName}</td>
+                                            <td>{userEmail}</td>
+                                            <td>{stockInHand}</td>
+                                            <td> {data.role_name}</td>
+                                            <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
+                                        </tr>
+                                    )
+                                }):<tr><td>No data available</td><td>No data available</td><td>No data available</td><td>No data available</td><td>No data available</td></tr>
+                            }
+                            
                             
                         </tbody>
+                        {updatePopUp && <UpdatePopUp setUpdatePopUp={setUpdatePopUp} />}
                     </table>
                 </div>
 
