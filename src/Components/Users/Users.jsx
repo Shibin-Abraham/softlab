@@ -17,6 +17,7 @@ function Users() {
     let [updatePopUp,setUpdatePopUp] = useState(false)
     
     let [allUsersData,setAllUsersData] = useState([])
+    let [allStockData,setAllStockData] = useState([])
 
     const navigate = useNavigate()
 
@@ -50,9 +51,37 @@ function Users() {
           })
     },[authData.JWT,dispatch,navigate])
 
+    let getStockData = useCallback(()=>{
+        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("stock dataa 222222222",res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setAllStockData(res.data.filter((data)=>data.dump!=="1"))
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
     useEffect(()=>{
         getUsersData()
-    },[getUsersData])
+        getStockData()
+    },[getUsersData,getStockData])
 
   return (
     <div className='users'>
@@ -115,21 +144,18 @@ function Users() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>TEQIP-01</td>
-                        </tr>
-                        <tr>
-                            <td>TEQIP-02</td>
-                        </tr>
-                        <tr>
-                            <td>TEQIP-03</td>
-                        </tr>
-                        <tr>
-                            <td>TEQIP-04</td>
-                        </tr>
+
+                        {allStockData.map((data)=>{
+                            return (
+                                <tr key={data.id}>
+                                    <td>{data.name}</td>
+                                </tr>
+                            )
+                        })}
+                        
                     </tbody>
                 </table>
-                {newStock && <AddStock setNewStock={setNewStock} />}
+                {newStock && <AddStock setNewStock={setNewStock} data={allStockData} getStockData={getStockData} />}
                 {assignStockRole && <AssignStockRole setAssignStockRole={setAssignStockRole} />}
             </div>
             <div className='container-3-control'>

@@ -163,6 +163,7 @@
     border-bottom: 1px solid var(--color-dark-variant);
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
+    text-transform: uppercase;
   }
   .users section .mid-box .container-2 table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
