@@ -239,6 +239,7 @@ function Users() {
                                                         email: userEmail,
                                                         stockInHand: stockInHand,
                                                         role: data.role_name,
+                                                        u_id: data.u_id,
                                                         s_id: data.s_id
                                                     })
                                                 }}>

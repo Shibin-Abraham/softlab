@@ -34,7 +34,7 @@ function UpdatePopUp(props) {
           'Content-type': 'application/json; charset=utf-8',
           'Authorization': authData.JWT, 
         },
-      data: {id: props.stockInHandRowData.id,s_id: updateStock,role: updateRole}
+      data: {id: props.stockInHandRowData.id,u_id: props.stockInHandRowData.u_id,s_id: updateStock,role: updateRole}
     }).then((res)=>{
       console.log("status code assign stock to user",res)
       if(res.data.statuscode === 200){
@@ -42,6 +42,8 @@ function UpdatePopUp(props) {
         props.setGlobalPopUp({id:2,header:'Updated',message:'Data successfully updated.'})
         props.setUpdatePopUp(false)
         //props.setAssignStockRole(false)
+      }else if(res.data.statuscode === 403){
+        setError1('This user already take same stock')
       }else if(res.data.statuscode === 401){ //token expired
           localStorage.removeItem('token')
           dispatch({type:'auth_logout'})
