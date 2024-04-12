@@ -69,6 +69,10 @@
     color: var(--color-info-light);
     background: var(--color-primary);
 }
+.popup .content .data-section span{
+    font-size: .7rem;
+    color: var(--color-danger);
+}
 .popup .content .data-section div input[type=text]{
     background: none;
     border: none;

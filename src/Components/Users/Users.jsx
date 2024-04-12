@@ -20,6 +20,8 @@ function Users() {
     let [allStockData,setAllStockData] = useState([])
     let [allStockHandlingData,setAllStockHandlingData] = useState([])
 
+    let [stockInHandRowData,setStockInHandRowData] = useState({})
+
     const navigate = useNavigate()
 
     const authData = useContext(StateContext)
@@ -133,7 +135,7 @@ function Users() {
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Join Date</th>
-                                
+                                <th>Position</th>
                                 <th>Status</th>
                                 <th>Operation</th>
                             </tr>
@@ -147,7 +149,7 @@ function Users() {
                                             <td> {data.email}</td>
                                             <td>{data.phone}</td>
                                             <td> {data.join_date}</td>
-                                            
+                                            <td> {data.r_name}</td>
                                             {<Action 
                                                 status={data.status==="1"?"Reject":"Assign"} 
                                                 id={data.id} 
@@ -180,7 +182,7 @@ function Users() {
                                     <td>{data.name}</td>
                                 </tr>
                             )
-                            }):<tr><td>No data available</td></tr>
+                            }):<tr><td>Data not available</td></tr>
                         }
                         
                     </tbody>
@@ -228,7 +230,20 @@ function Users() {
                                             <td>{userEmail}</td>
                                             <td>{stockInHand}</td>
                                             <td> {data.role_name}</td>
-                                            <td><button onClick={()=>setUpdatePopUp(true)}>Update</button></td>
+                                            <td>
+                                                <button onClick={()=>{
+                                                    setUpdatePopUp(true)
+                                                    setStockInHandRowData({
+                                                        id: data.id,
+                                                        name: userName,
+                                                        email: userEmail,
+                                                        stockInHand: stockInHand,
+                                                        role: data.role_name,
+                                                        s_id: data.s_id
+                                                    })
+                                                }}>
+                                                    Update</button>
+                                            </td>
                                         </tr>
                                     )
                                 }):<tr><td>No data available</td><td>No data available</td><td>No data available</td><td>No data available</td><td>No data available</td></tr>
@@ -236,8 +251,14 @@ function Users() {
                             
                             
                         </tbody>
-                        {updatePopUp && <UpdatePopUp setUpdatePopUp={setUpdatePopUp} />}
                     </table>
+                    {updatePopUp && <UpdatePopUp 
+                                            setUpdatePopUp={setUpdatePopUp} 
+                                            stockInHandRowData={stockInHandRowData} 
+                                            getStockHandlingUsers={getStockHandlingUsers} 
+                                            allStockData={allStockData}
+                                            setGlobalPopUp={setGlobalPopUp} 
+                                            />}
                 </div>
 
             </div>

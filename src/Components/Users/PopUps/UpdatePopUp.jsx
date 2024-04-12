@@ -1,8 +1,65 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './UpdatePopUp.css'
+import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function UpdatePopUp(props) {
+  let [updateStock,setUpdateStock] = useState('')
+  let [updateRole,setUpdateRole] = useState('')
 
+  const authData = useContext(StateContext)
+  const dispatch = useContext(DispatchContext)
+
+  const navigate = useNavigate()
+
+  let [error1,setError1] = useState('')
+  let [error2,setError2] = useState('')
+
+  let onSubmit = ()=>{
+    if(updateStock !== ''){
+      if(updateRole!==''){
+        updateStockHandlingData()
+      }
+    }else{
+      setError1('Please select any option')
+    }
+  }
+
+  let updateStockHandlingData = ()=>{
+    axios({
+      method: 'POST',
+      url: 'http://localhost/soft-lab-api/route/services/update-stock-handling-users-data.php',
+      headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          'Authorization': authData.JWT, 
+        },
+      data: {id: props.stockInHandRowData.id,s_id: updateStock,role: updateRole}
+    }).then((res)=>{
+      console.log("status code assign stock to user",res)
+      if(res.data.statuscode === 200){
+        props.getStockHandlingUsers()
+        props.setGlobalPopUp({id:2,header:'Updated',message:'Data successfully updated.'})
+        props.setUpdatePopUp(false)
+        //props.setAssignStockRole(false)
+      }else if(res.data.statuscode === 401){ //token expired
+          localStorage.removeItem('token')
+          dispatch({type:'auth_logout'})
+          navigate('/login',{replace:true})
+          //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      }else if(res.data.statuscode === 400){
+          props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+      }else if(res.data.statuscode === 500){
+          props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+      }
+      }).catch((err)=>{
+        console.log(err)
+        props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+      })
+  }
+  useEffect(()=>{
+    setUpdateRole(props.stockInHandRowData.role)
+  },[props.stockInHandRowData.role])
   return (
     <div className='popup'>
         <div className='content '>
@@ -14,20 +71,30 @@ function UpdatePopUp(props) {
             </div>
             <div className="data-section">
               <div>
-                <p>Name</p>
+                <p>{props.stockInHandRowData.name}</p>
               </div>
               <div>
-                <p>Email</p>
+                <p>{props.stockInHandRowData.email}</p>
               </div>
-              <select>
-                  <option value="">Stock name</option>
-                  <option value="">TEQIP</option>
+              <select defaultValue={props.stockInHandRowData.s_id} onClick={(e)=>{
+                setError1('')
+                setUpdateStock(e.currentTarget.value)
+              }}>
+                {
+                  props.allStockData.map((data,index)=>{
+                    return (props.stockInHandRowData.stockInHand[index]===data.name?<option key={data.id} value={data.id}>{data.name}</option>:<option key={data.id} value={data.id}>{data.name}</option>)
+                  })
+                }
               </select>
+              <span>{error1}</span>
               <div>
-                <input type='text' placeholder='Enter the Role'/>
+                <input type='text' placeholder='Enter the Role' onChange={(e)=>{
+                  setError2(e.target.value.length<4&&'This field must contaion 4 characters')
+                  setUpdateRole(e.target.value)
+                  }} defaultValue={props.stockInHandRowData.role}/>
               </div>
-  
-              <input type="button" value="Update" />
+              <span>{error2}</span>
+              <input type="button" value="Update" onClick={()=>onSubmit()} />
               
             </div>
         </div>

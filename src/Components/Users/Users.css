@@ -89,6 +89,9 @@
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
   }
+  .users section .mid-box .container .table-section table tbody tr td:nth-child(1)::first-letter{
+    text-transform: uppercase;
+  }
   .users section .mid-box .container .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
   }
@@ -246,6 +249,15 @@
     border-bottom: 1px solid var(--color-dark-variant);
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
+  }
+  .users section .mid-box .container-3 .table-section table tbody tr td:nth-child(3){
+    text-transform: uppercase;
+  }
+  .users section .mid-box .container-3 .table-section table tbody tr td:nth-child(1)::first-letter{
+    text-transform: uppercase;
+  }
+  .users section .mid-box .container-3 .table-section table tbody tr td:nth-child(4)::first-letter{
+    text-transform: uppercase;
   }
   .users section .mid-box .container-3 .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
