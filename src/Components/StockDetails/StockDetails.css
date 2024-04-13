@@ -119,6 +119,9 @@
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
   }
+  .stock-details section .container .table-section table tbody tr td:nth-child(2){
+    text-transform: uppercase;
+  }
   .stock-details section .container .table-section table tbody tr td span{
     margin-right: 15px;
   }
