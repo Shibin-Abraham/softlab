@@ -249,7 +249,7 @@
   .main section .container-1 .table-container .table-section{
     margin-top: .5rem;
     width: 100%;
-    height: 90%;
+    height: 85%;
     box-shadow: var(--box-shadow-1);
     border-radius: var(--border-radius-2);
     background: var(--color-light);

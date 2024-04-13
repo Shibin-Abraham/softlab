@@ -72,4 +72,6 @@
     font-weight: 400;
     font-size: .8rem;
     color: var(--color-info-dark);
+    text-transform: uppercase;
   }
+  

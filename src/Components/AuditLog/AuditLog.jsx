@@ -58,7 +58,7 @@ function AuditLog() {
                     {
                         recentActivityData.map((data)=>{
                             return (
-                                <div className="card">
+                                <div className="card" key={data.id}>
                                     <h4> {data.date} {data.time}</h4>
                                     <p> Data {data.operation} for {data.details}</p>
                                     <h5>By: {data.name}</h5>
@@ -66,7 +66,6 @@ function AuditLog() {
                             )
                         })
                     }
-                    
                     
                     {/*<div className="card">
                         <h4> 02-18-2024 15:40:14</h4>

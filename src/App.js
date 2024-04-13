@@ -14,6 +14,7 @@ import VerifyOTP from './Login/VerifyOTP.jsx';
 import PrivateRoutes from './Components/Utils/PrivateRoutes.jsx';
 import { StateContext } from './Components/AuthProvider/AuthProvider.jsx';
 import InActive from './Login/InActive.jsx';
+import Dump from './Components/Dump/Dump.jsx';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path='/stock' element={<StockDetails />} />
             <Route path='/items' element={<ItemDetails />} />
             <Route path='/borrowers' element={<Borrowers />} />
+            <Route path='/dump' element={<Dump />} />
             <Route path='/audit' element={<AuditLog />} />
           </Route>
         </Routes>
