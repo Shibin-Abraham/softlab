@@ -46,7 +46,7 @@
 }
 .stock-popup .content form{
     width: 90%;
-    height: 100%;
+    height: 100vh;
     color: var(--color-dark-variant);
     display: flex;
     flex-direction: column;
@@ -101,7 +101,7 @@
 } 
 .stock-popup .content form .btn input[type=submit]{
     width: 100%;
-    height: 100%;
+    height: 3rem;
     outline: none;
     border: none;
     color: var(--color-white);
@@ -113,7 +113,6 @@
 .stock-popup .content form .btn input[type=submit]:hover{
     background: var(--color-primary-variant);
 }
-
 .stock-popup .content.popup-active{
     transform: translateX(0px);
 }

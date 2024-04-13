@@ -187,8 +187,8 @@ function Users() {
                         
                     </tbody>
                 </table>
-                {newStock && <AddStock setNewStock={setNewStock} data={allStockData} getStockData={getStockData} />}
-                {assignStockRole && <AssignStockRole setAssignStockRole={setAssignStockRole} allStockData={allStockData} allUsersData={allUsersData} getStockHandlingUsers={getStockHandlingUsers} />}
+                {newStock && <AddStock setNewStock={setNewStock} data={allStockData} getStockData={getStockData} setGlobalPopUp={setGlobalPopUp}/>}
+                {assignStockRole && <AssignStockRole setAssignStockRole={setAssignStockRole} allStockData={allStockData} allUsersData={allUsersData} getStockHandlingUsers={getStockHandlingUsers} setGlobalPopUp={setGlobalPopUp}/>}
             </div>
             <div className='container-3-control'>
                 <h2>Stock Handling Users</h2>

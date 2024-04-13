@@ -122,6 +122,9 @@
   .stock-details section .container .table-section table tbody tr td:nth-child(2){
     text-transform: uppercase;
   }
+  .stock-details section .container .table-section table tbody tr td:nth-child(3){
+    text-transform: uppercase;
+  }
   .stock-details section .container .table-section table tbody tr td span{
     margin-right: 15px;
   }

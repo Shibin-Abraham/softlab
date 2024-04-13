@@ -11,8 +11,9 @@ function StockDetails() {
     let [viewPopUp,setViewPopUp] = useState(false)
     let [stockPopUp,setStockPopUp] = useState(false)
     let [globalPopUp,setGlobalPopUp] = useState({})                     // format {id:globalPopUp,message:'Data has been updated'} {id:globalPopUp,message:'Waringgggggggggg'}    {id:globalPopUp,message:'Something went wrong'}      
-
+    
     let [allStockData,setAllStockData] = useState([])   //allStockData based on users  
+    let [stockDataEmpty,setStockDataEmpty] = useState([])
 
     const navigate = useNavigate()
 
@@ -32,9 +33,9 @@ function StockDetails() {
             console.log("stock dataa ---------------", res)
             if(res.data.length !== undefined){
                 console.log(res.data) 
-                res.data[0].category===''&&setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
                 setAllStockData(res.data.filter((data)=>data.dump!=="1"))
-                
+                setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
+                //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
             }else if(res.data.statuscode === 401){ //token expired
                 localStorage.removeItem('token')
                 dispatch({type:'auth_logout'})
@@ -47,6 +48,7 @@ function StockDetails() {
             setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
           })
     },[authData.JWT,dispatch,navigate])
+
 
     useEffect(()=>{
         getStockData()
@@ -64,12 +66,14 @@ console.log("alllllllll",allStockData)
             <h1>Stock Details</h1> 
             <div className='top'>
                     <input type='search' placeholder='  Search...' />
-                    <div onClick={()=>setStockPopUp(true)}>
+                    {
+                        stockDataEmpty.length!==0?<div onClick={()=>setStockPopUp(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                         <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                         </svg>
                         <h3>Fill Stock Data</h3>
-                    </div>
+                    </div>:null
+                    }
                 </div>
             <div className="container">
                 <div className="table-section">
@@ -88,14 +92,15 @@ console.log("alllllllll",allStockData)
                         <tbody>
                                 {
                                     allStockData.map((data,index)=>{
+                                        
                                         return (
                                             <tr key={data.id}>
                                                 <td>{index+1}</td>
                                                 <td><span style={data.role_name!==undefined?{width:"10px",height:"5px",color:"#000000",background: "#6474ff",borderRadius: "10px"}:null}>{data.role_name!==undefined&&`${data.role_name } `}</span>  {data.name}</td>
-                                                <td style={data.category===''?{color: "#ff7782"}:null}>{data.category !== '' ? data.category : 'please fill data'}</td>
-                                                <td style={data.invoice_id===''?{color: "#ff7782"}:null}>{data.invoice_id !== '' ? data.invoice_id : 'please fill data'}</td>
-                                                <td style={data.invoice_date==='0000-00-00'?{color: "#ff7782"}:null}>{data.invoice_date !=='0000-00-00' ? data.invoice_date : 'please fill data'}</td>
-                                                <td style={data.type===''?{color: "#ff7782"}:null}>{data.type !== '' ? data.type : 'please fill data'}</td>
+                                                <td style={data.category===''?{color: "#ff7782"}:null}>{data.category !== '' ? data.category : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_id===''?{color: "#ff7782"}:null}>{data.invoice_id !== '' ? data.invoice_id : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_date==='0000-00-00'?{color: "#ff7782"}:null}>{data.invoice_date !=='0000-00-00' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.type===''?{color: "#ff7782"}:null}>{data.type !== '' ? data.type : 'PLEASE FILL DATA'}</td>
                                                 <td>
                                                     {
                                                         data.type !== ''? <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

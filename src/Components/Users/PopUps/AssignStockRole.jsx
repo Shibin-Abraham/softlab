@@ -56,6 +56,7 @@ function AssignStockRole(props) {
     }).then((res)=>{
       console.log("status code assign stock to user",res)
       if(res.data.statuscode === 200){
+        props.setGlobalPopUp({id:1,header:'Assigned',message:'Stock successfully assigned to user'})
         props.getStockHandlingUsers()
         props.setAssignStockRole(false)
       }else if(res.data.statuscode === 401){ //token expired

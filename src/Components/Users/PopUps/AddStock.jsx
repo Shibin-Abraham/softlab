@@ -52,6 +52,7 @@ function AddRoleStock(props) {
       }).then((res)=>{
         console.log("status of insertion 333333333333",res)
         if(res.data.statuscode === 200){
+          props.setGlobalPopUp({id:1,header:'SUCCESS',message:'Stock successfully added'})
           props.getStockData()
           props.setNewStock(false)
         }else if(res.data.statuscode === 401){ //token expired
