@@ -23,7 +23,7 @@ function AddStockPopUp(props) {
 
     const {register, handleSubmit ,formState:{errors}} = useForm();
     const onSubmit = (data)=>{
-        if(data&&stockName.length!==0){//data submited then close the AddStockPopUo and show the success message
+        if(data&&stockName.length!==0){//connect to server
             axios({
                 method: 'POST',
                 url: 'http://localhost/soft-lab-api/route/services/update-stock-details.php',
@@ -71,7 +71,7 @@ function AddStockPopUp(props) {
         month = month<10?`0${month}`:month
         return `${year}-${month}-${date}`;
       }
-      function getTime() {
+    function getTime() {
         const today = new Date();
         let h = today.getHours();
         let m = today.getMinutes();

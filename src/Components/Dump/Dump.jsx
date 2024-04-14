@@ -1,9 +1,58 @@
-import React from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './Dump.css'
+import { useNavigate } from 'react-router-dom'
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import axios from 'axios'
+import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 
 function Dump() {
+    let [globalPopUp,setGlobalPopUp] = useState({})
+    let [allStockData,setAllStockData] = useState([])   //allStockData based on users  
+
+    const navigate = useNavigate()
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+
+    let getStockData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            console.log("dump ---------------", res)
+            if(res.data.length !== undefined){
+                console.log(res.data) 
+                setAllStockData(res.data.filter((data)=>data.dump==="1"))
+                //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
+                //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+
+    useEffect(()=>{
+        getStockData()
+    },[getStockData])
+
   return (
     <div className='dump-data'>
+        {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
+        {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         <section>
             <div className="top">
                 <h1>Dump Data</h1>
@@ -194,45 +243,31 @@ function Dump() {
                     </div>
                     </div>
                 <div className="right-section">
-                <div className="card">
-                        <div className="svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                        <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
-                        <path d="m3.265 10.602 7.668 4.129a2.25 2.25 0 0 0 2.134 0l7.668-4.13 1.37.739a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.71 0l-9.75-5.25a.75.75 0 0 1 0-1.32l1.37-.738Z" />
-                        <path d="m10.933 19.231-7.668-4.13-1.37.739a.75.75 0 0 0 0 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 0 0 0-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 0 1-2.134-.001Z" />
-                        </svg>
-                        </div>
-                        <h4>STOCK-3</h4>
-                        <div className='discription'>
-                            <span>Laptop black color,intel core i5, 16GB ram and 512 ssd</span>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                        <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
-                        <path d="m3.265 10.602 7.668 4.129a2.25 2.25 0 0 0 2.134 0l7.668-4.13 1.37.739a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.71 0l-9.75-5.25a.75.75 0 0 1 0-1.32l1.37-.738Z" />
-                        <path d="m10.933 19.231-7.668-4.13-1.37.739a.75.75 0 0 0 0 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 0 0 0-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 0 1-2.134-.001Z" />
-                        </svg>
-                        </div>
-                        <h4>STOCK-3</h4>
-                        <div className='discription'>
-                            <span>Laptop black color,intel core i5, 16GB ram and 512 ssd</span>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="svg">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                        <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
-                        <path d="m3.265 10.602 7.668 4.129a2.25 2.25 0 0 0 2.134 0l7.668-4.13 1.37.739a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.71 0l-9.75-5.25a.75.75 0 0 1 0-1.32l1.37-.738Z" />
-                        <path d="m10.933 19.231-7.668-4.13-1.37.739a.75.75 0 0 0 0 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 0 0 0-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 0 1-2.134-.001Z" />
-                        </svg>
-                        </div>
-                        <h4>STOCK-3</h4>
-                        <div className='discription'>
-                            <span>Laptop black color,intel core i5, 16GB ram and 512 ssd</span>
-                        </div>
-                    </div>
+                    {
+                        allStockData.map((data)=>{
+                            let name = data.name.toUpperCase()
+                            let category = data.category.toUpperCase()
+                            let type = data.type.toUpperCase()
+                            let supplier_name = data.supplier_name.toUpperCase()
+                            
+                            return(
+                                <div className="card" key={data.id}>
+                                    <div className="svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
+                                    <path d="m3.265 10.602 7.668 4.129a2.25 2.25 0 0 0 2.134 0l7.668-4.13 1.37.739a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.71 0l-9.75-5.25a.75.75 0 0 1 0-1.32l1.37-.738Z" />
+                                    <path d="m10.933 19.231-7.668-4.13-1.37.739a.75.75 0 0 0 0 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 0 0 0-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 0 1-2.134-.001Z" />
+                                    </svg>
+                                    </div>
+                                    <h4>{name}</h4>
+                                    <div className='discription'>
+                                        <span>{data.category !==''?`Category: ${category}, Invoice-ID: ${data.invoice_id}, Invoice-Date: ${data.invoice_date}, Type: ${type}, Supplier-Name: ${supplier_name}`:`No data available`}</span>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                
                 </div>
                 
             </div>

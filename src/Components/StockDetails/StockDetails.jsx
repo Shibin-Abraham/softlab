@@ -14,14 +14,14 @@ function StockDetails() {
     
     let [allStockData,setAllStockData] = useState([])   //allStockData based on users  
     let [stockDataEmpty,setStockDataEmpty] = useState([])
+    let [stockRowData,setStockRoWData] = useState({})
 
     const navigate = useNavigate()
 
     const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
-
+    console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",authData)
     let getStockData = useCallback(()=>{
-        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
         axios({
             method: 'POST',
             url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
@@ -57,7 +57,7 @@ console.log("alllllllll",allStockData)
   return (
     <div className='stock-details'>
         {stockPopUp && <AddStockPopUp setStockPopUp={setStockPopUp} setGlobalPopUp={setGlobalPopUp} allStockData={allStockData} getStockData={getStockData}/>}
-        {viewPopUp && <ViewPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {viewPopUp && <ViewPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp} stockRowData={stockRowData} getStockData={getStockData}/>}
         {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
         {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
@@ -99,11 +99,22 @@ console.log("alllllllll",allStockData)
                                                 <td><span style={data.role_name!==undefined?{width:"10px",height:"5px",color:"#000000",background: "#6474ff",borderRadius: "10px"}:null}>{data.role_name!==undefined&&`${data.role_name } `}</span>  {data.name}</td>
                                                 <td style={data.category===''?{color: "#ff7782"}:null}>{data.category !== '' ? data.category : 'PLEASE FILL DATA'}</td>
                                                 <td style={data.invoice_id===''?{color: "#ff7782"}:null}>{data.invoice_id !== '' ? data.invoice_id : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.invoice_date==='0000-00-00'?{color: "#ff7782"}:null}>{data.invoice_date !=='0000-00-00' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_date===''?{color: "#ff7782"}:null}>{data.invoice_date !=='' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
                                                 <td style={data.type===''?{color: "#ff7782"}:null}>{data.type !== '' ? data.type : 'PLEASE FILL DATA'}</td>
                                                 <td>
                                                     {
-                                                        data.type !== ''? <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                        data.type !== ''? <svg onClick={()=>{
+                                                            setViewPopUp(true)
+                                                            setStockRoWData({
+                                                                id: data.id,
+                                                                name: data.name,
+                                                                category: data.category,
+                                                                invoice_id: data.invoice_id,
+                                                                invoice_date: data.invoice_date,
+                                                                type: data.type,
+                                                                supplier_name: data.supplier_name
+                                                            })
+                                                            }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                                                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                                         <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                                         </svg> : null

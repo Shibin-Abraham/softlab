@@ -295,6 +295,9 @@
   .container-1 .table-container .table-section table tbody tr td.deleted{
     color: var(--color-danger);
   }
+  .container-1 .table-container .table-section table tbody tr td.dumped{
+    color: #faff77;
+  }
   
   /** dashboard recent activities section end **/
   
