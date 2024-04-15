@@ -155,6 +155,8 @@ function Users() {
                                                 id={data.id} 
                                                 getUsersData={getUsersData} 
                                                 setGlobalPopUp={setGlobalPopUp}
+                                                getStockData={getStockData}
+                                                getStockHandlingUsers={getStockHandlingUsers}
                                              />}
                                         </tr>
                                     )
@@ -224,11 +226,12 @@ function Users() {
                                             s.id===data.s_id&&s.name
                                         )
                                     })
+                                    console.log("stockhandlinggggggggggggggggg",stockInHand)
                                     return (
                                         <tr key={data.id}>
                                             <td>{userName}</td>
                                             <td>{userEmail}</td>
-                                            <td>{stockInHand.length===1?"dumped this stock":stockInHand}</td>
+                                            <td>{stockInHand===''?"dumped this stock":stockInHand}</td>
                                             <td> {data.role_name}</td>
                                             <td>
                                                 <button onClick={()=>{

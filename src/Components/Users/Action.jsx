@@ -55,7 +55,7 @@ function Action(props) {
     <td>
         <button onClick={()=>assignUser()}>{userState}</button>
         <button onClick={()=>setDeletePopUp(true)}>archive</button>
-        {deletePopUp && <DeletePopUp setDeletePopUp={setDeletePopUp} id={props.id} getUsersData={props.getUsersData} setGlobalPopUp={props.setGlobalPopUp} />}
+        {deletePopUp && <DeletePopUp setDeletePopUp={setDeletePopUp} id={props.id} getUsersData={props.getUsersData} setGlobalPopUp={props.setGlobalPopUp} getStockData={props.getStockData} getStockHandlingUsers={props.getStockHandlingUsers} />}
     </td>
     
     </>

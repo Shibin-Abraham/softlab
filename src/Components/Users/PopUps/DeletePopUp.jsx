@@ -26,6 +26,8 @@ function DeletePopUp(props) {
       if(res.data.statuscode === 200){
         console.log("archive userrrrrrrrrrr",res.data)
         props.getUsersData()
+        props.getStockData()
+        props.getStockHandlingUsers()
       }else if(res.data.statuscode === 401){ //token expired
           localStorage.removeItem('token')
           dispatch({type:'auth_logout'})
