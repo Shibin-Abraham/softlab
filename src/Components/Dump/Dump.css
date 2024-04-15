@@ -144,6 +144,8 @@
     align-items: center;
     color: var(--color-white);
     transition: all ease .5s;
+    position: sticky;
+    top: 2rem;
   }
   .dump-data section .container .right-section .card .svg{
     margin-top: -15px;

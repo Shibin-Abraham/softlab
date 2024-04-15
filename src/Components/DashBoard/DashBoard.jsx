@@ -18,6 +18,9 @@ function DashBoard(){
     let [itemCount,setItemCount] = useState(0)
     let [borrowCount,setBorrowCount] = useState(0)
 
+    let [totalStockCount,setTotalStockCount] = useState(0)
+    let [totalItemCount,setTotalItemCount] = useState(0)
+
     const [stockPercentage,setStockPercentage] = useState(0)
     const [itemPercentage,setItemPercentage] = useState(0)
     const [borrowPercentage,setBorrowPercentage] = useState(0)
@@ -130,6 +133,7 @@ function DashBoard(){
             }else if(res.data.statuscode === 200 && res.data.percentage !== 0 ){
                 setStockPercentage(res.data.percentage)
                 setNoOfStock(res.data.count)
+                setTotalStockCount(res.data.total)
             }
           }).catch((err)=>{
             setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
@@ -147,6 +151,7 @@ function DashBoard(){
             }else if(res.data.statuscode === 200 && res.data.percentage !== 0 ){
                 setItemPercentage(res.data.percentage)
                 setNoOfItem(res.data.count)
+                setTotalItemCount(res.data.total)
             }
           }).catch((err)=>{
             setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
@@ -240,7 +245,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Live Stocks</p>
-                                    <h2>{`${noOfStock}.00`}</h2>
+                                    <h2>{`${noOfStock}/${totalStockCount}`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#7380ec ${stockCount*3.6}deg,#36384f ${stockCount*3.6}deg)`}}>
@@ -262,7 +267,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Live Items</p>
-                                    <h2>{`${noOfItem}.00`}</h2>
+                                    <h2>{`${noOfItem}/${totalItemCount}`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#41f1b6 ${itemCount*3.6}deg,#36384f ${itemCount*3.6}deg)`}}>
@@ -283,7 +288,7 @@ function DashBoard(){
                             <div className="mid">
                                 <div>
                                     <p>Borrowed</p>
-                                    <h2>{`${noOfBorrow}.00`}</h2>
+                                    <h2>{`${noOfBorrow}/${noOfItem}`}</h2>
                                 </div>
                                 <div className="circle">
                                     <div className="circular-progress" style={{background:`conic-gradient(#ff7782 ${borrowCount*3.6}deg,#36384f ${borrowCount*3.6}deg)`}}>
