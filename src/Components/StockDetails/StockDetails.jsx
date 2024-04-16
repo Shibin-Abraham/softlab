@@ -8,11 +8,14 @@ import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider';
 import { useNavigate } from "react-router-dom";
 
 function StockDetails() {
+    let [searchPopUp,setSearchPopUp] = useState(0)
+
     let [viewPopUp,setViewPopUp] = useState(false)
     let [stockPopUp,setStockPopUp] = useState(false)
     let [globalPopUp,setGlobalPopUp] = useState({})                     // format {id:globalPopUp,message:'Data has been updated'} {id:globalPopUp,message:'Waringgggggggggg'}    {id:globalPopUp,message:'Something went wrong'}      
     
     let [allStockData,setAllStockData] = useState([])   //allStockData based on users  
+    let [allStockDataCopy,setAllStockDataCopy] = useState([])   //this is the copy of the allstockdata
     let [stockDataEmpty,setStockDataEmpty] = useState([])
     let [stockRowData,setStockRoWData] = useState({})
 
@@ -20,7 +23,7 @@ function StockDetails() {
 
     const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
-    console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",authData)
+    //console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",authData)
     let getStockData = useCallback(()=>{
         axios({
             method: 'POST',
@@ -30,10 +33,11 @@ function StockDetails() {
                 'Authorization': authData.JWT, 
               }
           }).then((res)=>{
-            console.log("stock dataa ---------------", res)
+            //console.log("stock dataa ---------------", res)
             if(res.data.length !== undefined){
-                console.log(res.data) 
+                //console.log(res.data) 
                 setAllStockData(res.data.filter((data)=>data.dump!=="1"))
+                
                 setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
                 //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
             }else if(res.data.statuscode === 401){ //token expired
@@ -49,11 +53,25 @@ function StockDetails() {
           })
     },[authData.JWT,dispatch,navigate])
 
-
+    let searchStock = (e)=>{
+        if(e.target.value.length!==0){
+            setSearchPopUp(1)
+            let searchData = e.target.value.toLowerCase()
+            setAllStockDataCopy(allStockData.filter((data)=>{
+                let name = data.name.toLowerCase()
+                let invoice_date = data.invoice_date
+                let invoice_id = data.invoice_id.toLowerCase()
+                return (name.includes(searchData)||invoice_date.includes(searchData)||invoice_id.includes(searchData))
+            }))
+        }else{
+            setAllStockDataCopy([])
+        }
+        
+    }
     useEffect(()=>{
         getStockData()
     },[getStockData])
-console.log("alllllllll",allStockData)
+//console.log("alllllllll",allStockData)
   return (
     <div className='stock-details'>
         {stockPopUp && <AddStockPopUp setStockPopUp={setStockPopUp} setGlobalPopUp={setGlobalPopUp} allStockData={allStockData} getStockData={getStockData}/>}
@@ -65,7 +83,7 @@ console.log("alllllllll",allStockData)
         <section>
             <h1>Stock Details</h1> 
             <div className='top'>
-                    <input type='search' placeholder='  Search...' />
+                    <input type='search' placeholder='  Search...' onChange={(e)=>searchStock(e)}/>
                     {
                         stockDataEmpty.length!==0?<div onClick={()=>setStockPopUp(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -74,7 +92,25 @@ console.log("alllllllll",allStockData)
                         <h3>Fill Stock Data</h3>
                     </div>:null
                     }
-                </div>
+            </div>
+            {
+                searchPopUp===1?<div className="search-data">
+                <ul>
+                    {
+                      allStockDataCopy.length!==0?allStockDataCopy.map((data)=>{
+                        return(
+                            <li onClick={()=>setSearchPopUp(0)}>
+                                <span>{data.name} </span>
+                                <span>{data.invoice_id}</span>
+                                <span>{data.invoice_date}</span>
+                            </li>
+                        )
+                    }):null
+                    }
+                </ul>
+            </div>:null
+            }
+            
             <div className="container">
                 <div className="table-section">
                     <table>
@@ -91,7 +127,7 @@ console.log("alllllllll",allStockData)
                         </thead>
                         <tbody>
                                 {
-                                    allStockData.length!==0?allStockData.map((data,index)=>{
+                                    allStockDataCopy.length===0?allStockData.map((data,index)=>{
                                         
                                         return (
                                             <tr key={data.id}>
@@ -123,15 +159,39 @@ console.log("alllllllll",allStockData)
                                                 </td>
                                             </tr>
                                         )
-                                    }):<tr>
-                                        <td style={{color: "#ff7782"}}>NO DATA AVAILABLE</td>
-                                        <td style={{color: "#ff7782"}}> </td>
-                                        <td style={{color: "#ff7782"}}> </td>
-                                        <td style={{color: "#ff7782"}}> </td>
-                                        <td style={{color: "#ff7782"}}> </td>
-                                        <td style={{color: "#ff7782"}}> </td>
-                                        <td> </td>
-                                    </tr>
+                                    }):allStockDataCopy.map((data,index)=>{
+                                        
+                                        return (
+                                            <tr key={data.id}>
+                                                <td>{index+1}</td>
+                                                <td><span style={data.role_name!==undefined?{width:"10px",height:"5px",color:"#000000",background: "#6474ff",borderRadius: "10px"}:null}>{data.role_name!==undefined&&`${data.role_name } `}</span>  {data.name}</td>
+                                                <td style={data.category===''?{color: "#ff7782"}:null}>{data.category !== '' ? data.category : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_id===''?{color: "#ff7782"}:null}>{data.invoice_id !== '' ? data.invoice_id : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_date===''?{color: "#ff7782"}:null}>{data.invoice_date !=='' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.type===''?{color: "#ff7782"}:null}>{data.type !== '' ? data.type : 'PLEASE FILL DATA'}</td>
+                                                <td>
+                                                    {
+                                                        data.type !== ''? <svg onClick={()=>{
+                                                            setViewPopUp(true)
+                                                            setStockRoWData({
+                                                                id: data.id,
+                                                                name: data.name,
+                                                                category: data.category,
+                                                                invoice_id: data.invoice_id,
+                                                                invoice_date: data.invoice_date,
+                                                                type: data.type,
+                                                                supplier_name: data.supplier_name
+                                                            })
+                                                            }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                                        <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                                        </svg> : null
+                                                        
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
                                 }
                             
                             

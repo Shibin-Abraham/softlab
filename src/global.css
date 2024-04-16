@@ -1,6 +1,7 @@
 :root{
     --color-primary:#7380ec;
     --color-primary-2:#5763ce;
+    --color-primary-3:#3e4cce;
     --color-danger: #ff7782;
     --color-success: #41f1b6;
     --color-warning: #ffbb55;
@@ -33,6 +34,7 @@
     --box-shadow-p: 0px 10px 10px -10px var(--color-primary);
     --box-shadow-d: 0px 10px 10px -10px var(--color-danger);
     --box-shadow-s: 0px 10px 10px -10px var(--color-success);
+    --pure-black : #000000;
   }
   .primary{
     color: var(--color-primary);

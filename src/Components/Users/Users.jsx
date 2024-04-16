@@ -231,7 +231,7 @@ function Users() {
                                         <tr key={data.id}>
                                             <td>{userName}</td>
                                             <td>{userEmail}</td>
-                                            <td>{stockInHand===''?"dumped this stock":stockInHand}</td>
+                                            <td>{stockInHand}</td>
                                             <td> {data.role_name}</td>
                                             <td>
                                                 <button onClick={()=>{

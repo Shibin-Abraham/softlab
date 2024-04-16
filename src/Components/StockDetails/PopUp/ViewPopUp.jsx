@@ -57,7 +57,7 @@ function ViewPopUp(props) {
         }
     }
 
-    const dumpStock = (data)=>{
+    /*const dumpStock = (data)=>{
             axios({
                 method: 'POST',
                 url: 'http://localhost/soft-lab-api/route/services/dump-stock.php',
@@ -89,7 +89,7 @@ function ViewPopUp(props) {
                     console.log(err)
                     props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
                 })
-    }
+    }*/
 
     function getDate() {
         const today = new Date();
@@ -173,8 +173,8 @@ function ViewPopUp(props) {
             </div>
             <div className="btn">
                 {
-                    authData.r_id!=='3'?<><input type="button" value="Dump" onClick={()=>dumpStock()}/>
-                    <input type="submit" value="Update" /></>:<input style={{width: "100%"}} type="submit" value="Update" />
+                    /*authData.r_id!=='3'?<><input type="button" value="Dump" onClick={()=>dumpStock()}/>*/
+                    <input type="submit" value="Update" />
                 }
             </div>
             </form>
