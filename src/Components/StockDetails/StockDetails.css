@@ -92,9 +92,10 @@
   }
   .stock-details section .container .table-section table thead{
     width: 100%;
-    height: 5rem;
+    height: 3rem;
     font-size: 1rem;
     color: var(--color-white);
+    background: #5058a0f3; ;
     /*background: var(--color-blue-shade);*/
   }
   .stock-details section .container .table-section table tbody{
@@ -155,7 +156,7 @@
     background: var(--pure-black);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    color: var(--color-primary);
+    color: var(--color-white);
   }
   .stock-details section .search-data ul li{
     width: 100%;
@@ -164,6 +165,7 @@
     border-bottom: 1px solid var(--color-dark-variant);
     display: flex;
     align-items: center;
+    
   }
   .stock-details section .search-data ul li:last-child{
     border-bottom: none;
@@ -174,4 +176,5 @@
   }
   .stock-details section .search-data ul li span:first-child{
     margin-left: .5rem;
+    text-transform: uppercase;
   }

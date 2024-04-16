@@ -129,7 +129,7 @@ function ViewItemPopUp(props) {
                     </span>
                 </div>
                 <div className="btn">
-                <input type="button" value="Delete" onClick={()=>props.setGlobalPopUp({id:2,header:'Deleted',message:'Data has been deleted successfully'})}/>
+                <input type="button" value="Dump" onClick={()=>props.setGlobalPopUp({id:2,header:'Deleted',message:'Data has been deleted successfully'})}/>
                     <input type="submit" value="Update" />
                 </div>
             </form>

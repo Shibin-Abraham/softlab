@@ -1,19 +1,59 @@
-import React,{useState} from 'react'
+import React,{useCallback, useContext, useEffect, useState} from 'react'
 import './ItemDetails.css'
 import AddItemPopUp from './PopUp/AddItemPopUp'
 import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 import ViewItemPopUp from './PopUp/ViewItemPopUp'
+import AddBrand from './PopUp/AddBrand'
+import { useNavigate } from 'react-router-dom'
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import axios from 'axios'
 
 function ItemDetails() {
   //let [viewPopUp,setViewPopUp] = useState(false)
   let [addItemPopUp,setAddItemPopUp] = useState(false)
+  let [addBrandPopUp,setAddBrandPopUp] = useState(false)
   let [viewPopUp,setViewPopUp] = useState(false)
   let [globalPopUp,setGlobalPopUp] = useState({})  
 
+  let navigate = useNavigate()
 
+  const authData = useContext(StateContext)
+  const dispatch = useContext(DispatchContext)
+
+  let [brandData,setBrandData] = useState([])
+
+  let getBrandData = useCallback(()=>{
+    axios({
+      method: 'POST',
+      url: 'http://localhost/soft-lab-api/route/services/brand-data.php',
+      headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          'Authorization': authData.JWT, 
+        }
+    }).then((res)=>{
+      console.log("active users 11111111",res)
+      if(res.data.length !== undefined){
+          console.log(res.data) 
+          setBrandData(res.data)
+          //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+      }else if(res.data.statuscode === 401){ //token expired
+          localStorage.removeItem('token')
+          dispatch({type:'auth_logout'})
+          navigate('/login',{replace:true})
+          //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      }else if(res.data.statuscode === 400){
+          setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+      }
+    }).catch((err)=>{
+      setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+    })
+  },[authData.JWT,dispatch,navigate])
+
+useEffect(()=>{
+  getBrandData()
+},[getBrandData])
   return (
     <div className='item-details'>
-        {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp}/>}
         {viewPopUp && <ViewItemPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp}/>}
         {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
@@ -23,7 +63,7 @@ function ItemDetails() {
         <h1>Item Details</h1> 
           <div className='top'>
             <input type='search' placeholder='  Search...' />
-            <div onClick={()=>setAddItemPopUp(true)} className='brand-icon'>
+            <div onClick={()=>setAddBrandPopUp(true)} className='brand-icon'>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
                 <path fillRule="evenodd" d="M2 3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v8.5a2.5 2.5 0 0 1-5 0V3Zm3.25 8.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clipRule="evenodd" />
                 <path d="m8.5 11.035 3.778-3.778a1 1 0 0 0 0-1.414l-2.122-2.121a1 1 0 0 0-1.414 0l-.242.242v7.07ZM7.656 14H13a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-.344l-5 5Z" />
@@ -36,18 +76,21 @@ function ItemDetails() {
               </svg>
               <h3>Item</h3>
             </div>
+            {
             <div onClick={()=>setAddItemPopUp(true)}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path d="M6 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM15.75 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3H18a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2.25ZM6 12.75a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3v-2.25a3 3 0 0 0-3-3H6ZM17.625 13.5a.75.75 0 0 0-1.5 0v2.625H13.5a.75.75 0 0 0 0 1.5h2.625v2.625a.75.75 0 0 0 1.5 0v-2.625h2.625a.75.75 0 0 0 0-1.5h-2.625V13.5Z" />
               </svg>
             </div>
+            }
           </div>
           <div className="container">
                 <div className="table-section">
                     <table>
                         <thead>
                             <tr>
-                                <th>Item No</th>
+                                <th>Stock name</th>
+                                <th>Item Name</th>
                                 <th>Category</th>
                                 <th>Location</th>
                                 <th>Status</th>
@@ -56,6 +99,7 @@ function ItemDetails() {
                         </thead>
                         <tbody>
                             <tr>
+                                <td>STOCK-1</td>
                                 <td>LAP-001</td>
                                 <td>Laptop</td>
                                 <td>sw-lab-1</td>
@@ -68,6 +112,7 @@ function ItemDetails() {
                                 </td>
                             </tr>
                             <tr>
+                                <td>STOCK-1</td>
                                 <td>LAP-002</td>
                                 <td>Laptop</td>
                                 <td>sw-lab-1</td>
@@ -80,6 +125,137 @@ function ItemDetails() {
                                 </td>
                             </tr>
                             <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
+                                <td>LAP-002</td>
+                                <td>Laptop</td>
+                                <td>sw-lab-1</td>
+                                <td>New</td>
+                                <td>
+                                    <svg onClick={()=>setViewPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>STOCK-1</td>
                                 <td>LAP-002</td>
                                 <td>Laptop</td>
                                 <td>sw-lab-1</td>
@@ -103,22 +279,23 @@ function ItemDetails() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Dell</td>
-                            </tr>
-                            <tr>
-                                <td>Dell</td>
-                            </tr>
-                            <tr>                               
-                                <td>Dell</td>
-                            </tr>
+                          {
+                            brandData.map((data)=>{
+                              return (
+                                <tr key={data.b_id}>
+                                  <td>{data.b_name}</td>
+                                </tr>
+                              )
+                            })
+                          }
                             
                         </tbody>
                     </table>
                 </div>
             </div>
       </section>
-
+      {addBrandPopUp && <AddBrand setAddBrandPopUp={setAddBrandPopUp} setGlobalPopUp={setGlobalPopUp} brandData={brandData} getBrandData={getBrandData}/>}
+        {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp}/>}
     </div>
   )
 }
