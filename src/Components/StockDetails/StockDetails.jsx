@@ -97,9 +97,14 @@ function StockDetails() {
                 searchPopUp===1?<div className="search-data">
                 <ul>
                     {
-                      allStockDataCopy.length!==0?allStockDataCopy.map((data)=>{
+                      allStockDataCopy.length!==0?allStockDataCopy.map((data,index)=>{
                         return(
-                            <li onClick={()=>setSearchPopUp(0)}>
+                            <li key={index} onClick={(e)=>{
+                                console.log(allStockDataCopy)
+                                setAllStockDataCopy(allStockData.filter((data)=>data.id === String(e.currentTarget.value)))
+                                console.log(allStockDataCopy)
+                                setSearchPopUp(0)
+                                }} value={data.id}>
                                 <span>{data.name} </span>
                                 <span>{data.invoice_id}</span>
                                 <span>{data.invoice_date}</span>

@@ -96,7 +96,7 @@ function DashBoard(){
           }).then((res)=>{
             console.log("all users",typeof(res))
             if(res.data.length !== undefined){
-                console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",res.data) 
+                console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy",res.data)
                 setWarrantyData(res.data.filter((value)=>{
                         let string1=getDate()
                         string1=string1.split("-")

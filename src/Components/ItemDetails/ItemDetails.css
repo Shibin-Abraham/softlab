@@ -9,9 +9,35 @@
     width: 100%;
     height: 95%;
   }
-  .item-details section h1{
+  .item-details section .head-1{
+    width: 94%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .item-details section .head-1 h1{
     font-size: 1.9rem;
     color: var(--color-white);
+  }
+  .item-details section .head-1 svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-dark-variant);
+    transition: all ease .2s;
+  }
+  .item-details section .head-1 svg:hover{
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+  .item-details section .head-1 svg.active{
+    animation: sp 1s linear;
+  }
+  @keyframes sp{
+    from{transform: rotate(0deg);}
+    to{transform: rotate(360deg);}
   }
   .item-details section .top{
     width: 95%;
@@ -59,6 +85,14 @@
     border-radius: var(--border-radius-1);
     transition: all .3s ease;
   }
+  .item-details section .top .brand-icon svg{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .item-details section .top .brand-icon h3{
+    margin-left: .5rem;
+    font-weight: 400; 
+  }
   .item-details section .top .brand-icon:hover h3{
     color: var(--color-white);
   }
@@ -70,7 +104,72 @@
     border: 1px solid var(--color-warning);
     background: var(--color-warning);
   }
-  .item-details section .top div{
+
+  .item-details section .top .item-btn{
+    width: 10%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px dashed var(--color-primary);
+    border-radius: var(--border-radius-1);
+    transition: all .3s ease;
+    
+  }
+  .item-details section .top .item-btn svg{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .item-details section .top .item-btn h3{
+    margin-left: .5rem;
+    font-weight: 400; 
+  }
+  .item-details section .top .item-btn:hover h3{
+    color: var(--color-white);
+  }
+  .item-details section .top .item-btn:hover svg{
+    color: var(--color-white);
+  }
+  .item-details section .top .item-btn:hover{
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  .item-details section .top .mul-item-btn{
+    width: 5%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-success-2);
+    border: 1px dashed var(--color-success-2);
+    border-radius: var(--border-radius-1);
+    transition: all .3s ease;
+    margin-right: .5rem;
+  }
+  .item-details section .top .mul-item-btn svg{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .item-details section .top .mul-item-btn h3{
+    margin-left: .5rem;
+    font-weight: 400; 
+  }
+  .item-details section .top .mul-item-btn:hover h3{
+    color: var(--color-white);
+  }
+  .item-details section .top .mul-item-btn:hover svg{
+    color: var(--color-white);
+  }
+  .item-details section .top .mul-item-btn:hover{
+    color: var(--color-white);
+    border: 1px solid var(--color-success-2);
+    background: var(--color-success-2);
+  }
+  /*
+  .item-details section .top .item-btn{
     width: 10%;
     height: 60%;
     display: flex;
@@ -81,26 +180,26 @@
     border-radius: var(--border-radius-1);
     transition: all .3s ease;
   }
-  .item-details section .top div svg{
+  .item-details section .top .item-btn svg{
     width: 1.5rem;
     height: 1.5rem;
   }
-  .item-details section .top div h3{
+  .item-details section .top .item-btn h3{
     margin-left: .5rem;
     font-weight: 400; 
   }
-  .item-details section .top div:hover h3{
+  .item-details section .top .item-btn:hover h3{
     color: var(--color-white);
   }
-  .item-details section .top div:hover svg{
+  .item-details section .top .item-btn:hover svg{
     color: var(--color-white);
   }
-  .item-details section .top div:hover{
+  .item-details section .top .item-btn:hover{
     color: var(--color-white);
     border: 1px solid var(--color-primary);
     background: var(--color-primary);
   }
-  .item-details section .top div:last-child{
+  .item-details section .top .mul-item-btn{
     margin-right: .5rem;
     width: 5%;
     height: 60%;
@@ -111,14 +210,15 @@
     border: 1px dashed var(--color-success-2);
     transition: all .3s ease;
   }
-  .item-details section .top div:hover svg{
+  .item-details section .top .mul-item-btn:hover svg{
     color: var(--color-white);
   }
-  .item-details section .top div:last-child:hover{
+  .item-details section .top .mul-item-btn:last-child:hover{
     color: var(--color-white);
     border: 1px solid var(--color-success-2);
     background: var(--color-success-2);
   }
+  */
   .item-details section .container{
     width: 95%;
     height: 75%;
@@ -175,6 +275,18 @@
   .item-details section .container .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
   }
+  .item-details section .container .table-section table tbody tr td:nth-child(1){
+    text-transform: uppercase;
+  }
+  .item-details section .container .table-section table tbody tr td:nth-child(2){
+    text-transform: uppercase;
+  }
+  .item-details section .container .table-section table tbody tr td:nth-child(4){
+    text-transform: lowercase;
+  }
+  .item-details section .container .table-section table tbody tr td:nth-child(5)::first-letter{
+    text-transform: uppercase;
+  }
   .item-details section .container .table-section table tbody tr td svg{
     width: 2.3rem;
     height: 2.2rem;
@@ -184,6 +296,13 @@
     width: 2.5rem;
     height: 2.4rem;
   }
+  .item-details section .container .table-section table tbody tr td.old{
+    color: var(--color-danger);
+  }
+  .item-details section .container .table-section table tbody tr td.new{
+    color: var(--color-success);
+  }
+
 
   .item-details section .container .table-section2{
     margin-top: 1rem;
@@ -207,7 +326,7 @@
     height: 3rem;
     font-size: 1rem;
     color: var(--color-white);
-    background: #b9750e;
+    background: #de9b36;
     /*background: var(--color-blue-shade);*/
   }
   .item-details section .container .table-section2 table tbody{

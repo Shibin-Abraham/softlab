@@ -36,7 +36,7 @@ function AddBrand(props) {
         setError('')
         value.length<1&&setError('This field must contain 1 characters')
         props.brandData.forEach(element => {
-          return element.b_name.toUpperCase() === e.target.value.toUpperCase()&&setError(`${e.target.value} already exist, Please enter different brand`)
+          return element.b_name.toUpperCase() === e.target.value.toUpperCase()&&setError(`'${e.target.value}' already exist, Please enter different brand`)
         });
       }
 

@@ -45,7 +45,9 @@
 .add-brand-popup .content .top-section svg:hover{
     color: var(--color-black);
 }
+
 .add-brand-popup .content .data-section{
+    margin-top: 1rem;
     width: 90%;
     height: 97%;
     color: var(--color-dark-variant);
