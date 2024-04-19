@@ -77,3 +77,7 @@ git branch -M main
 git push -u origin main
 
 indent component -- upload image of indent register and stock id
+
+### Screen shoos
+
+![dashboard](https://github.com/Shibin-Abraham/softlab/assets/102577783/d8a6fec1-260a-489a-9009-86c0d9761136)
