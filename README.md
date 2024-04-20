@@ -15,7 +15,15 @@
     Stock Management System
   </b>
   <p>
-
+  <p>
+    <sub>
+      Built with ❤︎ by
+      <a href="https://github.com/Shibin-Abraham/softlab/graphs/contributors">
+        contributors
+      </a>
+    </sub>
+  </p>
+  <br />
 </div>
 
 
