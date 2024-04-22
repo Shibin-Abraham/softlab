@@ -17,7 +17,6 @@
   <p>
   <p>
     <sub>
-      Built with ❤︎ by
       <a href="https://github.com/Shibin-Abraham/softlab/graphs/contributors">
         contributors
       </a>

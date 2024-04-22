@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 function ViewPopUp(props) {
     const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
+    
 
     const navigate = useNavigate()
     const {register, handleSubmit ,formState:{errors}} = useForm();
@@ -119,7 +120,7 @@ function ViewPopUp(props) {
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className='input'>
                 <p> Stock Name</p>
-                <input type='text' {...register("stockname",{required:true,minLength:4,maxLength:20})} defaultValue={props.stockRowData.name}/>
+                <input type='text' {...register("stockname",{required:true,minLength:4,maxLength:20})} value={props.stockRowData.name} />
                 <span>
                     {errors.stockname?.type ==="minLength"&& "Stock name must contain 4 character or number"}
                     {errors.stockname?.type ==="maxLength"&& "Stock name must be less than 20 length "}

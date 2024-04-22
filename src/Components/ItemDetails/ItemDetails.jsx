@@ -15,6 +15,7 @@ function ItemDetails() {
   let [rotate,setRotate] = useState('')
   let [viewPopUp,setViewPopUp] = useState(false)
   let [globalPopUp,setGlobalPopUp] = useState({})  
+  let [allStockData,setAllStockData] = useState([])
 
   let navigate = useNavigate()
 
@@ -23,6 +24,7 @@ function ItemDetails() {
 
   let [brandData,setBrandData] = useState([])
   let [itemsData,setItemsData] = useState([])
+  let [allItemsData,setAllItemsData] = useState([])
 
   let getBrandData = useCallback(()=>{
     axios({
@@ -79,10 +81,69 @@ function ItemDetails() {
     })
   },[authData.JWT,dispatch,navigate])
 
+  let getAllItemData = useCallback(()=>{
+    axios({
+      method: 'POST',
+      url: 'http://localhost/soft-lab-api/route/services/all-items.php',
+      headers: {
+          'Content-type': 'application/json; charset=utf-8',
+          'Authorization': authData.JWT, 
+        }
+    }).then((res)=>{
+      console.log("active users 11111111",res)
+      if(res.data.length !== undefined){
+          console.log("Alllllllitem data;;;;;;;;;;;;;",res.data) 
+          setAllItemsData(res.data)
+          //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+      }else if(res.data.statuscode === 401){ //token expired
+          localStorage.removeItem('token')
+          dispatch({type:'auth_logout'})
+          navigate('/login',{replace:true})
+          //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      }else if(res.data.statuscode === 400){
+          setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+      }
+    }).catch((err)=>{
+      setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+    })
+  },[authData.JWT,dispatch,navigate])
+
+
+  let getStockData = useCallback(()=>{
+    axios({
+        method: 'POST',
+        url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+        headers: {
+            'Content-type': 'application/json; charset=utf-8',
+            'Authorization': authData.JWT, 
+          }
+      }).then((res)=>{
+        //console.log("stock dataa ---------------", res)
+        if(res.data.length !== undefined){
+            //console.log(res.data) 
+            setAllStockData(res.data.filter((data)=>data.dump!=="1"))
+            
+            //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
+            //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
+        }else if(res.data.statuscode === 401){ //token expired
+            localStorage.removeItem('token')
+            dispatch({type:'auth_logout'})
+            navigate('/login',{replace:true})
+            //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+        }else if(res.data.statuscode === 400){
+            setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+        }
+      }).catch((err)=>{
+        setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+      })
+},[authData.JWT,dispatch,navigate])
+
 useEffect(()=>{
   getBrandData()
   getItemData()
-},[getBrandData,getItemData])
+  getStockData()
+  getAllItemData()
+},[getBrandData,getItemData,getStockData,getAllItemData])
   return (
     <div className='item-details'>
         {viewPopUp && <ViewItemPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp}/>}
@@ -95,6 +156,10 @@ useEffect(()=>{
           <h1>Item Details</h1> 
           <svg onClick={()=>{
             setRotate('active')
+              getBrandData()
+              getItemData()
+              getStockData()
+              getAllItemData()
             setTimeout(()=>{
               setRotate('')
             },1000)
@@ -198,7 +263,7 @@ useEffect(()=>{
             </div>
       </section>
       {addBrandPopUp && <AddBrand setAddBrandPopUp={setAddBrandPopUp} setGlobalPopUp={setGlobalPopUp} brandData={brandData} getBrandData={getBrandData}/>}
-        {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp} allStockData={allStockData} brandData={brandData} getItemData={getItemData} allItemsData={allItemsData} />}
     </div>
   )
 }
