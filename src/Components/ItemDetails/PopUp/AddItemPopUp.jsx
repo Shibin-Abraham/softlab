@@ -10,6 +10,7 @@ function AddItemPopUp(props) {
     let [error,setError] = useState('')
     let [error1,setError1] = useState('')
     let [error2,setError2] = useState('')
+    let [filterdStock,setFiltredStock] = useState([])
 
     let navigate = useNavigate()
 
@@ -18,7 +19,8 @@ function AddItemPopUp(props) {
 
     useEffect(()=>{
         setTimeout(()=>setPopUpActive('popup-active'),1)
-    },[])
+        setFiltredStock(props.allStockData.filter((data)=>data.category!==''))
+    },[setFiltredStock,props.allStockData])
 
     const {register, handleSubmit ,formState:{errors}} = useForm();
     const onSubmit = (datas)=>{
@@ -119,7 +121,7 @@ function AddItemPopUp(props) {
                     //setStockName(props.allStockData.filter((data)=>data.id===e.currentTarget.value))
                 }}>
                     {
-                        props.allStockData.length!==0?props.allStockData.map((data)=>{
+                        filterdStock.length!==0?filterdStock.map((data)=>{
                             return(
                                 <option key={data.id} value={data.id}>{data.name}</option>
                             )

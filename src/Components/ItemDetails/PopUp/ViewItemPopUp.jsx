@@ -1,15 +1,107 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './ViewItemPopUp.css'
 import { useForm } from 'react-hook-form'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider';
 
 function ViewItemPopUp(props) {
+    console.log("row data",props.itemRowData)
+
+    let navigate = useNavigate()
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+
     const {register, handleSubmit ,formState:{errors}} = useForm();
     const onSubmit = (data)=>{
         if(data){
-            props.setViewPopUp(false)
-            props.setGlobalPopUp({id:1,header:'Updated',message:'Data has been updated'})
+            axios({
+                method: 'POST',
+                url: 'http://localhost/soft-lab-api/route/services/update-item-details.php',
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8',
+                    'Authorization': authData.JWT, 
+                    },
+                data: {...data,
+                        id: props.itemRowData.id,
+                        current_date: getDate(),
+                        current_time: getTime()
+                        }
+                }).then((res)=>{
+                console.log("status code update stock",res)
+                if(res.data.statuscode === 200){
+                    props.getItemData()
+                    props.setViewPopUp(false)
+                    props.setGlobalPopUp({id:2,header:'Updated',message:'Data has been updated'}) // show the success message
+                }else if(res.data.statuscode === 401){ //token expired
+                    localStorage.removeItem('token')
+                    dispatch({type:'auth_logout'})
+                    navigate('/login',{replace:true})
+                    //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+                }else if(res.data.statuscode === 400){
+                    props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+                }else if(res.data.statuscode === 500){
+                    props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+                }
+                }).catch((err)=>{
+                    console.log(err)
+                    props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+                })
         }
     }
+
+    function setDump(itemId){
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/dump-item.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+                },
+            data: {
+                    id: itemId,
+                    current_date: getDate(),
+                    current_time: getTime()
+                    }
+            }).then((res)=>{
+            console.log("status code dump item",res)
+            if(res.data.statuscode === 200){
+                props.getItemData()
+                props.setViewPopUp(false)
+                props.setGlobalPopUp({id:2,header:'Dumped',message:'item successfully dumped'}) // show the success message
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }else if(res.data.statuscode === 500){
+                props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+            }
+            }).catch((err)=>{
+                console.log(err)
+                props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+            })
+    }
+
+    function getDate() {
+        const today = new Date();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+        let date = today.getDate();
+        date = date<10?`0${date}`:date
+        month = month<10?`0${month}`:month
+        return `${year}-${month}-${date}`;
+      }
+    function getTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        return `${h}:${m}`;
+      }
+
   return (
     <div className='item-view-popup'>
       <div className="content">
@@ -22,114 +114,111 @@ function ViewItemPopUp(props) {
         <div className="data-section">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='input'>
-                    <p> Item No</p>
-                    <input type='text' {...register("itemno",{required:true,minLength:1,maxLength:10})}/>
+                    <p> Item Name</p>
+                    <input type='text' value={props.itemRowData.name} {...register("itemname",{required:true,minLength:1,maxLength:10})}/>
                     <span>
-                        {errors.itemno?.type ==="minLength"&& "item No must contain 1 character or number"}
-                        {errors.itemno?.type ==="maxLength"&& "item No must be less than 10 length "}
-                        {errors.itemno?.type ==="required"&& "item No Required"}
+                        {errors.itemname?.type ==="minLength"&& "item Name must contain 1 character or number"}
+                        {errors.itemname?.type ==="maxLength"&& "item Name must be less than 10 length "}
+                        {errors.itemname?.type ==="required"&& "item Name Required"}
                     </span>
                 </div>
                 <div className='input'>
-                    <p> Category</p>
-                    {/*<input type='text' {...register("subindent",{required:true,minLength:1,maxLength:10})}/>*/}
-                    <select name="" id="">
-                        <option value="">category</option>
+                    <p>Select Stock</p>
+                    <select defaultValue={props.itemRowData.s_id} {...register("stockid",{required:true})} onClick={(e)=>{
+                        //setError1('')
+                    }}>
+                        {
+                            props.allStockData.length!==0?props.allStockData.map((data)=>{
+                                return(
+                                    data.category!==''?<option key={data.id} value={data.id}>{data.name}</option>:null
+                                )
+                            }):<option> No data</option>
+                        }
+                        
                     </select>
                     <span>
+                        
                     </span>
                 </div>
                 <div className='input'>
-                    <p> Brand</p>
-                    <input type='text' {...register("brand",{required:true,minLength:1,maxLength:20})}/>
-                    <span>
-                        {errors.brand?.type ==="minLength"&& "This field must contain 1 character"}
-                        {errors.brand?.type ==="maxLength"&& "This field must be less than 20 length characters"}
-                        {errors.brand?.type ==="required"&& "Brand name Required"}
-                    </span>
+                    <p> Select Brand</p>
+                    <select defaultValue={props.itemRowData.b_id} {...register("brandId",{required:true})} onClick={(e)=>{
+                        //setError2('')
+                    }}>
+                        {
+                            props.brandData.length!==0?props.brandData.map((data)=>{
+                                return(
+                                    <option key={data.b_id} value={data.b_id}>{data.b_name}</option>
+                                )
+                            }):<option> No data</option>
+                        }
+                        
+                    </select>
                 </div>
                 <div className='input'>
                     <p> Model</p>
-                    <input type='text' {...register("model",{required:true,minLength:1,maxLength:20})}/>
+                    <input defaultValue={props.itemRowData.model} type='text' {...register("model",{required:true,minLength:1,maxLength:20})}/>
                     <span>
-                        {errors.model?.type ==="required"&& "Model Required"}
+                        {errors.model?.type ==="required"&& "This field Required"}
                         {errors.model?.type ==="minLength"&& "This field must contain 1 character or number"}
                         {errors.model?.type ==="maxLength"&& "This field must be less than 20 length"}
                     </span>
                 </div>
                 <div className='input'>
                     <p> Description</p>
-                    <input type='text' {...register("description",{required:true,minLength:1,maxLength:50})}/>
+                    <input defaultValue={props.itemRowData.description} type='text' {...register("description",{required:true,minLength:1,maxLength:50})}/>
                     <span>
-                        {errors.description?.type ==="required"&& "Description details Required"}
+                        {errors.description?.type ==="required"&& "This field Required"}
                         {errors.description?.type ==="minLength"&& "This field must contain 1 character or number"}
                         {errors.description?.type ==="maxLength"&& "This field must be less than 50 length"}
                     </span>
                 </div>
                 <div className='input'>
                     <p> Warranty</p>
-                    <input type='text' {...register("wdate",{required:true,pattern:/^[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}$/g})} placeholder='dd-mm-yyyy'/>
+                    <input defaultValue={props.itemRowData.warranty} type='text' {...register("wdate",{required:true,pattern:/^[0-9]{4}[-]{1}[0-9]{2}[-]{1}[0-9]{2}$/g})} placeholder='yyyy-mm-dd'/>
                     <span>
                         {errors.wdate?.type ==="required"&& "Warranty Date Required"}
-                        {errors.wdate?.type ==="pattern"&& "DD-MM-YYYY"}
+                        {errors.wdate?.type ==="pattern"&& "YYYY-MM-DD"}
                     </span>
                 </div>
                 <div className='input'>
-                    <p> Type</p>
-                    <select name="" id="">
-                        <option value="">type</option>
-                    </select>
+                    <p> Item Type</p>
+                    <input defaultValue={props.itemRowData.type} type='text' {...register("Itype",{required:true,minLength:1,maxLength:50})}/>
                     <span>
-        
+                        {errors.Itype?.type ==="required"&& "This field Required"}
+                        {errors.Itype?.type ==="minLength"&& "This field must contain 1 character or number"}
+                        {errors.Itype?.type ==="maxLength"&& "This field must be less than 50 length"}
                     </span>
                 </div>
                 <div className='input'>
                     <p> Lab Location</p>
-                    <select name="" id="">
-                        <option value="">lab location</option>
-                    </select>
+                    <input defaultValue={props.itemRowData.lab_location} type='text' {...register("location",{required:true,minLength:1,maxLength:50})}/>
                     <span>
-                        
+                        {errors.location?.type ==="required"&& "This field Required"}
+                        {errors.location?.type ==="minLength"&& "This field must contain 1 character or number"}
+                        {errors.location?.type ==="maxLength"&& "This field must be less than 50 length"}
                     </span>
                 </div>
                 <div className='input'>
-                    <p> Status</p>
-                    <select name="" id="">
-                        <option value="">status</option>
-                    </select>
+                    <p> Item Status</p>
+                    <input defaultValue={props.itemRowData.status} type='text' {...register("status",{required:true,minLength:1,maxLength:50})}/>
                     <span>
-                        
+                        {errors.status?.type ==="required"&& "This field Required"}
+                        {errors.status?.type ==="minLength"&& "This field must contain 1 character or number"}
+                        {errors.status?.type ==="maxLength"&& "This field must be less than 50 length"}
                     </span>
                 </div>
                 <div className='input'>
-                    <p> Quantity</p>
-                    <input type='text' {...register("quantity",{required:true,minLength:1,maxLength:20})}/>
-                    <span>
-                        {errors.quantity?.type ==="minLength"&& "This field must contain 1 character"}
-                        {errors.quantity?.type ==="maxLength"&& "This field must be less than 20 length"}
-                        {errors.quantity?.type ==="required"&& "Quantity Required"}
-                    </span>
-                </div>
-                <div className='input'>
-                    <p> Price per item</p>
-                    <input type='text' {...register("priceperitem",{required:true,minLength:1,maxLength:20})}/>
-                    <span>
-                        {errors.priceperitem?.type ==="minLength"&& "This field must contain 2 character"}
-                        {errors.priceperitem?.type ==="maxLength"&& "This field must be less than 20 length"}
-                        {errors.priceperitem?.type ==="required"&& "Price per item Required"}
-                    </span>
-                </div>
-                <div className='input'>
-                    <p> Total Price</p>
-                    <input type='text' {...register("totalprice",{required:true,minLength: 1,maxLength:20})}/>
+                    <p> Price</p>
+                    <input defaultValue={props.itemRowData.amount} type='number' {...register("totalprice",{required:true,minLength: 1,maxLength:20})}/>
                     <span>
                         {errors.totalprice?.type ==="minLength"&& "This field must contain 1 character"}
                         {errors.totalprice?.type ==="maxLength"&& "This field must be less than 20 length"}
-                        {errors.totalprice?.type ==="required"&& "Total Price Required"}
+                        {errors.totalprice?.type ==="required"&& "This field Required"}
                     </span>
                 </div>
                 <div className="btn">
-                <input type="button" value="Dump" onClick={()=>props.setGlobalPopUp({id:2,header:'Deleted',message:'Data has been deleted successfully'})}/>
+                <input type="button" value="Dump" onClick={()=>setDump(props.itemRowData.id)}/>
                     <input type="submit" value="Update" />
                 </div>
             </form>

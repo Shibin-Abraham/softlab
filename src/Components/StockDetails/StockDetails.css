@@ -157,6 +157,7 @@
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     color: var(--color-white);
+    overflow: hidden;
   }
   .stock-details section .search-data ul li{
     width: 100%;
@@ -165,7 +166,9 @@
     border-bottom: 1px solid var(--color-dark-variant);
     display: flex;
     align-items: center;
-    
+  }
+  .stock-details section .search-data ul li:hover{
+    background: var(--color-dark-variant);
   }
   .stock-details section .search-data ul li:last-child{
     border-bottom: none;

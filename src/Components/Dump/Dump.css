@@ -31,7 +31,7 @@
   .dump-data section .container::-webkit-scrollbar{
     display: none;
   }
-  .dump-data section .container .left-section{
+  .dump-data section .container .left-section{  /* !!!!!!! left-section and right-section are interchanged but className not changed*/
     width: 60%;
     height: 100%;
     display: flex;
@@ -41,6 +41,24 @@
   .dump-data section .container .left-section::-webkit-scrollbar{
     display: none;
   }
+  .dump-data section .container .left-section .select-arrow{
+    margin-left: 1rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    width: 25%;
+    height: 8rem;
+    box-shadow: var(--box-shadow-1);
+    border-radius: var(--border-radius-2);
+    background: var(--color-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-danger);
+    transition: all ease .5s;
+  }
+  
+
   .dump-data section .container .left-section .card{
     margin-left: 1rem;
     margin-right: 2rem;
@@ -146,6 +164,7 @@
     transition: all ease .5s;
     position: sticky;
     top: 2rem;
+    cursor: pointer;
   }
   .dump-data section .container .right-section .card .svg{
     margin-top: -15px;
