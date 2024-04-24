@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './ViewItemPopUp.css'
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider';
 
 function ViewItemPopUp(props) {
+
+    let [dumpBtn,setDumpBtn] = useState(0)
+    let [borrwStatus,setBorrowStatus] = useState('')
+
     console.log("row data",props.itemRowData)
 
     let navigate = useNavigate()
@@ -51,6 +55,42 @@ function ViewItemPopUp(props) {
         }
     }
 
+
+    let checkItemDump = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/item-dump-check.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+                },
+            data: {
+                    id: props.itemRowData.id,
+                    }
+            }).then((res)=>{
+            console.log("status code dump item",res)
+            if(res.data.statuscode === 200){
+                setDumpBtn(0)
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            }else if(res.data.statuscode === 400){
+                props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }else if(res.data.statuscode === 500){
+                props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+            }else if(res.data.statuscode === 409){
+                setDumpBtn(1)
+                setBorrowStatus('Borrowed')
+            }
+            }).catch((err)=>{
+                console.log(err)
+                props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+            })
+    },[authData.JWT, dispatch, navigate,props])
+        
+
     function setDump(itemId){
         axios({
             method: 'POST',
@@ -79,6 +119,8 @@ function ViewItemPopUp(props) {
                 props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
             }else if(res.data.statuscode === 500){
                 props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+            }else if(res.data.statuscode === 409){
+                props.setGlobalPopUp({id:4,header:'Item Borrowed',message:'You cant dump this item'})
             }
             }).catch((err)=>{
                 console.log(err)
@@ -102,11 +144,16 @@ function ViewItemPopUp(props) {
         return `${h}:${m}`;
       }
 
+      useEffect(()=>{
+        checkItemDump()
+      },[checkItemDump])
+
   return (
     <div className='item-view-popup'>
       <div className="content">
         <div className="top-section">
             <h2>Item Details</h2>
+            {borrwStatus!==''?<span>{borrwStatus}</span>:null}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6" onClick={()=>props.setViewPopUp(false)}>
               <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clipRule="evenodd" />
             </svg>
@@ -218,7 +265,9 @@ function ViewItemPopUp(props) {
                     </span>
                 </div>
                 <div className="btn">
-                <input type="button" value="Dump" onClick={()=>setDump(props.itemRowData.id)}/>
+                    {
+                        dumpBtn===0&&<input type="button" value="Dump" onClick={()=>setDump(props.itemRowData.id)}/>
+                    }
                     <input type="submit" value="Update" />
                 </div>
             </form>

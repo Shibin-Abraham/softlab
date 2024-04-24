@@ -34,6 +34,16 @@
     color: var(--color-white);
     margin-left: 1rem;
 }
+.item-view-popup .content .top-section span{
+    width: 5rem;
+    height: 1.2rem;
+    border-radius: .5rem;
+    background: var(--pure-black);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .item-view-popup .content .top-section svg{
     color: var(--color-dark);
     width: 2.5rem;
@@ -100,7 +110,7 @@
     justify-content: space-between;
 }
 .item-view-popup .content .data-section .btn input[type=button],input[type=submit]{
-    width: 45%;
+    width: 100%;
     height: 100%;
     outline: none;
     background: none;
@@ -112,13 +122,14 @@
     color: var(--color-danger);
     border: 2px solid var(--color-danger);
     border-radius: var(--border-radius-1);
+    margin-right: .5rem;
 }
 .item-view-popup .content .data-section .btn input[type=button]:hover{
     color: var(--color-white);
     background: var(--color-danger);
 }
 .item-view-popup .content .data-section .btn input[type=submit]{
-    width: 45%;
+    width: 100%;
     color: var(--color-primary);
     border: 2px solid var(--color-primary);
     border-radius: var(--border-radius-1);

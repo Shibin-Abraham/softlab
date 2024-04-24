@@ -99,7 +99,7 @@ function AddBrand(props) {
                 </div>
                 <div className="data-section">
                 <div>
-                    <input type="text" placeholder='Enter the Brand Name' onChange={(e)=>checkBrandName(e)}/>
+                    <input type="text" placeholder='Enter the Brand Name eg: Acer, Dell...' onChange={(e)=>checkBrandName(e)}/>
                     {//
                     }
                 </div>
