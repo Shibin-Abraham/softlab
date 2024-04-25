@@ -15,6 +15,7 @@ import PrivateRoutes from './Components/Utils/PrivateRoutes.jsx';
 import { StateContext } from './Components/AuthProvider/AuthProvider.jsx';
 import InActive from './Login/InActive.jsx';
 import Dump from './Components/Dump/Dump.jsx';
+import Settings from './Components/Settings/Settings.jsx';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path='/borrowers' element={<Borrowers />} />
             <Route path='/dump' element={<Dump />} />
             <Route path='/audit' element={<AuditLog />} />
+            <Route path='/settings' element={<Settings />} />
           </Route>
         </Routes>
     </BrowserRouter>

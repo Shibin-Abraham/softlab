@@ -1,0 +1,190 @@
+@import url('../../global.css');
+
+.settings{
+    width: 80vw;
+    height: 100vh;
+}
+.settings section{
+    margin: 1rem 0rem 0rem 1rem;
+    width: 100%;
+    height: 95%;
+  }
+  .settings section .top{
+    width: 95%;
+    height: 10%;
+    border-radius: var(--border-radius-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .settings section .top h1{
+    font-size: 1.9rem;
+    color: var(--color-white);
+  }
+  .settings section .top .mode{
+    display: flex;
+    justify-content: flex-start;
+  }
+  .settings section .top .mode .toggle{ 
+    position: relative;
+    width: 4.1rem;
+    height: 1.9rem;
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;  
+    transition: all ease 1s;
+    cursor: pointer;
+  }
+  .settings section .top .mode .toggle .background{ 
+    position: absolute;
+    right: .2rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    background: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    z-index: 0;
+    transition: all ease 1s;
+  }
+  .settings section .top .mode .toggle svg:first-child{ 
+    position: absolute;
+    left: .3rem;
+    z-index: 1;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .settings section .top .mode .toggle svg:nth-child(2){ 
+    position: absolute;
+    right: .3rem;
+    z-index: 1;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .settings section .container{
+    margin-top: 1rem;
+    position: relative;
+    width: 95%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .settings section .container .left{
+    width: 65%;
+    height: 80%;
+  }
+  .settings section .container .left .card{
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-bottom: 2rem;
+  }
+  .settings section .container .left .card .data-section{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    color: var(--color-info-light);
+  }
+  .settings section .container .left .card .data-section p{
+    font-size: .9rem;
+    color: var(--color-dark-variant);
+  }
+  .settings section .container .left .card .btn-section{
+    width: 40%;
+    height: auto;
+  }
+  .settings section .container .left .card .btn-section section{
+    margin: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .settings section .container .left .card .btn-section section .top-control svg:hover{
+    cursor: pointer;
+    fill: var(--color-primary);
+  }
+  .settings section .container .left .card .btn-section section p{
+    margin-left: .5rem;
+    font-size: .9rem;
+    color: var(--color-white);
+  }
+  .settings section .container .left .card .btn-section section .top-control{
+    margin-top: .1rem;
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .settings section .container .left .card .btn-section section .top-control .color-btn{
+    width: 2rem;
+    height: 2rem; 
+    border-radius: var(--border-radius-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .5rem;
+  }
+  .settings section .container .left .card .btn-section section .top-control .color-btn:hover{
+    background: var(--color-light-variant);
+  }
+  .settings section .container .left .card .btn-section section .top-control .color-btn div{
+    width: 1rem;
+    height: 1rem; 
+    border-radius: 50%;
+  }
+  .settings section .container .left .card .btn-section section .toggle-control{
+    margin-top: 1rem;
+    width: 100%;
+    height: 7rem;
+  }
+  .settings section .container .left .card .btn-section section .toggle-control .toggle-box{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    color: var(--color-dark-variant);
+  }
+  .settings section .container .left .card .btn-section section .toggle-control .toggle-box .toggle-btn{
+    position: relative;
+    width: 3rem;
+    height: 1.3rem;
+    background: var(--color-light-variant);
+    border-radius: var(--border-radius-2);
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  .settings section .container .left .card .btn-section section .toggle-control .toggle-box .toggle-btn .t-btn{
+    position: absolute;
+    width: .9rem;
+    height: .9rem;
+    border-radius: 50%;
+  }
+  
+
+
+  .settings section .container .right{
+    width: 30%;
+    height: 80%;
+  }
+  .settings section .container .right span{
+    font-size: 1rem;
+    color: var(--color-dark-variant);
+  }
+  .settings section .container .right hr{
+    width: 70%;
+    height: .1rem;
+    border: none;
+    border-bottom: 1px solid var(--color-dark-variant);
+  }
+  .settings section .container .right h5{
+    margin-top: .5rem;
+    font-weight: 400;
+    font-size: .9rem;
+    color: var(--color-dark-variant);
+  }
+  

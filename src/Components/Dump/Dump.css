@@ -116,10 +116,6 @@
     width: 26%;
     box-shadow: rgba(0, 26, 255, 0.573) 0px 5px 10px;
   }
-  .dump-data section .container .left-section .card::selection{
-    width: 26%;
-    box-shadow: rgba(0, 26, 255, 0.573) 0px 5px 10px;
-  }
 
 
   .dump-data section .container .right-section{
