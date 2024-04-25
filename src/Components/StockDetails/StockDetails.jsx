@@ -105,9 +105,31 @@ function StockDetails() {
                                 console.log(allStockDataCopy)
                                 setSearchPopUp(0)
                                 }} value={data.id}>
-                                <span>{data.name} </span>
-                                <span>{data.invoice_id}</span>
-                                <span>{data.invoice_date}</span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#3e4cce" className="w-4 h-4">
+                                        <path d="M8 7c3.314 0 6-1.343 6-3s-2.686-3-6-3-6 1.343-6 3 2.686 3 6 3Z" />
+                                        <path d="M8 8.5c1.84 0 3.579-.37 4.914-1.037A6.33 6.33 0 0 0 14 6.78V8c0 1.657-2.686 3-6 3S2 9.657 2 8V6.78c.346.273.72.5 1.087.683C4.42 8.131 6.16 8.5 8 8.5Z" />
+                                        <path d="M8 12.5c1.84 0 3.579-.37 4.914-1.037.366-.183.74-.41 1.086-.684V12c0 1.657-2.686 3-6 3s-6-1.343-6-3v-1.22c.346.273.72.5 1.087.683C4.42 12.131 6.16 12.5 8 12.5Z" />
+                                    </svg>
+                                    {data.name} 
+                                </span>
+                                <span>
+                                    {
+                                        data.invoice_id.length!==0?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#00af75d8" className="w-4 h-4">
+                                        <path fillRule="evenodd" d="M11.914 4.086a2 2 0 0 0-2.828 0l-5 5a2 2 0 1 0 2.828 2.828l.556-.555a.75.75 0 0 1 1.06 1.06l-.555.556a3.5 3.5 0 0 1-4.95-4.95l5-5a3.5 3.5 0 0 1 4.95 4.95l-1.972 1.972a2.125 2.125 0 0 1-3.006-3.005L9.97 4.97a.75.75 0 1 1 1.06 1.06L9.058 8.003a.625.625 0 0 0 .884.883l1.972-1.972a2 2 0 0 0 0-2.828Z" clipRule="evenodd" />
+                                    </svg>:null
+                                    }
+                                    
+                                    {data.invoice_id}
+                                </span>
+                                <span>
+                                    {
+                                        data.invoice_date.length!==0?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#ff7782" className="w-4 h-4">
+                                        <path fillRule="evenodd" d="M4 1.75a.75.75 0 0 1 1.5 0V3h5V1.75a.75.75 0 0 1 1.5 0V3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2V1.75ZM4.5 6a1 1 0 0 0-1 1v4.5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7Z" clipRule="evenodd" />
+                                    </svg>:null
+                                    } 
+                                    {data.invoice_date}
+                                </span>
                             </li>
                         )
                     }):null

@@ -168,6 +168,54 @@
     border: 1px solid var(--color-success-2);
     background: var(--color-success-2);
   }
+  
+  /** search section style **/
+  .item-details section .search-data{
+    position: absolute;
+    z-index: 1;
+    width: 55%;
+    height: auto;
+  }
+  .item-details section .search-data ul{
+    width: 97%;
+    height: 100%;
+    margin-left: .5rem;
+    list-style-type: none;
+    background: var(--pure-black);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: var(--color-white);
+    overflow: hidden;
+  }
+  .item-details section .search-data ul li{
+    width: 100%;
+    height: 3rem;
+    list-style-type: none;
+    border-bottom: 1px solid var(--color-dark-variant);
+    display: flex;
+    align-items: center;
+  }
+  .item-details section .search-data ul li:hover{
+    background: var(--color-dark-variant);
+  }
+  .item-details section .search-data ul li:last-child{
+    border-bottom: none;
+  }
+  .item-details section .search-data ul li span{
+    font-size: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .item-details section .search-data ul li span svg{
+    margin-right: .5rem;
+    width: 1rem;
+    height: 1.5rem;
+  }
+  .item-details section .search-data ul li span:first-child{
+    margin-left: .5rem;
+    text-transform: uppercase;
+  }
   /*
   .item-details section .top .item-btn{
     width: 10%;

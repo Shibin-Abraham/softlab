@@ -176,6 +176,13 @@
   .stock-details section .search-data ul li span{
     font-size: 1rem;
     margin-left: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .stock-details section .search-data ul li span svg{
+    margin-right: .5rem;
+    width: 1.2rem;
+    height: 1.5rem;
   }
   .stock-details section .search-data ul li span:first-child{
     margin-left: .5rem;
