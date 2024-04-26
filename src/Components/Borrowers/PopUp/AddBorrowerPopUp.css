@@ -57,7 +57,7 @@
 }
 .add-borrower-popup .content form .input{
     width: 100%;
-    height: 4.8rem;
+    height: 5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -80,7 +80,7 @@
 }
 .add-borrower-popup .content form .input span{
     color: var(--color-danger);
-    font-size: .6rem;
+    font-size: .8rem;
 }
 .add-borrower-popup .content form .btn{
     width: 100%;

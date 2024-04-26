@@ -102,6 +102,14 @@
     text-align: center;
     border-bottom: 1px solid var(--color-dark-variant);
   }
+  .borrower-details section .container .table-section table tbody tr td p{
+    display: inline;
+    margin-left: 1rem;
+    padding: 0 .3rem;
+    color: var(--pure-black);
+    background: var(--color-success-2);
+    border-radius: var(--border-radius-2);
+  }
   .borrower-details section .container .table-section table tbody tr:first-child td{
     border-top: 1px solid var(--color-dark-variant);
   }

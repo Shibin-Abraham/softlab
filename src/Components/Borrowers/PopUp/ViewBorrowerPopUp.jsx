@@ -41,31 +41,20 @@ function ViewBorrowerPopUp(props) {
             </div>
             <div className='input'>
                 <p> Branch</p>
-                <select name="" id="">
-                    <option value="">CSE</option>
-                    <option value="">IT</option>
-                    <option value="">EC</option>
-                    <option value="">EEE</option>
-                    <option value="">ME</option>
-                </select>
+                <input type='text' {...register("branch",{required:true,minLength:1,maxLength:10})}/>
                 <span>
-    
+                    {errors.branch?.type ==="minLength"&& "item No must contain 1 character or number"}
+                    {errors.branch?.type ==="maxLength"&& "item No must be less than 10 length "}
+                    {errors.branch?.type ==="required"&& "item No Required"}
                 </span>
             </div>
             <div className='input'>
                 <p> Semester</p>
-                <select name="" id="">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                </select>
+                <input type='text' {...register("semester",{required:true,minLength:1,maxLength:10})}/>
                 <span>
-    
+                    {errors.semester?.type ==="minLength"&& "item No must contain 1 character or number"}
+                    {errors.semester?.type ==="maxLength"&& "item No must be less than 10 length "}
+                    {errors.semester?.type ==="required"&& "item No Required"}
                 </span>
             </div>
             <div className='input'>
@@ -95,8 +84,8 @@ function ViewBorrowerPopUp(props) {
                 </span>
             </div>
                 <div className="btn">
-                <input type="submit" value="Update" />
-                <input type="button" value="Returned" onClick={()=>props.setGlobalPopUp({id:2,header:'Success',message:'Borrower successfully returned Item'})}/>
+                
+                <input type="submit" value="Returned" onClick={()=>props.setGlobalPopUp({id:2,header:'Success',message:'Borrower successfully returned Item'})}/>
                     
                 </div>
             </form>

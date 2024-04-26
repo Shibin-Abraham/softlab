@@ -88,8 +88,8 @@
     align-items: center;
     justify-content: space-between;
 }
-.borrower-view-popup .content .data-section .btn input[type=button],input[type=submit]{
-    width: 45%;
+.borrower-view-popup .content .data-section .btn input[type=submit]{
+    width: 100%;
     height: 100%;
     outline: none;
     border: none;
@@ -97,22 +97,12 @@
     font-size: 1rem;
     margin-top: 2rem;
 }
-.borrower-view-popup .content .data-section .btn input[type=button]{
-    color: var(--color-white);
-    background: var(--color-success-2);
-    border-radius: var(--border-radius-1);
-}
-.borrower-view-popup .content .data-section .btn input[type=button]:hover{
-    color: var(--color-white);
-    background: var(--color-success-2-variant);
-}
 .borrower-view-popup .content .data-section .btn input[type=submit]{
-    width: 45%;
     color: var(--color-white);
     background: var(--color-primary);
     border-radius: var(--border-radius-1);
 }
 .borrower-view-popup .content .data-section .btn input[type=submit]:hover{
     color: var(--color-white);
-    background: var(--color-primary-variant);
+    background: var(--color-primary-3);
 }

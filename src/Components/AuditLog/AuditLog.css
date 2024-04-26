@@ -9,10 +9,6 @@
     width: 100%;
     height: 95%;
   }
-  .audit-log section .top h1{
-    font-size: 1.9rem;
-    color: var(--color-white);
-  }
   .audit-log section .top{
     width: 95%;
     height: 10%;
@@ -20,6 +16,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .audit-log section .top svg{
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-white);
+  }
+  .audit-log section .top h1{
+    font-size: 1.9rem;
+    color: var(--color-white);
   }
   .audit-log section .container{
     position: relative;

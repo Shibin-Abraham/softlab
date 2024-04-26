@@ -1,17 +1,87 @@
-import React,{useState} from 'react'
+import React,{useCallback, useContext, useEffect, useState} from 'react'
 import './Borrowers.css'
 import AddBorrowerPopUp from './PopUp/AddBorrowerPopUp'
 import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 import ViewBorrowerPopUp from './PopUp/ViewBorrowerPopUp'
+import { useNavigate } from 'react-router-dom'
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import axios from 'axios'
 
 function Borrowers() {
     let [addBorrowerPopUp,setAddBorrowerPopUp] = useState(false)
     let [viewBorrowerPopUp,setViewBorrowerPopUp] = useState(false)
     let [globalPopUp,setGlobalPopUp] = useState({})
+    let [borrowersData,setBorrowersData] = useState([])
+    let [itemsData,setItemsData] = useState([])
+
+    let navigate = useNavigate()
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+
+
+    let getBorrowersData = useCallback(()=>{
+        axios({
+          method: 'POST',
+          url: 'http://localhost/soft-lab-api/route/services/borrowers-data.php',
+          headers: {
+              'Content-type': 'application/json; charset=utf-8',
+              'Authorization': authData.JWT, 
+            }
+        }).then((res)=>{
+          console.log("active users 11111111",res)
+          if(res.data.length !== undefined){
+              console.log(res.data) 
+              setBorrowersData(res.data)
+              //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+          }else if(res.data.statuscode === 401){ //token expired
+              localStorage.removeItem('token')
+              dispatch({type:'auth_logout'})
+              navigate('/login',{replace:true})
+              //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+          }else if(res.data.statuscode === 400){
+              setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+          }
+        }).catch((err)=>{
+          setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+        })
+      },[authData.JWT,dispatch,navigate])
+
+      let getItemData = useCallback(()=>{
+        axios({
+          method: 'POST',
+          url: 'http://localhost/soft-lab-api/route/services/item-data.php',
+          headers: {
+              'Content-type': 'application/json; charset=utf-8',
+              'Authorization': authData.JWT, 
+            }
+        }).then((res)=>{
+          console.log("items data",res)
+          if(res.data.length !== undefined){
+              console.log("item data;;;;;;;;;;;;;",res.data) 
+              setItemsData(res.data)
+              //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+          }else if(res.data.statuscode === 401){ //token expired
+              localStorage.removeItem('token')
+              dispatch({type:'auth_logout'})
+              navigate('/login',{replace:true})
+              //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+          }else if(res.data.statuscode === 400){
+              setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+          }
+        }).catch((err)=>{
+          setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+        })
+      },[authData.JWT,dispatch,navigate])
+
+      useEffect(()=>{
+        getBorrowersData()
+        getItemData()
+      },[getBorrowersData,getItemData])
 
   return (
     <div className="borrower-details">
-        {addBorrowerPopUp && <AddBorrowerPopUp setAddBorrowerPopUp={setAddBorrowerPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {addBorrowerPopUp && <AddBorrowerPopUp setAddBorrowerPopUp={setAddBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowersData={borrowersData} itemsData={itemsData} getBorrowersData={getBorrowersData} />}
         {viewBorrowerPopUp && <ViewBorrowerPopUp setViewBorrowerPopUp={setViewBorrowerPopUp} setGlobalPopUp={setGlobalPopUp}/>}
         {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
@@ -33,61 +103,43 @@ function Borrowers() {
                         <thead>
                             <tr>
                                 <th>Borrower Name</th>
-                                <th>Item No</th>
-                                <th>Category</th>
+                                <th>Item</th>
+                                <th>Warranty</th>
                                 <th>Lab Location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>soft lab</td>
-                                <td>LAP-002</td>
-                                <td>Laptop</td>
-                                <td>Software lab 1</td>
-                                <td>
-                                    <svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                    </svg>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>soft lab</td>
-                                <td>LAP-002</td>
-                                <td>Laptop</td>
-                                <td>Software lab 1</td>
-                                <td>
-                                    <svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                    </svg>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>soft lab</td>
-                                <td>LAP-002</td>
-                                <td>Laptop</td>
-                                <td>Software lab 1</td>
-                                <td>
-                                    <svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                    </svg>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>soft lab</td>
-                                <td>LAP-002</td>
-                                <td>Laptop</td>
-                                <td>Software lab 1</td>
-                                <td>
-                                    <svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                                    </svg>
-                                </td>
-                            </tr>
+                            {
+                                borrowersData.length!==0?borrowersData.map((data,index)=>{
+                                    return(
+                                        <tr key={index}>
+                                            <td>{data.borrower_name}</td>
+                                            <td>{data.name}{data.return_status==="1"?<p>returned</p>:null}</td>
+                                            <td>{data.warranty}</td>
+                                            <td>{data.lab_location}</td>
+                                            <td>
+                                                {
+                                                   data.return_status==="1"?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#41f1b6" className="w-5 h-5">
+                                                   <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
+                                                 </svg>:<svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                                <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                                </svg>
+                                                  
+                                                }
+                                            </td>
+                                        </tr>
+                                    )
+                                }):<tr>
+                                        <td>No data available</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                            }
                             
                         </tbody>
                     </table>

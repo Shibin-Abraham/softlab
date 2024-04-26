@@ -174,6 +174,7 @@ useEffect(()=>{
         {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
         {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 5? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
       <section>
         <div className="head-1">
           <h1>Item Details</h1> 
@@ -208,7 +209,7 @@ useEffect(()=>{
               </svg>
               <h3>Item</h3>
             </div>
-            <div className="mul-item-btn" onClick={()=>setAddItemPopUp(true)}>
+            <div className="mul-item-btn" onClick={()=>setGlobalPopUp({id:5,header:'Feature Update',message:'Currently in development. Anticipated release soon.'})}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path d="M6 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6ZM15.75 3a3 3 0 0 0-3 3v2.25a3 3 0 0 0 3 3H18a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2.25ZM6 12.75a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h2.25a3 3 0 0 0 3-3v-2.25a3 3 0 0 0-3-3H6ZM17.625 13.5a.75.75 0 0 0-1.5 0v2.625H13.5a.75.75 0 0 0 0 1.5h2.625v2.625a.75.75 0 0 0 1.5 0v-2.625h2.625a.75.75 0 0 0 0-1.5h-2.625V13.5Z" />
               </svg>
