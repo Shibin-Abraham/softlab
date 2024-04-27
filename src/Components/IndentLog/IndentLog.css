@@ -1,0 +1,107 @@
+@import url('../../global.css');
+
+.indent-log{
+    width: 80vw;
+    height: 100vh;
+}
+.indent-log section{
+    margin: 1rem 0rem 0rem 1rem;
+    width: 100%;
+    height: 95%;
+  }
+  .indent-log section .top{
+    width: 95%;
+    height: 10%;
+    border-radius: var(--border-radius-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .indent-log section .top h1{
+    font-size: 1.9rem;
+    color: var(--color-white);
+  }
+  .indent-log section .top div{
+    margin-right: .5rem;
+    width: 4rem;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    border: 1px dashed var(--color-primary);
+    border-radius: var(--border-radius-1);
+    transition: all .5s ease;
+  }
+  .indent-log section .top div svg{
+    width: 2rem;
+    height: 2rem;
+    fill: var(--color-primary);
+  }
+  .indent-log section .top div h3{
+    margin-left: .5rem;
+    font-weight: 400; 
+  }
+  .indent-log section .top div:hover h3{
+    color: var(--color-white);
+  }
+  .indent-log section .top div:hover svg{
+    fill: var(--color-white);
+  }
+  .indent-log section .top div:hover{
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+  }
+  .indent-log section .container{
+    margin-top: 1rem;
+    width: 95%;
+    height: 85%;
+    display: flex;  
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+  }
+  .indent-log section .container::-webkit-scrollbar{
+    display: none;
+  }
+  .indent-log section .container .card{
+    margin-top: 2rem;
+    width: 30rem;
+    height: 16rem;
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    margin-right: 5rem;
+    border-radius: var(--border-radius-1);
+    background: var(--color-light);
+  }
+  .indent-log section .container .card .img-section{
+    margin-top: .4rem;
+    width: 29rem;
+    height: 15rem;
+    display: flex;  
+    border-radius: var(--border-radius-1);
+    overflow: hidden;
+  }
+  .indent-log section .container .card .img-section img{
+    width: 100%;
+    height: 100%;
+  }
+  .indent-log section .container .card .control-section{
+    position: absolute;
+    width: 29rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .indent-log section .container .card .control-section .tag{
+    width: auto;
+    height: 1.5rem;
+    padding: .5rem;
+    border-radius: var(--border-radius-2);
+    display: flex;
+    align-items: center;
+    background: var(--color-primary);
+  }

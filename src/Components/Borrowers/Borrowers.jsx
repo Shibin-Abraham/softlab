@@ -12,6 +12,7 @@ function Borrowers() {
     let [viewBorrowerPopUp,setViewBorrowerPopUp] = useState(false)
     let [globalPopUp,setGlobalPopUp] = useState({})
     let [borrowersData,setBorrowersData] = useState([])
+    let [borrowerRowData,setBorrowerRowData] = useState({})
     let [itemsData,setItemsData] = useState([])
 
     let navigate = useNavigate()
@@ -82,7 +83,7 @@ function Borrowers() {
   return (
     <div className="borrower-details">
         {addBorrowerPopUp && <AddBorrowerPopUp setAddBorrowerPopUp={setAddBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowersData={borrowersData} itemsData={itemsData} getBorrowersData={getBorrowersData} />}
-        {viewBorrowerPopUp && <ViewBorrowerPopUp setViewBorrowerPopUp={setViewBorrowerPopUp} setGlobalPopUp={setGlobalPopUp}/>}
+        {viewBorrowerPopUp && <ViewBorrowerPopUp setViewBorrowerPopUp={setViewBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowerRowData={borrowerRowData} getBorrowersData={getBorrowersData} />}
         {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
         {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
@@ -122,7 +123,10 @@ function Borrowers() {
                                                 {
                                                    data.return_status==="1"?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#41f1b6" className="w-5 h-5">
                                                    <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
-                                                 </svg>:<svg onClick={()=>setViewBorrowerPopUp(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                 </svg>:<svg onClick={()=>{
+                                                  setBorrowerRowData({bId: data.borrower_id,name: data.name,bName: data.borrower_name,admno: data.admn_no,sem: data.sem,branch: data.branch,date: data.date,phone: data.phone,sName: data.s_name})
+                                                  setViewBorrowerPopUp(true)
+                                                  }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                                                 <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                                 <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                                 </svg>

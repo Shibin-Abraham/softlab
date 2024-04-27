@@ -33,6 +33,18 @@
 .borrower-view-popup .content .top-section h2{
     color: var(--color-white);
     margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+.borrower-view-popup .content .top-section h2 p{
+    margin-left: .5rem;
+    width: 5rem;
+    height: 1rem;
+    font-size: .7rem;
+    font-weight: 400;
+    text-align: center;
+    border-radius: var(--border-radius-2);
+    background: var(--pure-black);
 }
 .borrower-view-popup .content .top-section svg{
     color: var(--color-dark);

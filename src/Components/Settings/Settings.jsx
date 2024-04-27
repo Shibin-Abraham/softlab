@@ -96,7 +96,7 @@ function Settings() {
                     <div className="card">
                         <div className="data-section">
                             <span>Contributorse</span>
-                            <p>The SoftLab Team</p>
+                            <p>SoftLab Team</p>
                         </div>
                         <div className="btn-section">
                             <section>

@@ -142,9 +142,9 @@ function AddBorrowerPopUp(props) {
                 </span>
             </div>
             <div className='input'>
-                <p> Item No</p>
+                <p> Item</p>
                 <select {...register("itemno",{required:true})} onClick={(e)=>{
-                    setError(props.borrowersData.filter((data)=>data.item_id===e.currentTarget.value))
+                    setError(props.borrowersData.filter((data)=>data.item_id===e.currentTarget.value&&data.return_status==='0'))
                 }}>
                     <option value=''>Select</option>
                     {

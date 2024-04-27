@@ -16,6 +16,7 @@ import { StateContext } from './Components/AuthProvider/AuthProvider.jsx';
 import InActive from './Login/InActive.jsx';
 import Dump from './Components/Dump/Dump.jsx';
 import Settings from './Components/Settings/Settings.jsx';
+import IndentLog from './Components/IndentLog/IndentLog.jsx';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path='/borrowers' element={<Borrowers />} />
             <Route path='/dump' element={<Dump />} />
             <Route path='/audit' element={<AuditLog />} />
+            <Route path='/indent' element={<IndentLog />} />
             <Route path='/settings' element={<Settings />} />
           </Route>
         </Routes>
