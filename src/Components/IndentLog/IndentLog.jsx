@@ -1,15 +1,80 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './IndentLog.css'
-import img from '../../assets/indent-img.jpg'
-import img1 from '../../assets/download.png'
-import img2 from '../../assets/indent-img2.jpg'
+import noDataAvailable from '../../assets/no-data-available.png'
 import AddIndentPopUp from './PopUp/AddIndentPopUp'
+import { useNavigate } from 'react-router-dom'
+import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
+import axios from 'axios'
 
 function IndentLog() {
     let [addIndentPopUp,setAddIndentPopUp] = useState(false)
+    let [globalPopUp,setGlobalPopUp] = useState({})
+    let [allStockData,setAllStockData] = useState([])
+    let [allIndentData,setAllIndentData] = useState([])
+
+    const navigate = useNavigate()
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+
+    let getStockData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            if(res.data.length !== undefined){
+                setAllStockData(res.data.filter((data)=>data.dump!=="1"))
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+    let getIndentData = useCallback(()=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost/soft-lab-api/route/services/indent-data.php',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+                'Authorization': authData.JWT, 
+              }
+          }).then((res)=>{
+            if(res.data.length !== undefined){
+                setAllIndentData(res.data)
+            }else if(res.data.statuscode === 401){ //token expired
+                localStorage.removeItem('token')
+                dispatch({type:'auth_logout'})
+                navigate('/login',{replace:true})
+            }else if(res.data.statuscode === 400){
+                setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+            }
+          }).catch((err)=>{
+            setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+          })
+    },[authData.JWT,dispatch,navigate])
+
+    useEffect(()=>{
+        getStockData()
+        getIndentData()
+    },[getStockData,getIndentData])
 
   return (
     <div className='indent-log'>
+        {globalPopUp.id === 1? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 2? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null} 
+        {globalPopUp.id === 3? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
+        {globalPopUp.id === 4? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} />:null}
         <section>
             <div className="top">
                 <h1>Indent Log</h1> 
@@ -23,49 +88,35 @@ function IndentLog() {
             </div>
             </div>
             <div className="container">
-                <div className="card">
+                {
+                    allIndentData.length!==0?allIndentData.map((data,index)=>{
+                        return(
+                            <div className="card" key={index}>
+                                <div className="img-section">
+                                    <img src={data.img_name} alt=''/>
+                                </div>
+                                <div className="control-section">
+                                    <div className='tag'>
+                                        <p>{data.stock_name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }):<div className="card">
                     <div className="img-section">
-                        <img src={img} alt=''/>
+                        <img src={noDataAvailable} alt=''/>
                     </div>
                     <div className="control-section">
-                        <div className='tag'>
-                            <p>stock-03</p>
+                        <div className='tag' style={{background: "var(--color-light)"}}>
+                            <p style={{color: "var(--color-danger)"}}>No data available</p>
                         </div>
                     </div>
                 </div>
-                <div className="card">
-                    <div className="img-section">
-                        <img src={img1} alt=''/>
-                    </div>
-                    <div className="control-section">
-                        <div className='tag'>
-                            <p>stock-03</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="img-section">
-                        <img src={img2} alt=''/>
-                    </div>
-                    <div className="control-section">
-                        <div className='tag'>
-                            <p>stock-03</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="card">
-                    <div className="img-section">
-                        <img src={img} alt=''/>
-                    </div>
-                    <div className="control-section">
-                        <div className='tag'>
-                            <p>stock-03</p>
-                        </div>
-                    </div>
-                </div>
+                }
+                
             </div>
         </section> 
-        {addIndentPopUp && <AddIndentPopUp setAddIndentPopUp={setAddIndentPopUp} />}
+        {addIndentPopUp && <AddIndentPopUp setAddIndentPopUp={setAddIndentPopUp} allStockData={allStockData}/>}
     </div>
   )
 }
