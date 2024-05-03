@@ -21,7 +21,7 @@ function IndentLog() {
     let getStockData = useCallback(()=>{
         axios({
             method: 'POST',
-            url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+            url: 'http://localhost/soft-lab-api/route/services/filtered-indent-stock.php',
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
                 'Authorization': authData.JWT, 
@@ -116,7 +116,7 @@ function IndentLog() {
                 
             </div>
         </section> 
-        {addIndentPopUp && <AddIndentPopUp setAddIndentPopUp={setAddIndentPopUp} allStockData={allStockData} allIndentData={allIndentData} />}
+        {addIndentPopUp && <AddIndentPopUp setGlobalPopUp={setGlobalPopUp} setAddIndentPopUp={setAddIndentPopUp} allStockData={allStockData} allIndentData={allIndentData} getIndentData={getIndentData} />}
     </div>
   )
 }

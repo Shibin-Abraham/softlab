@@ -1,39 +1,61 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './AddIndentPopUp.css'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider';
+import axios from 'axios';
 
 function AddIndentPopUp(props) {
     console.log(props)
     let [popUpActive,setPopUpActive] = useState('')
-    let [filteredStock,setFilteredStock] = useState([])
-    let [error,setError] = useState('')
+    const navigate = useNavigate()
+    let [img,setImg] = useState('')
+
+    const authData = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
 
     const {register, handleSubmit ,formState:{errors}} = useForm();
 
-    let onSubmit = (data)=>{
-        if(data && error.length===0){
-            console.log(data)
+    let onSubmit = (d)=>{
+        if(d){
+            console.log(d)
+            const formData = new FormData()
+            formData.append('file',img)
+            formData.append('stockId',d.stockid)
+            axios.post('http://localhost/soft-lab-api/route/services/set-indent.php',formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': authData.JWT, 
+                    },
+                }).then((res)=>{
+                console.log("indent response ------------",res)
+                if(res.data.statuscode === 200){
+                    props.getIndentData()
+                    setPopUpActive('')//close AddStockPopUp 
+                    props.setGlobalPopUp({id:1,header:'Success',message:'Indent data successfully added'}) // show the success message
+                    setTimeout(()=>{props.setAddIndentPopUp(false)},300)
+                }else if(res.data.statuscode === 401){ //token expired
+                    localStorage.removeItem('token')
+                    dispatch({type:'auth_logout'})
+                    navigate('/login',{replace:true})
+                    //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+                }else if(res.data.statuscode === 400){
+                    props.setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
+                }else if(res.data.statuscode === 500){
+                    props.setGlobalPopUp({id:4,header:'Oops',message:'Internal server error'})
+                }else if(res.data.statuscode === 406){
+                    props.setGlobalPopUp({id:4,header:'File Upload Failed',message:'Please upload png or jpg file '})
+                }
+                }).catch((err)=>{
+                    console.log(err)
+                    props.setGlobalPopUp({id:4,header:`${err.message}!`,message:`${err.message}! please check your network`})
+                })
         }
     }
-
+    
     useEffect(()=>{
-        props.allStockData.forEach((d)=>{
-            console.log('sir',d.id)
-            for(let i=0;i<props.allIndentData.length;i++){
-                if(props.allIndentData[i].stock_id !== d.id){
-                    let obj = [id: d.id,name: d.name]
-                    setFilteredStock((prev)=>[prev,...obj])
-                    console.log("**",filteredStock)
-                    break
-                }
-            }
-            
-        })
-        //setFilteredStock(props.allStockData.filter((data,index)=>index!==props.allIndentData.lenght?props.allIndentData[index].stock_id!==data.id:null
-        //))
-
         setTimeout(()=>setPopUpActive('popup-active'),1)
-    },[props.allIndentData,props.allStockData,filteredStock])
+    },[])
   return (
     <div className='add-indent-popup'>
             <div className={`content ${popUpActive}`}>
@@ -54,22 +76,24 @@ function AddIndentPopUp(props) {
                     <div className="data-section">
                     <div>
                     <select {...register("stockid",{required:true})}>
+                        <option value="">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             select stock 
+                        </option>
                         {
-                               filteredStock.map((data,index)=>{
+                               props.allStockData.map((data,index)=>{
                                 return(
                                     <option key={index} value={data.id}>{data.name}</option>
                                 )
                                })   
                         }
-                        
                     </select>
                     <p>
                         {errors.stockid?.type ==="required"&& "Please select one option"}
-                        
                     </p>
                     </div>
                     
-                    <input type="file" accept="image/png,image/jpeg" {...register("img",{required:true})}/>
+                    <input type="file" accept="image/png,image/jpeg" {...register("img",{required:true})} name='img' onChange={(e)=>setImg(e.currentTarget.files[0])}/>
                     <p>
                         {errors.img?.type ==="required"&& "Please upload one img"}
                     </p>
