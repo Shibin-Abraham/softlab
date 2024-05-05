@@ -315,7 +315,7 @@ function DashBoard(){
                                 </thead>
                                 <tbody>
                                     {
-                                        recentActivityData.map((data)=>{
+                                        recentActivityData.length!==0?recentActivityData.map((data)=>{
                                             return(
                                                 <tr key={data.id}>
                                                     <td>{data.name}</td>
@@ -325,7 +325,9 @@ function DashBoard(){
                                                     <td className={data.operation}>{data.operation}</td>
                                                 </tr>
                                             )
-                                        })
+                                        }):<tr>
+                                            <td style={{color: 'var(--color-danger)'}}>No data</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

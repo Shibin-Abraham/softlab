@@ -35,6 +35,7 @@
     --box-shadow-d: 0px 10px 10px -10px var(--color-danger);
     --box-shadow-s: 0px 10px 10px -10px var(--color-success);
     --pure-black : #000000;
+    --pure-black1 : #0f0e0e;
   }
   .primary{
     color: var(--color-primary);

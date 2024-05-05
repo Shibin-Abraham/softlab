@@ -6,12 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
 import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 import axios from 'axios'
+import ViewIndentPopUp from './PopUp/ViewIndentPopUp'
 
 function IndentLog() {
     let [addIndentPopUp,setAddIndentPopUp] = useState(false)
+    let [viewIndentPopUp,setViewIndentPopUp] = useState(false)
     let [globalPopUp,setGlobalPopUp] = useState({})
     let [allStockData,setAllStockData] = useState([])
     let [allIndentData,setAllIndentData] = useState([])
+    let [indenRowData,setIndentRowData] = useState({})
 
     const navigate = useNavigate()
 
@@ -91,7 +94,10 @@ function IndentLog() {
                 {
                     allIndentData.length!==0?allIndentData.map((data,index)=>{
                         return(
-                            <div className="card" key={index}>
+                            <div className="card" key={index} onClick={()=>{
+                                setViewIndentPopUp(true)
+                                setIndentRowData({img: data.img_name,stockName: data.stock_name})
+                            }}>
                                 <div className="img-section">
                                     <img src={data.img_name} alt=''/>
                                 </div>
@@ -117,6 +123,7 @@ function IndentLog() {
             </div>
         </section> 
         {addIndentPopUp && <AddIndentPopUp setGlobalPopUp={setGlobalPopUp} setAddIndentPopUp={setAddIndentPopUp} allStockData={allStockData} allIndentData={allIndentData} getIndentData={getIndentData} />}
+        {viewIndentPopUp&&<ViewIndentPopUp indenRowData={indenRowData} setViewIndentPopUp={setViewIndentPopUp} />}
     </div>
   )
 }

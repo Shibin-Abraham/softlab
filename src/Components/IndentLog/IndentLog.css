@@ -76,6 +76,7 @@
     margin-right: 5rem;
     border-radius: var(--border-radius-1);
     background: var(--color-light);
+    cursor: pointer;
   }
   .indent-log section .container .card .img-section{
     margin-top: .4rem;
