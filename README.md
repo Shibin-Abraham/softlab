@@ -62,5 +62,3 @@
 - Add to Home Screen
 - Desktop PWA
 
-indent component -- upload image of indent register and stock id
-
