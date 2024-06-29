@@ -33,7 +33,7 @@ function SignUp() {
   }, [])
   // set the role option to select tag
   let options = role.map((data, index) => {
-    return (<option key={index} value={data}>{data}</option>)
+    return (<option key={index} value={data.id}>{data.name.toUpperCase()}</option>)
   })
   //onsubmit 
   let onSubmit = (data) => {
