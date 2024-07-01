@@ -37,13 +37,13 @@ function SignUp() {
   })
   //onsubmit 
   let onSubmit = (data) => {
-    console.log(data)
+    console.log(typeof data)
     if (data) {
       setReponseError('')
       setLoader(true)
       axios({
         method: 'POST',
-        url: 'http://localhost/soft-lab-api/route/signup.php',
+        url: 'http://localhost:4000/signup',
         data: data
       }).then((res) => {
         checkResponse(res)
