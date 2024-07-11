@@ -51,42 +51,54 @@ function SignUp() {
         data: data
       }).then((res) => {
         console.log("signup response data", res)
+        responseHandler(res)
         //checkResponse(res)
       }).catch((error) => {
-        if (error.message === 'Network Error' && !error.response) {
-          setLoader(false)
-          setGlobalPopUp({ id: 4, header: `${error.message}`, message: `${error}` })
-        } else {
-          setLoader(false)
-          console.log(error)
-          setGlobalPopUp({ id: 4, header: error.code, message: `${error.response.data.error}` })
-        }
+        console.log(error)
+        errorHandler(error)
       })
     }
   }
   // check the response status code and send corresponding popup message
-  function checkResponse(res) {
-    if (res.data.statuscode === 200 && res.data.sessionID !== '') {
-      let sessionId = res.data.sessionID
-      console.log(res, sessionId)
-      setLoader(false)
-      navigate('/verifyotp', { replace: true, state: { sessionId } })
-    } else if (res.data.statuscode === 424) {
-      setLoader(false)
-      setGlobalPopUp({ id: 4, header: 'Email send error', message: 'Invalid email address or check your network' })
-    } else if (res.data.statuscode === 403) {
-      setLoader(false)
-      setReponseError('email already exists')
-    } else if (res.data.statuscode === 503) {
-      setLoader(false)
-      setGlobalPopUp({ id: 4, header: 'Server error', message: 'server under maintainess' })
-    } else if (res.data.statuscode === 401) {
-      setLoader(false)
-      setReponseError('Password should match')
-    } else if (res.data.statuscode === 400) {
-      setLoader(false)
-      setGlobalPopUp({ id: 4, header: 'Bad request', message: 'please check your request' })
+
+  const errorHandler = ({ response }) => {
+    setLoader(false)
+    if (response.status === 409) { setReponseError(response.data.error); return }
+    if (response.status === 400) { setGlobalPopUp({ id: 4, header: 'Bad request', message: 'please check your request' }); return }
+    if (response.status === 550) {
+      setGlobalPopUp({ id: 4, header: 'Invalid email', message: response.data.error })
+      setReponseError('Invalid email address')
+      return
     }
+    setGlobalPopUp({ id: 4, header: 'Error occured', message: response.data.error })
+  }
+  function responseHandler({ data, status }) {
+    if (status === 200 && data) {
+      setLoader(false)
+      let email = data.email
+      navigate('/verifyotp', { replace: true, state: { email } })
+    }
+    // if (res.data.statuscode === 200 && res.data.sessionID !== '') {
+    //   let sessionId = res.data.sessionID
+    //   console.log(res, sessionId)
+    //   setLoader(false)
+    //   navigate('/verifyotp', { replace: true, state: { sessionId } })
+    // } else if (res.data.statuscode === 424) {
+    //   setLoader(false)
+    //   setGlobalPopUp({ id: 4, header: 'Email send error', message: 'Invalid email address or check your network' })
+    // } else if (res.data.statuscode === 403) {
+    //   setLoader(false)
+    //   setReponseError('email already exists')
+    // } else if (res.data.statuscode === 503) {
+    //   setLoader(false)
+    //   setGlobalPopUp({ id: 4, header: 'Server error', message: 'server under maintainess' })
+    // } else if (res.data.statuscode === 401) {
+    //   setLoader(false)
+    //   setReponseError('Password should match')
+    // } else if (res.data.statuscode === 400) {
+    //   setLoader(false)
+    //   setGlobalPopUp({ id: 4, header: 'Bad request', message: 'please check your request' })
+    // }
   }
 
   return (
