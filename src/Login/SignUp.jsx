@@ -37,23 +37,29 @@ function SignUp() {
   })
   //onsubmit 
   let onSubmit = (data) => {
-    console.log(data)
+    console.log(typeof data)
     if (data) {
+      console.log(data)
       setReponseError('')
       setLoader(true)
       axios({
         method: 'POST',
-        url: 'http://localhost/soft-lab-api/route/signup.php',
+        url: 'http://localhost:4000/signup',
+        headers: {
+          'Content-type': 'application/json; charset=utf-8',
+        },
         data: data
       }).then((res) => {
-        checkResponse(res)
+        console.log("signup response data", res)
+        //checkResponse(res)
       }).catch((error) => {
         if (error.message === 'Network Error' && !error.response) {
           setLoader(false)
           setGlobalPopUp({ id: 4, header: `${error.message}`, message: `${error}` })
         } else {
           setLoader(false)
-          setGlobalPopUp({ id: 4, header: 'Error', message: `${error.message}` })
+          console.log(error)
+          setGlobalPopUp({ id: 4, header: error.code, message: `${error.response.data.error}` })
         }
       })
     }
