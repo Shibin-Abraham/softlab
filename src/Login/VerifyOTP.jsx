@@ -15,6 +15,54 @@ function VerifyOTP() {
   const [invalid, setInvalid] = useState(false)
   const [loader, setLoader] = useState(false)
 
+  const onClickHandler = () => {
+    if (otp.length === 6) {
+      setErrorMsg('')
+      setLoader(true)
+      if (location.state !== null) {
+        let email = location.state.email
+        let obj = {
+          otp: otp,
+          email: `${email}`
+        }
+        axios({
+          method: 'POST',
+          url: 'http://localhost:4000/signup/verify',
+          headers: {
+            'Content-type': 'application/json; charset=utf-8',
+          },
+          withCredentials: true,
+          data: obj //pass the data object to server for verification
+        }).then((res) => {
+          console.log(res.data)
+          if (res.status === 200) {
+            setLoader(false)
+            setSuccess(true)
+            setOtp('')
+          }
+        }).catch(error => {
+          console.log(error)
+          errorHandler(error)
+          setLoader(false)
+          // setErrorMsg('Server error please try again later')
+        })
+      } else {
+        setLoader(false)
+        setErrorMsg('Failed to find session')
+        setTimeout(() => setErrorMsg(''), 5000)
+      }
+    } else {
+      setInvalid(true)
+      setTimeout(() => setInvalid(false), 5000)
+    }
+
+  }
+  const errorHandler = ({ response }) => {
+    setLoader(false)
+    if (response.status === 401) { setErrorMsg(`${'Invalid OTP'}`); return }
+    setErrorMsg(`${response.data.error}`)
+  }
+
   return (
     <>
       <div className='otp'>
@@ -31,50 +79,7 @@ function VerifyOTP() {
               <OtpInput value={otp} onChange={setOtp} OTPLength={6} otpType='number' disabled={false} autoFocus className='otp-input'></OtpInput>
             </div>
             <div className='btn'>
-              <button onClick={() => {
-                if (otp.length === 6) {
-                  setErrorMsg('')
-                  setLoader(true)
-                  if (location.state !== null) {
-                    let email = location.state.email
-                    let obj = {
-                      otp: otp,
-                      email: `${email}`
-                    }
-                    axios({
-                      method: 'POST',
-                      url: 'http://localhost:4000/signup/verify',
-                      headers: {
-                        'Content-type': 'application/json; charset=utf-8',
-                      },
-                      data: obj //pass the data object to server for verification
-                    }).then((res) => {
-                      console.log(res.data)
-                      if (res.data.statuscode === 200 && res.data.email !== '') {
-                        setLoader(false)
-                        setSuccess(true)
-                      } else if (res.data.statuscode === 100) {
-                        setLoader(false)
-                        setErrorMsg('Server error please try again later')
-                      } else if (res.data.statuscode === 401) {
-                        setLoader(false)
-                        setErrorMsg('Invalid OTP')
-                      } else if (res.data.statuscode === 440) {
-                        setLoader(false)
-                        setErrorMsg('Session expired please try again')
-                      }
-                    })
-                  } else {
-                    setLoader(false)
-                    setErrorMsg('Failed to find session')
-                    setTimeout(() => setErrorMsg(''), 5000)
-                  }
-                } else {
-                  setInvalid(true)
-                  setTimeout(() => setInvalid(false), 5000)
-                }
-
-              }} style={loader || invalid || success ? { pointerEvents: 'none' } : { pointerEvents: 'auto' }}>{loader ? <div className="loader"></div> : `Verify`}</button>
+              <button onClick={onClickHandler} style={loader || invalid || success ? { pointerEvents: 'none' } : { pointerEvents: 'auto' }}>{loader ? <div className="loader"></div> : `Verify`}</button>
             </div>
           </div>
           <div className='footer'>

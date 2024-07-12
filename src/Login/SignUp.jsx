@@ -48,6 +48,7 @@ function SignUp() {
         headers: {
           'Content-type': 'application/json; charset=utf-8',
         },
+        withCredentials: true,
         data: data
       }).then((res) => {
         console.log("signup response data", res)
@@ -65,6 +66,7 @@ function SignUp() {
     setLoader(false)
     if (response.status === 409) { setReponseError(response.data.error); return }
     if (response.status === 400) { setGlobalPopUp({ id: 4, header: 'Bad request', message: 'please check your request' }); return }
+    if (response.status === 502) { setGlobalPopUp({ id: 4, header: 'Network error', message: response.data.error }); return }
     if (response.status === 550) {
       setGlobalPopUp({ id: 4, header: 'Invalid email', message: response.data.error })
       setReponseError('Invalid email address')
