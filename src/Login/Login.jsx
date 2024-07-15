@@ -84,6 +84,22 @@ function Login({ setNav }) {
     if (res.status === 200) {
       //setGlobalPopUp({ id: 1, header: `Success`, message: `Successfully loged in` })
       if (!res.data.userData.status) { navigate('/inactive', { replace: true }); return }
+
+      dispatch({
+        type: 'auth_login',
+        JWT: res.data.userData.token,
+        u_id: res.data.userData.id,
+        name: res.data.userData.name,
+        email: res.data.userData.email,
+        phone: res.data.userData.phone,
+        join_date: res.data.userData.join_date,
+        status: res.data.userData.status,
+        r_id: res.data.userData.role.id,
+        r_name: res.data.userData.role.name
+      })
+      setNav(res.data.userData.role.id)
+      navigate('/', { replace: true })
+
     } else {
       setGlobalPopUp({ id: 4, header: 'Something went error', message: `Error occured, Please try again` })
     }
