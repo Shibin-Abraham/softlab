@@ -81,7 +81,12 @@ function Login({ setNav }) {
     setGlobalPopUp({ id: 4, header: 'Error occured', message: response.data.error })
   }
   function checkResponse(res) {
-
+    if (res.status === 200) {
+      //setGlobalPopUp({ id: 1, header: `Success`, message: `Successfully loged in` })
+      if (!res.data.userData.status) { navigate('/inactive', { replace: true }); return }
+    } else {
+      setGlobalPopUp({ id: 4, header: 'Something went error', message: `Error occured, Please try again` })
+    }
 
     //   if (res.data.statuscode === 200 && res.data.JWT !== null) {
     //     //setGlobalPopUp({id:1,header:`Success`,message:`Successfully loged in`})
