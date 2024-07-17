@@ -1,473 +1,560 @@
 @import url("../../global.css");
 
 /********************* Dashboard style  **************************/
-.main{
-    width: 80vw;
-    height: 100vh;
-  }
-  .main section{
-    margin: 1rem 0rem 0rem 1rem;
-    width: 78vw;
-    height: 96%;
-    display: flex;
-    overflow-y: scroll;
-  }
-  .main section::-webkit-scrollbar{
-    display: none;
-  }
-  .main section .container-1{
-    width: 55vw;
-    height: 100%;
-  }
-  .main section .container-1 h1{
-    font-size: 1.9rem;
-    color: var(--color-white);
-  }
-  .main section .container-1 .date{
-    margin-top: 1rem;
-    width: 10rem;
-    height: 2rem;
-    border-radius: var(--border-radius-1);
-    background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .main section .container-1 .date input[type=date]{
-    color: var(--color-info-light);
-    border: none;
-    background: transparent;
-  }
-  .main section .container-1 .card-section{ 
-    width: 100%;
-    height: 27%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .main section .container-1 .card-section .card-1,.card-2,.card-3{
-    width: 30%;
-    height: 150px;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    transition: all .3s ease;
-  }
-  .main section .container-1 .card-section .card-1:hover{
-    width: 31%;
-    height: 155px;
-    box-shadow: var(--box-shadow-p);
-  }
-  .main section .container-1 .card-section .card-2:hover{
-    width: 31%;
-    height: 155px;
-    box-shadow: var(--box-shadow-s);
-  }
-  .main section .container-1 .card-section .card-3:hover{
-    width: 31%;
-    height: 155px;
-    box-shadow: var(--box-shadow-d);
-  }
-  .main section .container-1 .card-section .card-1 .top{
-    margin: .8rem 0rem 0rem .8rem;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 50%;
-    background: var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .main section .container-1 .card-section .card-1 .top svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .container-1 .card-section .card-1 .mid{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--color-info-light);
-  }
-  .container-1 .card-section .card-1 .mid p{
-    margin: .3rem 0rem 0rem .8rem;
-    font-size: 1rem;
-  }
-  .container-1 .card-section .card-1 .mid h2{
-    margin: .3rem 0rem 0rem .8rem;
-  }
-  .container-1 .card-section .card-1 .mid .circle{
-    width: 50%;
-    height: 6rem;
-    display: grid;
-    place-items: center;
-    margin-right: 1rem;
-  }
-  .container-1 .card-section .card-1 .mid .circle .circular-progress{
-    position: relative;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-  }
-  .container-1 .card-section .card-1 .mid .circle .circular-progress:before{
-    content: "";
-    position: absolute;
-    height: 72%;
-    width: 72%;
-    background: var(--color-light);
-    border-radius: 50%;
-  }
-  .container-1 .card-section .card-1 .mid .circle .circular-progress div{
-    position: relative;
-    font-size: 1rem;
-    color: var(--color-info-light);
-  }
-  
-  .main section .container-1 .card-section .card-2 .top{
-    margin: .8rem 0rem 0rem .8rem;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 50%;
-    background: var(--color-success);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .main section .container-1 .card-section .card-2 .top svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .container-1 .card-section .card-2 .mid{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--color-info-light);
-  }
-  .container-1 .card-section .card-2 .mid p{
-    margin: .3rem 0rem 0rem .8rem;
-    font-size: 1rem;
-  }
-  .container-1 .card-section .card-2 .mid h2{
-    margin: .3rem 0rem 0rem .8rem;
-  }
-  .container-1 .card-section .card-2 .mid .circle{
-    width: 50%;
-    height: 6rem;
-    display: grid;
-    place-items: center;
-    margin-right: 1rem;
-  }
-  .container-1 .card-section .card-2 .mid .circle .circular-progress{
-    position: relative;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-  }
-  .container-1 .card-section .card-2 .mid .circle .circular-progress:before{
-    content: "";
-    position: absolute;
-    height: 72%;
-    width: 72%;
-    background: var(--color-light);
-    border-radius: 50%;
-  }
-  .container-1 .card-section .card-2 .mid .circle .circular-progress div{
-    position: relative;
-    font-size: 1rem;
-    color: var(--color-info-light);
-  }
-  .main section .container-1 .card-section .card-3 .top{
-    margin: .8rem 0rem 0rem .8rem;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 50%;
-    background: var(--color-danger);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .main section .container-1 .card-section .card-3 .top svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .container-1 .card-section .card-3 .mid{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--color-info-light);
-  }
-  .container-1 .card-section .card-3 .mid p{
-    margin: .3rem 0rem 0rem .8rem;
-    font-size: 1rem;
-  }
-  .container-1 .card-section .card-3 .mid h2{
-    margin: .3rem 0rem 0rem .8rem;
-  }
-  .container-1 .card-section .card-3 .mid .circle{
-    width: 50%;
-    height: 6rem;
-    display: grid;
-    place-items: center;
-    margin-right: 1rem;
-  }
-  .container-1 .card-section .card-3 .mid .circle .circular-progress{
-    position: relative;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-  }
-  .container-1 .card-section .card-3 .mid .circle .circular-progress:before{
-    content: "";
-    position: absolute;
-    height: 72%;
-    width: 72%;
-    background: var(--color-light);
-    border-radius: 50%;
-  }
-  .container-1 .card-section .card-3 .mid .circle .circular-progress div{
-    position: relative;
-    font-size: 1rem;
-    color: var(--color-info-light);
-  }
-  
-  /** dashboard recent activities section **/
-  .main section .container-1 .table-container{
-    width: 100%;
-    height: 58%;
-  }
-  .main section .container-1 .table-container h2{
-    color: var(--color-info-light);
-  }
-  .main section .container-1 .table-container .table-section{
-    margin-top: .5rem;
-    width: 100%;
-    height: 85%;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    overflow-y: scroll;
-    transition: all .3s ease;
-  }
-  .main section .container-1 .table-container .table-section::-webkit-scrollbar{ /* remove scrollbar */
-    display: none;
-  }
-  .main section .container-1 .table-container .table-section:hover{
-    box-shadow: none;
-  }
-  .container-1 .table-container .table-section table{
-    padding: var(--card-padding);
-    text-align: center;
-    width: 100%;
-    color: var(--color-info-light);
-  }
-  .container-1 .table-container .table-section table tbody td{
-    height: 3rem;
-    border-bottom: 1px solid var(--color-dark-variant);
-    color: var(--color-dark-variant);
-    
-  }
-  .container-1 .table-container .table-section table tbody tr:hover td{
-    color: var(--color-info-light);
-  }
-  .container-1 .table-container .table-section table tbody tr:last-child td{
-    border-bottom: none;
-  }
-  .container-1 .table-container .table-section table tbody tr td::first-letter{
-    text-transform: uppercase;
-  }
-  .container-1 .table-container .table-section table tbody tr td:nth-child(2)::first-letter{
-    text-transform: lowercase;
-  }
-  .container-1 .table-container .table-section table tbody tr td.added{
-    color: var(--color-primary);
-  }
-  .container-1 .table-container .table-section table tbody tr td.updated{
-    color: var(--color-success);
-  }
-  .container-1 .table-container .table-section table tbody tr td.deleted{
-    color: var(--color-danger);
-  }
-  .container-1 .table-container .table-section table tbody tr td.dumped{
-    color: #c4c933;
-  }
-  .container-1 .table-container .table-section table tbody tr td.borrowed{
-    color: #a709db;
-  }
-  .container-1 .table-container .table-section table tbody tr td.returned{
-    color: var(--color-success);
-  }
-  
-  /** dashboard recent activities section end **/
-  
-  /** dashboard container-2 section  **/
-  .main section .container-2{
-    width: 50vh;
-    height: 100%;
-  }
-  .main section .container-2 .top{
-    width: 100%;
-    height: 8%;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .main section .container-2 .top .text{
-    margin-right: 1rem;
-    color: var(--color-white);
-  }
-  .main section .container-2 .top .text h4{
-    text-transform: uppercase;
-  }
-  .main section .container-2 .top .icon{
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }.main section .container-2 .top .icon svg{
-    width: 1.5rem;
-    height: 1.5rem;
-    color: var(--color-info-light);
-  }
-  .main section .container-2 .mid{
-    width: 100%;
-    height: 35%;
-  }
-  .main section .container-2 .mid h2{
-    font-weight: 700;
-    margin-left: 2rem;
-    color: var(--color-info-light);
-  }
-  .main section .container-2 .mid .card-section{
-    width: 90%;
-    height: 12rem;
-    margin-left: 2rem;
-    margin-top: 1rem;
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    overflow: scroll;
-  }
-  .main section .container-2 .mid .card-section::-webkit-scrollbar{
-    display: none;
-  }
-  .container-2 .mid .card-section .row{
-    width: 100%;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    transition: all .9s ease;
-  }
-  .container-2 .mid .card-section .row:hover{
-    background: var(--color-dark);
-  }
-  .container-2 .mid .card-section .row svg{
-    margin-left: 1rem;
-    width: 3rem;
-    height: 3rem;
-    color: var(--color-info-light);
-  }
-  .container-2 .mid .card-section .row div{
-    margin-left: 1rem;
-    color: var(--color-info-dark);
-  }
-  .container-2 .mid .card-section .row div h4::first-letter{
-    text-transform: uppercase;
-  }
-  .container-2 .mid .card-section .row div p::first-letter{
-    text-transform: uppercase;
-  }
-  .main section .container-2 .bottom{
-    width: 100%;
-    height: 52%;
-  }
-  .main section .container-2 .bottom h3{
-    font-weight: 600;
-    margin-left: 2rem;
-    color: var(--color-info-light);
-    margin-top: 1rem;
-  }
-  .main section .container-2 .bottom .card-section{
-    width: 100%;
-    height: 20rem;
-    margin-top: .4rem;
-    overflow: scroll;
-  }
-  .main section .container-2 .bottom .card-section::-webkit-scrollbar{
-    display: none;
-  }
-  .main section .container-2 .bottom .card-section .row{
-    width: 90%;
-    height: 4rem;
-    margin-left: 2rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    transition: all .5s ease;
-  }
-  .main section .container-2 .bottom .card-section .row:hover{
-    margin-left: 1.5rem;
-  }
-  .main section .container-2 .bottom .card-section .row .icon{
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: .5rem;
-    border-radius: 50%;
-    background: var(--color-danger);
-  }
-  .main section .container-2 .bottom .card-section .row .icon-s{
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: .5rem;
-    border-radius: 50%;
-    background: var(--color-success);
-  }
-  .main section .container-2 .bottom .card-section .row .icon-s svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .main section .container-2 .bottom .card-section .row .icon svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .main section .container-2 .bottom .card-section .row .data{
-    width: 17rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow-x: scroll;
-  }
-  .main section .container-2 .bottom .card-section .row .data::-webkit-scrollbar{
-    display: none;
-  }
-  .main section .container-2 .bottom .card-section .row .data p{
-    font-size: .9rem;
-    color: var(--color-info-dark);
-    margin-left: 1rem;
-  }
-  .main section .container-2 .bottom .card-section .row .data p:first-child{
-    text-transform: uppercase;
-  }
-  .main section .container-2 .bottom .card-section .row .data p::first-letter{
-    text-transform: uppercase;
-  }
+.main {
+  width: 80vw;
+  height: 100vh;
+}
 
-  /** dashboard container-2 section  end **/
-  
-  /********************* Dashboard style end **************************/
+.main section {
+  margin: 1rem 0rem 0rem 1rem;
+  width: 78vw;
+  height: 96%;
+  display: flex;
+  overflow-y: scroll;
+}
+
+.main section::-webkit-scrollbar {
+  display: none;
+}
+
+.main section .container-1 {
+  width: 55vw;
+  height: 100%;
+}
+
+.main section .container-1 h1 {
+  font-size: 1.9rem;
+  color: var(--color-white);
+}
+
+.main section .container-1 .date {
+  margin-top: 1rem;
+  width: 10rem;
+  height: 2rem;
+  border-radius: var(--border-radius-1);
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main section .container-1 .date input[type=date] {
+  color: var(--color-info-light);
+  border: none;
+  background: transparent;
+}
+
+.main section .container-1 .card-section {
+  width: 100%;
+  height: 27%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main section .container-1 .card-section .card-1,
+.card-2,
+.card-3 {
+  width: 30%;
+  height: 150px;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  transition: all .3s ease;
+}
+
+.main section .container-1 .card-section .card-1:hover {
+  width: 31%;
+  height: 155px;
+  box-shadow: var(--box-shadow-p);
+}
+
+.main section .container-1 .card-section .card-2:hover {
+  width: 31%;
+  height: 155px;
+  box-shadow: var(--box-shadow-s);
+}
+
+.main section .container-1 .card-section .card-3:hover {
+  width: 31%;
+  height: 155px;
+  box-shadow: var(--box-shadow-d);
+}
+
+.main section .container-1 .card-section .card-1 .top {
+  margin: .8rem 0rem 0rem .8rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main section .container-1 .card-section .card-1 .top svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.container-1 .card-section .card-1 .mid {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-info-light);
+}
+
+.container-1 .card-section .card-1 .mid p {
+  margin: .3rem 0rem 0rem .8rem;
+  font-size: 1rem;
+}
+
+.container-1 .card-section .card-1 .mid h2 {
+  margin: .3rem 0rem 0rem .8rem;
+}
+
+.container-1 .card-section .card-1 .mid .circle {
+  width: 50%;
+  height: 6rem;
+  display: grid;
+  place-items: center;
+  margin-right: 1rem;
+}
+
+.container-1 .card-section .card-1 .mid .circle .circular-progress {
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.container-1 .card-section .card-1 .mid .circle .circular-progress:before {
+  content: "";
+  position: absolute;
+  height: 72%;
+  width: 72%;
+  background: var(--color-light);
+  border-radius: 50%;
+}
+
+.container-1 .card-section .card-1 .mid .circle .circular-progress div {
+  position: relative;
+  font-size: 1rem;
+  color: var(--color-info-light);
+}
+
+.main section .container-1 .card-section .card-2 .top {
+  margin: .8rem 0rem 0rem .8rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main section .container-1 .card-section .card-2 .top svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.container-1 .card-section .card-2 .mid {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-info-light);
+}
+
+.container-1 .card-section .card-2 .mid p {
+  margin: .3rem 0rem 0rem .8rem;
+  font-size: 1rem;
+}
+
+.container-1 .card-section .card-2 .mid h2 {
+  margin: .3rem 0rem 0rem .8rem;
+}
+
+.container-1 .card-section .card-2 .mid .circle {
+  width: 50%;
+  height: 6rem;
+  display: grid;
+  place-items: center;
+  margin-right: 1rem;
+}
+
+.container-1 .card-section .card-2 .mid .circle .circular-progress {
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.container-1 .card-section .card-2 .mid .circle .circular-progress:before {
+  content: "";
+  position: absolute;
+  height: 72%;
+  width: 72%;
+  background: var(--color-light);
+  border-radius: 50%;
+}
+
+.container-1 .card-section .card-2 .mid .circle .circular-progress div {
+  position: relative;
+  font-size: 1rem;
+  color: var(--color-info-light);
+}
+
+.main section .container-1 .card-section .card-3 .top {
+  margin: .8rem 0rem 0rem .8rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--color-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main section .container-1 .card-section .card-3 .top svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.container-1 .card-section .card-3 .mid {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-info-light);
+}
+
+.container-1 .card-section .card-3 .mid p {
+  margin: .3rem 0rem 0rem .8rem;
+  font-size: 1rem;
+}
+
+.container-1 .card-section .card-3 .mid h2 {
+  margin: .3rem 0rem 0rem .8rem;
+}
+
+.container-1 .card-section .card-3 .mid .circle {
+  width: 50%;
+  height: 6rem;
+  display: grid;
+  place-items: center;
+  margin-right: 1rem;
+}
+
+.container-1 .card-section .card-3 .mid .circle .circular-progress {
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.container-1 .card-section .card-3 .mid .circle .circular-progress:before {
+  content: "";
+  position: absolute;
+  height: 72%;
+  width: 72%;
+  background: var(--color-light);
+  border-radius: 50%;
+}
+
+.container-1 .card-section .card-3 .mid .circle .circular-progress div {
+  position: relative;
+  font-size: 1rem;
+  color: var(--color-info-light);
+}
+
+/** dashboard recent activities section **/
+.main section .container-1 .table-container {
+  width: 100%;
+  height: 58%;
+}
+
+.main section .container-1 .table-container h2 {
+  color: var(--color-info-light);
+}
+
+.main section .container-1 .table-container .table-section {
+  margin-top: .5rem;
+  width: 100%;
+  height: 85%;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  overflow-y: scroll;
+  transition: all .3s ease;
+}
+
+.main section .container-1 .table-container .table-section::-webkit-scrollbar {
+  /* remove scrollbar */
+  display: none;
+}
+
+.main section .container-1 .table-container .table-section:hover {
+  box-shadow: none;
+}
+
+.container-1 .table-container .table-section table {
+  padding: var(--card-padding);
+  text-align: center;
+  width: 100%;
+  color: var(--color-info-light);
+}
+
+.container-1 .table-container .table-section table tbody td {
+  height: 3rem;
+  border-bottom: 1px solid var(--color-dark-variant);
+  color: var(--color-dark-variant);
+
+}
+
+.container-1 .table-container .table-section table tbody tr:hover td {
+  color: var(--color-info-light);
+}
+
+.container-1 .table-container .table-section table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.container-1 .table-container .table-section table tbody tr td::first-letter {
+  text-transform: uppercase;
+}
+
+.container-1 .table-container .table-section table tbody tr td:nth-child(2)::first-letter {
+  text-transform: lowercase;
+}
+
+.container-1 .table-container .table-section table tbody tr td.added {
+  color: var(--color-primary);
+}
+
+.container-1 .table-container .table-section table tbody tr td.updated {
+  color: var(--color-success);
+}
+
+.container-1 .table-container .table-section table tbody tr td.deleted {
+  color: var(--color-danger);
+}
+
+.container-1 .table-container .table-section table tbody tr td.dumped {
+  color: #c4c933;
+}
+
+.container-1 .table-container .table-section table tbody tr td.borrowed {
+  color: #a709db;
+}
+
+.container-1 .table-container .table-section table tbody tr td.returned {
+  color: var(--color-success);
+}
+
+/** dashboard recent activities section end **/
+
+/** dashboard container-2 section  **/
+.main section .container-2 {
+  width: 50vh;
+  height: 100%;
+}
+
+.main section .container-2 .top {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main section .container-2 .top .text {
+  margin-right: 1rem;
+  color: var(--color-white);
+}
+
+.main section .container-2 .top .text h4 {
+  text-transform: uppercase;
+}
+
+.main section .container-2 .top .icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main section .container-2 .top .icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-info-light);
+}
+
+.main section .container-2 .mid {
+  width: 100%;
+  height: 35%;
+}
+
+.main section .container-2 .mid h2 {
+  font-weight: 700;
+  margin-left: 2rem;
+  color: var(--color-info-light);
+}
+
+.main section .container-2 .mid .card-section {
+  width: 90%;
+  height: 12rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  overflow: scroll;
+}
+
+.main section .container-2 .mid .card-section::-webkit-scrollbar {
+  display: none;
+}
+
+.container-2 .mid .card-section .row {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  transition: all .9s ease;
+}
+
+.container-2 .mid .card-section .row:hover {
+  background: var(--color-dark);
+}
+
+.container-2 .mid .card-section .row svg {
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-info-light);
+}
+
+.container-2 .mid .card-section .row div {
+  margin-left: 1rem;
+  color: var(--color-info-dark);
+}
+
+.container-2 .mid .card-section .row div h4::first-letter {
+  text-transform: uppercase;
+}
+
+.container-2 .mid .card-section .row div p::first-letter {
+  text-transform: uppercase;
+}
+
+.main section .container-2 .bottom {
+  width: 100%;
+  height: 52%;
+}
+
+.main section .container-2 .bottom h3 {
+  font-weight: 600;
+  margin-left: 2rem;
+  color: var(--color-info-light);
+  margin-top: 1rem;
+}
+
+.main section .container-2 .bottom .card-section {
+  width: 100%;
+  height: 20rem;
+  margin-top: .4rem;
+  overflow: scroll;
+}
+
+.main section .container-2 .bottom .card-section::-webkit-scrollbar {
+  display: none;
+}
+
+.main section .container-2 .bottom .card-section .row {
+  width: 90%;
+  height: 4rem;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  transition: all .5s ease;
+}
+
+.main section .container-2 .bottom .card-section .row:hover {
+  margin-left: 1.5rem;
+}
+
+.main section .container-2 .bottom .card-section .row .icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: .5rem;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+.main section .container-2 .bottom .card-section .row .icon-s {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: .5rem;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.main section .container-2 .bottom .card-section .row .icon-s svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.main section .container-2 .bottom .card-section .row .icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.main section .container-2 .bottom .card-section .row .data {
+  width: 17rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+}
+
+.main section .container-2 .bottom .card-section .row .data::-webkit-scrollbar {
+  display: none;
+}
+
+.main section .container-2 .bottom .card-section .row .data p {
+  font-size: .9rem;
+  color: var(--color-info-dark);
+  margin-left: 1rem;
+}
+
+.main section .container-2 .bottom .card-section .row .data p:first-child {
+  text-transform: uppercase;
+}
+
+.main section .container-2 .bottom .card-section .row .data p::first-letter {
+  text-transform: uppercase;
+}
+
+/** dashboard container-2 section  end **/
+
+/********************* Dashboard style end **************************/

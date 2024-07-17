@@ -57,6 +57,10 @@ function Login({ setNav }) {
       axios({
         method: 'POST',
         url: 'http://localhost:4000/login',
+        headers: {
+          'Content-type': 'application/json; charset=utf-8',
+        },
+        withCredentials: true,
         data: data
       }).then((res) => {
         setLoader(false)
