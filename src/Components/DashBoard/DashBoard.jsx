@@ -42,6 +42,9 @@ function DashBoard({ setNav }) {
             withCredentials: true
         }).then((res) => {
             console.log("active users3333333333333333333", res)
+            if (res.status === 200) {
+                setAllUsersData(res.data.filter((value) => value.status === true))
+            }
             // if (res.data.length !== undefined) {
             //     console.log(res.data)
             //     setAllUsersData(res.data.filter((value) => value.status === '1'))
