@@ -32,38 +32,6 @@ function DashBoard({ setNav }) {
     const [noOfStock, setNoOfStock] = useState(0)
     const [noOfItem, setNoOfItem] = useState(0)
     const [noOfBorrow, setNoOfBorrow] = useState(0)
-    const getUserData = useCallback(() => {
-        axios({
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=utf-8',
-                'Authorization': `Bearer ${authData.JWT}`,
-            },
-            withCredentials: true,
-            url: 'http://localhost:4000/me'
-        }).then(res => {
-            console.log("me route data", res)
-            if (res.status === 200) {
-                if (!res.data.status) { navigate('/inactive', { replace: true }); return }
-                dispatch({
-                    type: 'auth_login',
-                    JWT: res.data.token,
-                    u_id: res.data.id,
-                    name: res.data.name,
-                    email: res.data.email,
-                    phone: res.data.phone,
-                    join_date: res.data.join_date,
-                    status: res.data.status,
-                    r_id: res.data.role.id,
-                    r_name: res.data.role.name
-                })
-                setNav(res.data.userData.role.id)
-                navigate('/', { replace: true })
-            }
-        }).catch(err => {
-            console.log("me route error", err)
-        })
-    }, [authData.JWT, dispatch, setNav, navigate])
     let getUsersData = useCallback(() => {
         axios({
             method: 'POST',
@@ -207,14 +175,13 @@ function DashBoard({ setNav }) {
     }, [setBorrowPercentage, setNoOfBorrow])
     /********* API call **********/
     useEffect(() => {
-        getUserData()
         // getUsersData()
         // getStockCount()
         // getItemCount()
         // getBorrowCount()
         // getRecentActivityData()
         // getWarrantyData()
-    }, [getUserData, getUsersData, getStockCount, getItemCount, getBorrowCount, getRecentActivityData, getWarrantyData])
+    }, [getUsersData, getStockCount, getItemCount, getBorrowCount, getRecentActivityData, getWarrantyData])
 
     useEffect(() => {
         const interval = setInterval(() => {

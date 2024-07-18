@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       {console.log("authData", authData)}
-      {authData.authentication === true && <NavBar roleId={nav} />}
+      {authData.authentication === true && <NavBar roleName={nav} />}
       <Routes>
         <Route path='/login' element={<Login setNav={setNav} />} />
         <Route path='/signup' element={<SignUp />} />
@@ -35,7 +35,7 @@ function App() {
         <Route path='/inactive' element={<InActive />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<DashBoard setNav={setNav} />} />
-          {nav === '1' && <Route path='/users' element={<Users />} />}
+          {nav === 'hod' && <Route path='/users' element={<Users />} />}
           <Route path='/stock' element={<StockDetails />} />
           <Route path='/items' element={<ItemDetails />} />
           <Route path='/borrowers' element={<Borrowers />} />
