@@ -34,29 +34,29 @@ function DashBoard({ setNav }) {
     const [noOfBorrow, setNoOfBorrow] = useState(0)
     let getUsersData = useCallback(() => {
         axios({
-            method: 'POST',
-            url: 'http://localhost/soft-lab-api/route/services/users-data.php',
+            method: 'GET',
+            url: 'http://localhost:4000/users',
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'Authorization': authData.JWT,
-            }
+            },
+            withCredentials: true
         }).then((res) => {
-            console.log("active users", res)
-            if (res.data.length !== undefined) {
-                console.log(res.data)
-                setAllUsersData(res.data.filter((value) => value.status === '1'))
-            } else if (res.data.statuscode === 401) { //token expired
-                localStorage.removeItem('token')
-                dispatch({ type: 'auth_logout' })
-                navigate('/login', { replace: true })
-                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-            } else if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-            }
+            console.log("active users3333333333333333333", res)
+            // if (res.data.length !== undefined) {
+            //     console.log(res.data)
+            //     setAllUsersData(res.data.filter((value) => value.status === '1'))
+            // } else if (res.data.statuscode === 401) { //token expired
+            //     localStorage.removeItem('token')
+            //     dispatch({ type: 'auth_logout' })
+            //     navigate('/login', { replace: true })
+            //     //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            // } else if (res.data.statuscode === 400) {
+            //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            // }
         }).catch((err) => {
             setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
         })
-    }, [authData.JWT, dispatch, navigate])
+    }, [dispatch, navigate])
 
     let getRecentActivityData = useCallback(() => {
         axios({
@@ -175,7 +175,7 @@ function DashBoard({ setNav }) {
     }, [setBorrowPercentage, setNoOfBorrow])
     /********* API call **********/
     useEffect(() => {
-        // getUsersData()
+        getUsersData()
         // getStockCount()
         // getItemCount()
         // getBorrowCount()
