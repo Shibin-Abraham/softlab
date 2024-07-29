@@ -44,6 +44,8 @@ function DashBoard({ setNav }) {
             console.log("active users3333333333333333333", res)
             if (res.status === 200) {
                 setAllUsersData(res.data.filter((value) => value.status === true))
+            } else {
+                setGlobalPopUp({ id: 4, header: 'Error', message: 'Something went error' })
             }
             // if (res.data.length !== undefined) {
             //     console.log(res.data)
@@ -57,7 +59,7 @@ function DashBoard({ setNav }) {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}` })
         })
     }, [dispatch, navigate])
 
@@ -127,16 +129,23 @@ function DashBoard({ setNav }) {
     let getStockCount = useCallback(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=1',
+            url: 'http://localhost:4000/count/stock',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+            },
+            withCredentials: true
         }).then((res) => {
             console.log("stock countttttt", res)
-            if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-            } else if (res.data.statuscode === 200 && res.data.percentage !== 0) {
-                setStockPercentage(res.data.percentage)
-                setNoOfStock(res.data.count)
-                setTotalStockCount(res.data.total)
-            }
+            setStockPercentage(res.data.percentage)
+            setNoOfStock(res.data.activeStock)
+            setTotalStockCount(res.data.totalStock)
+            // if (res.data.statuscode === 400) {
+            //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            // } else if (res.data.statuscode === 200 && res.data.percentage !== 0) {
+            //     setStockPercentage(res.data.percentage)
+            //     setNoOfStock(res.data.count)
+            //     setTotalStockCount(res.data.total)
+            // }
         }).catch((err) => {
             setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
         })
@@ -179,7 +188,7 @@ function DashBoard({ setNav }) {
     /********* API call **********/
     useEffect(() => {
         getUsersData()
-        // getStockCount()
+        getStockCount()
         // getItemCount()
         // getBorrowCount()
         // getRecentActivityData()
