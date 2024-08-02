@@ -57,10 +57,13 @@ function Users() {
             console.log(err)
             if (err.response.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                dispatch({ type: 'auth_logout' })
+                navigate('/login', { replace: true })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
             }
-
         })
-    }, [authData.JWT, dispatch, navigate])
+    }, [dispatch, navigate])
 
     let getStockData = useCallback(() => {
         console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")

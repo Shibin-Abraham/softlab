@@ -43,7 +43,7 @@ function DashBoard({ setNav }) {
         }).then((res) => {
             console.log("active users3333333333333333333", res)
             if (res.status === 200) {
-                setAllUsersData(res.data.filter((value) => value.status === true))
+                setAllUsersData(res.data.filter((value) => value.status === true && !value.r_name.toUpperCase().includes('HOD')))
             } else {
                 setGlobalPopUp({ id: 4, header: 'Error', message: 'Something went error' })
             }
