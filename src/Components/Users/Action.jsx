@@ -60,7 +60,7 @@ function Action(props) {
       <td style={status === 'Active' ? { color: "#41f1b6" } : { color: "#ff7782" }}>{status}</td>
       <td>
         <button onClick={() => assignUser()}>{userState}</button>
-        <button onClick={() => setDeletePopUp(true)}>archive</button>
+        <button onClick={() => setDeletePopUp(true)}>Archive</button>
         {deletePopUp && <DeletePopUp setDeletePopUp={setDeletePopUp} id={props.id} getUsersData={props.getUsersData} setGlobalPopUp={props.setGlobalPopUp} getStockData={props.getStockData} getStockHandlingUsers={props.getStockHandlingUsers} />}
       </td>
 

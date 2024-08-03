@@ -43,7 +43,7 @@ function DashBoard({ setNav }) {
         }).then((res) => {
             console.log("active users3333333333333333333", res)
             if (res.status === 200) {
-                setAllUsersData(res.data.filter((value) => value.status === true && !value.r_name.toUpperCase().includes('HOD')))
+                setAllUsersData(res.data.filter((value) => value.status === true && !(value.id === userData.u_id)))
             } else {
                 setGlobalPopUp({ id: 4, header: 'Error', message: 'Something went error' })
             }
@@ -351,7 +351,7 @@ function DashBoard({ setNav }) {
                     <div className="top">
                         <div className="text">
                             <h4 title="User Name">{userData.name}</h4>
-                            <p title="Position">{userData.r_name}</p>
+                            <p title="Position">{userData.r_name.toUpperCase()}</p>
                         </div>
                         <div className="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
