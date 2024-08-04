@@ -105,14 +105,14 @@ function Login({ setNav }) {
   }
   const errorHandler = ({ response }) => {
     setLoader(false)
-    if (response.status === 403) { setGlobalPopUp({ id: 4, header: 'Error', message: response.data.error }); return }
-    if (response.status === 401) {
+    if (response?.status === 403) { setGlobalPopUp({ id: 4, header: 'Error', message: response.data.error }); return }
+    if (response?.status === 401) {
       setGlobalPopUp({ id: 4, header: 'Invalid credentials', message: `${response.data.error}, Please try again` })
       setErrorMsg(response.data.error)
       return
     }
 
-    setGlobalPopUp({ id: 4, header: 'Error occured', message: response.data.error })
+    setGlobalPopUp({ id: 4, header: 'Error occured', message: response?.data.error ? response.data.error : "Server Down" })
   }
   function checkResponse(res) {
     if (res.status === 200) {
