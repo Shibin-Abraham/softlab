@@ -59,9 +59,15 @@ function DashBoard({ setNav }) {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}` })
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                dispatch({ type: 'auth_logout' })
+                navigate('/login', { replace: true })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
+            }
         })
-    }, [dispatch, navigate])
+    }, [setAllUsersData, userData, dispatch, navigate])
 
     let getRecentActivityData = useCallback(() => {
         axios({
@@ -147,9 +153,16 @@ function DashBoard({ setNav }) {
             //     setTotalStockCount(res.data.total)
             // }
         }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+            //setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                dispatch({ type: 'auth_logout' })
+                navigate('/login', { replace: true })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
+            }
         })
-    }, [setStockPercentage, setNoOfStock])
+    }, [setStockPercentage, setNoOfStock, dispatch, navigate])
 
     let getItemCount = useCallback(() => {
         axios({
