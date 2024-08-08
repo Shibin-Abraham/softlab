@@ -1,6 +1,6 @@
 @import url('../../global.css');
 
-.s-loader{
+.s-loader {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,22 +10,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #030303a0;
+    background: #030303a9;
 }
-.s-loader .spinner{
+
+.s-loader .spinner {
     pointer-events: none;
     width: 75px;
     height: 75px;
-    border: 10px solid transparent;
+    border: 9px solid transparent;
     border-radius: 50%;
-    border-top-color: #ffffff;
-    animation: spinner .7s ease infinite;
+    border-top-color: var(--color-primary-3);
+    animation: spinner .6s ease infinite;
 }
-@keyframes spinner{
-    0%{
+
+@keyframes spinner {
+    0% {
         transform: rotate(0turn);
     }
-    100%{
+
+    100% {
         transform: rotate(1turn);
     }
 }

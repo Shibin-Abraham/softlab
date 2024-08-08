@@ -9,6 +9,7 @@ import axios from "axios";
 import GlobalPopUp from "../GlobalPopUp/GlobalPopUp";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from 'react';
+import Loader from '../Loader/Loader';
 
 function Users() {
     const [globalPopUp, setGlobalPopUp] = useState({})
@@ -19,6 +20,7 @@ function Users() {
     let [allUsersData, setAllUsersData] = useState([])
     let [allStockData, setAllStockData] = useState([])
     let [allStockHandlingData, setAllStockHandlingData] = useState([])
+    let [loader, setLoader] = useState(true)
 
     let [stockInHandRowData, setStockInHandRowData] = useState({})
 
@@ -39,6 +41,7 @@ function Users() {
             console.log("active users 11111111", res)
             if (res.status === 200) {
                 setAllUsersData(res.data.filter((data) => data.r_name !== "HOD"))
+                setLoader(false)
             }
             // if(res.data.length !== undefined){
             //     console.log(res.data)
@@ -156,6 +159,7 @@ function Users() {
             {globalPopUp.id === 2 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}
             {globalPopUp.id === 3 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}
             {globalPopUp.id === 4 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}
+            {loader && <Loader />}
             <section>
                 <div className="top-container">
                     <h1>Users</h1>
