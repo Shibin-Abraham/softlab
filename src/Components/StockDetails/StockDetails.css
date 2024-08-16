@@ -1,190 +1,223 @@
 @import url("../../global.css");
 
-.stock-details{
-    width: 80vw;
-    height: 100vh;
+.stock-details {
+  width: 80vw;
+  height: 100vh;
 }
-.stock-details section{
-    margin: 1rem 0rem 0rem 1rem;
-    width: 100%;
-    height: 95%;
-  }
-  .stock-details section h1{
-    font-size: 1.9rem;
-    color: var(--color-white);
-  }
-  .stock-details section .top{
-    width: 95%;
-    height: 10%;
-    border-radius: var(--border-radius-1);
-    background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: .8rem;
-  }
-  .stock-details section .top input{
-    margin-left: .5rem;
-    font-size: 1rem;
-    font-weight: 300;
-    width: 70%;
-    height: 60%;
-    color: var(--color-white);
-    border: 1px solid var(--color-primary);
-    background: none;
-    border-radius: var(--border-radius-1);
-    transition: all .7s ease;
-    text-align: left;
-  }
-  .stock-details section input:hover{
-    width: 71%;
-    outline: none;
-  }
-  .stock-details section .top input:focus{
-    width: 71%;
-    outline: none;
-  }
-  .stock-details section .top input::placeholder{
-    margin-left: 10px;
-    color: var(--color-primary);
-  }
-  .stock-details section .top div{
-    margin-right: .5rem;
-    width: 25%;
-    height: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary);
-    border: 1px dashed var(--color-primary);
-    border-radius: var(--border-radius-1);
-    transition: all .5s ease;
-  }
-  .stock-details section .top div svg{
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .stock-details section .top div h3{
-    margin-left: .5rem;
-    font-weight: 400; 
-  }
-  .stock-details section .top div:hover{
-    color: var(--color-white);
-    border: 1px solid var(--color-primary);
-    background: var(--color-primary);
-  }
 
-  .stock-details section .container{
-    margin-top: 1rem;
-    width: 95%;
-    height: 75%;
-    overflow-y: scroll;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
+.stock-details section {
+  margin: 1rem 0rem 0rem 1rem;
+  width: 100%;
+  height: 95%;
+}
 
-  }
-  .stock-details section .container::-webkit-scrollbar{
-    display: none;
-  }
-  .stock-details section .container .table-section table{
-    width: 100%;
-  }
-  .stock-details section .container .table-section table thead{
-    width: 100%;
-    height: 3rem;
-    font-size: 1rem;
-    color: var(--color-white);
-    background: #5058a0f3; ;
-    /*background: var(--color-blue-shade);*/
-  }
-  .stock-details section .container .table-section table tbody{
-    width: 100%;
-    height: 100%;
-  }
-  .stock-details section .container .table-section table tbody tr{
-    width: 100%;
-    height: 3rem;
-    font-size: 1rem;
-    color: var(--color-dark-variant);
-    transition: all .1s ease;
-  }
-  .stock-details section .container .table-section table tbody tr:nth-child(even){
-    background: var(--color-light-variant-2);
-  }
-  .stock-details section .container .table-section table tbody tr:hover{
-    color: var(--color-white);
-  }
-  .stock-details section .container .table-section table tbody tr td{
-    border-bottom: 1px solid var(--color-dark-variant);
-    text-align: center;
-    border-bottom: 1px solid var(--color-dark-variant);
-  }
-  .stock-details section .container .table-section table tbody tr td:nth-child(2){
-    text-transform: uppercase;
-  }
-  .stock-details section .container .table-section table tbody tr td:nth-child(3){
-    text-transform: uppercase;
-  }
-  .stock-details section .container .table-section table tbody tr td span{
-    margin-right: 15px;
-  }
-  .stock-details section .container .table-section table tbody tr:first-child td{
-    border-top: 1px solid var(--color-dark-variant);
-  }
-  .stock-details section .container .table-section table tbody tr td svg{
-    width: 2.3rem;
-    height: 2.2rem;
-    color: var(--color-primary);
-  }
-  .stock-details section .container .table-section table tbody tr td svg:hover{
-    width: 2.5rem;
-    height: 2.4rem;
-  }
+.stock-details section h1 {
+  font-size: 1.9rem;
+  color: var(--color-white);
+}
 
-  /** search section style **/
-  .stock-details section .search-data{
-    position: absolute;
-    width: 55%;
-    height: auto;
-  }
-  .stock-details section .search-data ul{
-    width: 97%;
-    height: 100%;
-    margin-left: .5rem;
-    list-style-type: none;
-    background: var(--pure-black);
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    color: var(--color-white);
-    overflow: hidden;
-  }
-  .stock-details section .search-data ul li{
-    width: 100%;
-    height: 3rem;
-    list-style-type: none;
-    border-bottom: 1px solid var(--color-dark-variant);
-    display: flex;
-    align-items: center;
-  }
-  .stock-details section .search-data ul li:hover{
-    background: var(--color-dark-variant);
-  }
-  .stock-details section .search-data ul li:last-child{
-    border-bottom: none;
-  }
-  .stock-details section .search-data ul li span{
-    font-size: 1rem;
-    margin-left: 2rem;
-    display: flex;
-    align-items: center;
-  }
-  .stock-details section .search-data ul li span svg{
-    margin-right: .5rem;
-    width: 1.2rem;
-    height: 1.5rem;
-  }
-  .stock-details section .search-data ul li span:first-child{
-    margin-left: .5rem;
-    text-transform: uppercase;
-  }
+.stock-details section .top {
+  width: 95%;
+  height: 10%;
+  border-radius: var(--border-radius-1);
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: .8rem;
+}
+
+.stock-details section .top input {
+  margin-left: .5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  width: 70%;
+  height: 60%;
+  color: var(--color-white);
+  border: 1px solid var(--color-primary);
+  background: none;
+  border-radius: var(--border-radius-1);
+  transition: all .7s ease;
+  text-align: left;
+}
+
+.stock-details section input:hover {
+  width: 71%;
+  outline: none;
+}
+
+.stock-details section .top input:focus {
+  width: 71%;
+  outline: none;
+}
+
+.stock-details section .top input::placeholder {
+  margin-left: 10px;
+  color: var(--color-primary);
+}
+
+.stock-details section .top div {
+  margin-right: .5rem;
+  width: 25%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--border-radius-1);
+  transition: all .5s ease;
+}
+
+.stock-details section .top div svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.stock-details section .top div h3 {
+  margin-left: .5rem;
+  font-weight: 400;
+}
+
+.stock-details section .top div:hover {
+  color: var(--color-white);
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+}
+
+.stock-details section .container {
+  margin-top: 1rem;
+  width: 95%;
+  height: 75%;
+  overflow-y: scroll;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+
+}
+
+.stock-details section .container::-webkit-scrollbar {
+  display: none;
+}
+
+.stock-details section .container .table-section table {
+  width: 100%;
+}
+
+.stock-details section .container .table-section table thead {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  color: var(--color-white);
+  background: #5058a0f3;
+  ;
+  /*background: var(--color-blue-shade);*/
+}
+
+.stock-details section .container .table-section table tbody {
+  width: 100%;
+  height: 100%;
+}
+
+.stock-details section .container .table-section table tbody tr {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  color: var(--color-dark-variant);
+  transition: all .1s ease;
+}
+
+.stock-details section .container .table-section table tbody tr:nth-child(even) {
+  background: var(--color-light-variant-2);
+}
+
+.stock-details section .container .table-section table tbody tr:hover {
+  color: var(--color-white);
+}
+
+.stock-details section .container .table-section table tbody tr td {
+  border-bottom: 1px solid var(--color-dark-variant);
+  text-align: center;
+  border-bottom: 1px solid var(--color-dark-variant);
+}
+
+.stock-details section .container .table-section table tbody tr td:nth-child(2) {
+  text-transform: uppercase;
+}
+
+.stock-details section .container .table-section table tbody tr td:nth-child(3) {
+  text-transform: uppercase;
+}
+
+.stock-details section .container .table-section table tbody tr td span {
+  margin-right: 15px;
+}
+
+.stock-details section .container .table-section table tbody tr:first-child td {
+  border-top: 1px solid var(--color-dark-variant);
+}
+
+.stock-details section .container .table-section table tbody tr td svg {
+  width: 1.8rem;
+  height: 1.9rem;
+  color: var(--color-primary);
+}
+
+.stock-details section .container .table-section table tbody tr td svg:hover {
+  width: 2rem;
+  height: 2.1rem;
+}
+
+/** search section style **/
+.stock-details section .search-data {
+  position: absolute;
+  width: 55%;
+  height: auto;
+}
+
+.stock-details section .search-data ul {
+  width: 97%;
+  height: 100%;
+  margin-left: .5rem;
+  list-style-type: none;
+  background: var(--pure-black);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.stock-details section .search-data ul li {
+  width: 100%;
+  height: 3rem;
+  list-style-type: none;
+  border-bottom: 1px solid var(--color-dark-variant);
+  display: flex;
+  align-items: center;
+}
+
+.stock-details section .search-data ul li:hover {
+  background: var(--color-dark-variant);
+}
+
+.stock-details section .search-data ul li:last-child {
+  border-bottom: none;
+}
+
+.stock-details section .search-data ul li span {
+  font-size: 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.stock-details section .search-data ul li span svg {
+  margin-right: .5rem;
+  width: 1.2rem;
+  height: 1.5rem;
+}
+
+.stock-details section .search-data ul li span:first-child {
+  margin-left: .5rem;
+  text-transform: uppercase;
+}
