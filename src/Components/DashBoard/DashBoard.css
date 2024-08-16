@@ -361,6 +361,10 @@
   color: var(--color-success);
 }
 
+.container-1 .table-container .table-section table tbody tr td.registered {
+  color: var(--color-white);
+}
+
 /** dashboard recent activities section end **/
 
 /** dashboard container-2 section  **/

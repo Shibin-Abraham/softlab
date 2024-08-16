@@ -71,29 +71,41 @@ function DashBoard({ setNav }) {
 
     let getRecentActivityData = useCallback(() => {
         axios({
-            method: 'POST',
-            url: 'http://localhost/soft-lab-api/route/services/recent-activity-data.php',
+            method: 'GET',
+            url: 'http://localhost:4000/recent-activies',
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'Authorization': authData.JWT,
-            }
+            },
+            withCredentials: true
         }).then((res) => {
-            console.log("recent activity data", res)
-            if (res.data.length !== undefined) {
-                console.log(res.data)
-                setRecentActivityData(res.data.sort((a, b) => b.id - a.id)) //sort by decending order for show latest data
-            } else if (res.data.statuscode === 401) { //token expired
-                localStorage.removeItem('token')
+            console.log("recent activies data ", res)
+            if (res.status === 200) {
+                setRecentActivityData(res.data)
+            } else {
+                setGlobalPopUp({ id: 4, header: 'Error', message: 'Something went error' })
+            }
+            // console.log("recent activity data", res)
+            // if (res.data.length !== undefined) {
+            //     console.log(res.data)
+            //     setRecentActivityData(res.data.sort((a, b) => b.id - a.id)) //sort by decending order for show latest data
+            // } else if (res.data.statuscode === 401) { //token expired
+            //     localStorage.removeItem('token')
+            //     dispatch({ type: 'auth_logout' })
+            //     navigate('/login', { replace: true })
+            //     //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            // } else if (res.data.statuscode === 400) {
+            //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            // }
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
                 navigate('/login', { replace: true })
-                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-            } else if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
             }
-        }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
         })
-    }, [authData.JWT, dispatch, navigate])
+    }, [dispatch, navigate])
 
     let getWarrantyData = useCallback(() => {
         axios({
@@ -204,7 +216,7 @@ function DashBoard({ setNav }) {
         getStockCount()
         // getItemCount()
         // getBorrowCount()
-        // getRecentActivityData()
+        getRecentActivityData()
         // getWarrantyData()
     }, [getUsersData, getStockCount, getItemCount, getBorrowCount, getRecentActivityData, getWarrantyData])
 
