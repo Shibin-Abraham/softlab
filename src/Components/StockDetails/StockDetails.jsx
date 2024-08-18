@@ -37,7 +37,7 @@ function StockDetails() {
             console.log("stock dataa ---------------", res)
             if (res.status === 200) {
                 setAllStockData(res.data.filter((data) => !data.dump))
-                setStockDataEmpty(res.data.filter((data) => data.category === '' && !data.dump))
+                setStockDataEmpty(res.data.filter((data) => data.category === null && !data.dump))
             }
             // if(res.data.length !== undefined){
             //     //console.log(res.data) 
@@ -63,10 +63,10 @@ function StockDetails() {
             setSearchPopUp(1)
             let searchData = e.target.value.toLowerCase()
             setAllStockDataCopy(allStockData.filter((data) => {
-                let name = data.name.toLowerCase()
-                let invoice_date = data.invoice_date
-                let invoice_id = data.invoice_id?.toLowerCase()
-                return (name.includes(searchData) || invoice_date.includes(searchData) || invoice_id.includes(searchData))
+                let name = data?.name?.toLowerCase()
+                let invoice_date = data?.invoice_date
+                let invoice_id = data?.invoice_id?.toLowerCase()
+                return (name?.includes(searchData) || invoice_date?.includes(searchData) || invoice_id?.includes(searchData))
             }))
         } else {
             setAllStockDataCopy([])
@@ -106,7 +106,7 @@ function StockDetails() {
                                     return (
                                         <li key={index} onClick={(e) => {
                                             console.log(allStockDataCopy)
-                                            setAllStockDataCopy(allStockData.filter((data) => data.id === String(e.currentTarget.value)))
+                                            setAllStockDataCopy(allStockData.filter((data) => String(data.id) === String(e.currentTarget.value)))
                                             console.log(allStockDataCopy)
                                             setSearchPopUp(0)
                                         }} value={data.id}>
@@ -164,14 +164,14 @@ function StockDetails() {
                                         return (
                                             <tr key={data.id}>
                                                 <td>{index + 1}</td>
-                                                <td><span style={data.role_name !== undefined ? { width: "10px", height: "5px", color: "#000000", background: "#6474ff", borderRadius: "10px" } : null}>{data.role_name !== undefined && `${data.role_name} `}</span>  {data.name}</td>
-                                                <td style={data.category === '' ? { color: "#ff7782" } : null}>{data.category !== '' ? data.category : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.invoice_id === '' ? { color: "#ff7782" } : null}>{data.invoice_id !== '' ? data.invoice_id : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.invoice_date === '' ? { color: "#ff7782" } : null}>{data.invoice_date !== '' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.type === '' ? { color: "#ff7782" } : null}>{data.type !== '' ? data.type : 'PLEASE FILL DATA'}</td>
+                                                <td><span style={data?.role_name ? { width: "10px", height: "5px", color: "#000000", background: "#6474ff", borderRadius: "10px" } : null}>{data?.role_name && `${data?.role_name} `}</span>  {data.name}</td>
+                                                <td style={data.category === null ? { color: "#ff7782" } : null}>{data.category !== null ? data.category : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_id === null ? { color: "#ff7782" } : null}>{data.invoice_id !== null ? data.invoice_id : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_date === null ? { color: "#ff7782" } : null}>{data.invoice_date !== null ? data.invoice_date : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.type === null ? { color: "#ff7782" } : null}>{data.type !== null ? data.type : 'PLEASE FILL DATA'}</td>
                                                 <td>
                                                     {
-                                                        data.type !== '' ? <svg onClick={() => {
+                                                        data.type !== null ? <svg onClick={() => {
                                                             setViewPopUp(true)
                                                             setStockRoWData({
                                                                 id: data.id,
@@ -197,13 +197,13 @@ function StockDetails() {
                                             <tr key={data.id}>
                                                 <td>{index + 1}</td>
                                                 <td><span style={data.role_name !== undefined ? { width: "10px", height: "5px", color: "#000000", background: "#6474ff", borderRadius: "10px" } : null}>{data.role_name !== undefined && `${data.role_name} `}</span>  {data.name}</td>
-                                                <td style={data.category === '' ? { color: "#ff7782" } : null}>{data.category !== '' ? data.category : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.invoice_id === '' ? { color: "#ff7782" } : null}>{data.invoice_id !== '' ? data.invoice_id : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.invoice_date === '' ? { color: "#ff7782" } : null}>{data.invoice_date !== '' ? data.invoice_date : 'PLEASE FILL DATA'}</td>
-                                                <td style={data.type === '' ? { color: "#ff7782" } : null}>{data.type !== '' ? data.type : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.category === null ? { color: "#ff7782" } : null}>{data.category !== null ? data.category : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_id === null ? { color: "#ff7782" } : null}>{data.invoice_id !== null ? data.invoice_id : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.invoice_date === null ? { color: "#ff7782" } : null}>{data.invoice_date !== null ? data.invoice_date : 'PLEASE FILL DATA'}</td>
+                                                <td style={data.type === null ? { color: "#ff7782" } : null}>{data.type !== null ? data.type : 'PLEASE FILL DATA'}</td>
                                                 <td>
                                                     {
-                                                        data.type !== '' ? <svg onClick={() => {
+                                                        data.type !== null ? <svg onClick={() => {
                                                             setViewPopUp(true)
                                                             setStockRoWData({
                                                                 id: data.id,
