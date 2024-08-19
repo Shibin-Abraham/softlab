@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 function ViewPopUp(props) {
-    const authData = useContext(StateContext)
+    //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
 
@@ -37,7 +37,7 @@ function ViewPopUp(props) {
                 },
                 withCredentials: true
             }).then((res) => {
-                console.log("status code update stock", res)
+                //console.log("status code update stock", res)
                 if (res.status === 200) {
                     props.getStockData()
                     props.setViewPopUp(false)

@@ -8,7 +8,7 @@ import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider'
 function AddStockPopUp(props) {
     console.log("AddStockPopUp ", props)
 
-    const authData = useContext(StateContext)
+    //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ function AddStockPopUp(props) {
                 withCredentials: true
                 //data: { ...data, current_date: getDate(), current_time: getTime(), stock_name: stockName[0].name }
             }).then((res) => {
-                console.log("status code update stock", res)
+                //console.log("status code update stock", res)
                 if (res.status === 200) {
                     props.getStockData()
                     setPopUpActive('')//close AddStockPopUp 

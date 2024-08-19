@@ -21,7 +21,7 @@ function StockDetails() {
 
     const navigate = useNavigate()
 
-    const authData = useContext(StateContext)
+    //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
     //console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",authData)
     let getStockData = useCallback(() => {
@@ -34,7 +34,7 @@ function StockDetails() {
             withCredentials: true
         }).then((res) => {
 
-            console.log("stock dataa ---------------", res)
+            //console.log("stock dataa ---------------", res)
             if (res.status === 200) {
                 setAllStockData(res.data.filter((data) => !data.dump))
                 setStockDataEmpty(res.data.filter((data) => data.category === null && !data.dump))
