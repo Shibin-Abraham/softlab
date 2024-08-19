@@ -25,36 +25,51 @@ function AddStockPopUp(props) {
     const onSubmit = (data) => {
         if (data && stockName.length !== 0) {//connect to server
             axios({
-                method: 'POST',
-                url: 'http://localhost/soft-lab-api/route/services/update-stock-details.php',
+                method: 'PUT',
+                url: 'http://localhost:4000/stock/update',
                 headers: {
                     'Content-type': 'application/json; charset=utf-8',
-                    'Authorization': authData.JWT,
                 },
-                data: { ...data, current_date: getDate(), current_time: getTime(), stock_name: stockName[0].name }
+                data: { ...data, current_date: getDate(), current_time: getTime(), stock_name: stockName[0].name },
+                withCredentials: true
+                //data: { ...data, current_date: getDate(), current_time: getTime(), stock_name: stockName[0].name }
             }).then((res) => {
                 console.log("status code update stock", res)
-                if (res.data.statuscode === 200) {
+                if (res.status === 200) {
                     props.getStockData()
                     setPopUpActive('')//close AddStockPopUp 
                     props.setGlobalPopUp({ id: 2, header: 'UPDATED', message: 'Stock data successfully updated' }) // show the success message
                     setTimeout(() => { props.setStockPopUp(false) }, 300)
                     //props.setAssignStockRole(false)
-                } else if (res.data.statuscode === 403) {
-                    setError1('This user already take same stock')
-                } else if (res.data.statuscode === 401) { //token expired
-                    localStorage.removeItem('token')
-                    dispatch({ type: 'auth_logout' })
-                    navigate('/login', { replace: true })
-                    //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-                } else if (res.data.statuscode === 400) {
-                    props.setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-                } else if (res.data.statuscode === 500) {
-                    props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 }
+                // if (res.data.statuscode === 200) {
+                //     props.getStockData()
+                //     setPopUpActive('')//close AddStockPopUp 
+                //     props.setGlobalPopUp({ id: 2, header: 'UPDATED', message: 'Stock data successfully updated' }) // show the success message
+                //     setTimeout(() => { props.setStockPopUp(false) }, 300)
+                //     //props.setAssignStockRole(false)
+                // } else if (res.data.statuscode === 403) {
+                //     setError1('This user already take same stock')
+                // } else if (res.data.statuscode === 401) { //token expired
+                //     localStorage.removeItem('token')
+                //     dispatch({ type: 'auth_logout' })
+                //     navigate('/login', { replace: true })
+                //     //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+                // } else if (res.data.statuscode === 400) {
+                //     props.setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+                // } else if (res.data.statuscode === 500) {
+                //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
+                // }
             }).catch((err) => {
                 console.log(err)
-                props.setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+                if (err.response.status === 401) {
+                    props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                    dispatch({ type: 'auth_logout' })
+                    navigate('/login', { replace: true })
+                } else {
+                    props.setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
+                }
+
             })
         } else {
             setError1('plese select stock name')
