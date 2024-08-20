@@ -33,28 +33,38 @@ function ItemDetails() {
 
   let getBrandData = useCallback(() => {
     axios({
-      method: 'POST',
-      url: 'http://localhost/soft-lab-api/route/services/brand-data.php',
+      method: 'GET',
+      url: 'http://localhost:4000/brand/getall',
       headers: {
         'Content-type': 'application/json; charset=utf-8',
-        'Authorization': authData.JWT,
-      }
+      },
+      withCredentials: true
     }).then((res) => {
-      console.log("active users 11111111", res)
-      if (res.data.length !== undefined) {
-        console.log(res.data)
+      console.log("brand data", res)
+      if (res.status === 200) {
         setBrandData(res.data)
-        //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
-      } else if (res.data.statuscode === 401) { //token expired
-        localStorage.removeItem('token')
+      }
+      // if (res.data.length !== undefined) {
+      //   console.log(res.data)
+      //   setBrandData(res.data)
+      //   //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+      // } else if (res.data.statuscode === 401) { //token expired
+      //   localStorage.removeItem('token')
+      //   dispatch({ type: 'auth_logout' })
+      //   navigate('/login', { replace: true })
+      //   //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      // } else if (res.data.statuscode === 400) {
+      //   setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+      // }
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
         dispatch({ type: 'auth_logout' })
         navigate('/login', { replace: true })
-        //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-      } else if (res.data.statuscode === 400) {
-        setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+      } else {
+        setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
       }
-    }).catch((err) => {
-      setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+      //setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
     })
   }, [authData.JWT, dispatch, navigate])
 
@@ -380,8 +390,8 @@ function ItemDetails() {
                 {
                   brandData.map((data) => {
                     return (
-                      <tr key={data.b_id}>
-                        <td>{data.b_name}</td>
+                      <tr key={data.id}>
+                        <td>{data.name}</td>
                       </tr>
                     )
                   })
