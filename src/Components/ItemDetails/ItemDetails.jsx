@@ -126,30 +126,40 @@ function ItemDetails() {
 
   let getStockData = useCallback(() => {
     axios({
-      method: 'POST',
-      url: 'http://localhost/soft-lab-api/route/services/stock-data.php',
+      method: 'GET',
+      url: 'http://localhost:4000/stock/getall',
       headers: {
         'Content-type': 'application/json; charset=utf-8',
-        'Authorization': authData.JWT,
-      }
+      },
+      withCredentials: true
     }).then((res) => {
       //console.log("stock dataa ---------------", res)
-      if (res.data.length !== undefined) {
-        //console.log(res.data) 
-        setAllStockData(res.data.filter((data) => data.dump !== "1"))
+      if (res.status === 200) {
+        setAllStockData(res.data.filter((data) => !data.dump))
+      }
 
-        //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
-        //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
-      } else if (res.data.statuscode === 401) { //token expired
-        localStorage.removeItem('token')
+      // if (res.data.length !== undefined) {
+      //   //console.log(res.data) 
+      //   //setAllStockData(res.data.filter((data) => data.dump !== "1"))
+      //   setAllStockData(res.data.filter((data) => !data.dump))
+      //   //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
+      //   //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
+      // } else if (res.data.statuscode === 401) { //token expired
+      //   localStorage.removeItem('token')
+      //   dispatch({ type: 'auth_logout' })
+      //   navigate('/login', { replace: true })
+      //   //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      // } else if (res.data.statuscode === 400) {
+      //   setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+      // }
+    }).catch((err) => {
+      if (err.response.status === 401) {
+        setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
         dispatch({ type: 'auth_logout' })
         navigate('/login', { replace: true })
-        //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-      } else if (res.data.statuscode === 400) {
-        setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+      } else {
+        setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
       }
-    }).catch((err) => {
-      setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
     })
   }, [authData.JWT, dispatch, navigate])
 
