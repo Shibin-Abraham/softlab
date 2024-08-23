@@ -10,12 +10,11 @@ function AddItemPopUp(props) {
     let [error, setError] = useState('')
     let [error1, setError1] = useState('')
     let [error2, setError2] = useState('')
-    let [conflit, setConflit] = useState('')
     let [filterdStock, setFiltredStock] = useState([])
 
     let navigate = useNavigate()
 
-    const authData = useContext(StateContext)
+    //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     useEffect(() => {

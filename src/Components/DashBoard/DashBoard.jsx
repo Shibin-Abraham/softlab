@@ -179,16 +179,25 @@ function DashBoard({ setNav }) {
     let getItemCount = useCallback(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=2',
+            url: 'http://localhost:4000/count/item',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+            },
+            withCredentials: true
         }).then((res) => {
-            console.log("stock countttttt", res)
-            if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-            } else if (res.data.statuscode === 200 && res.data.percentage !== 0) {
+            //console.log("item countttttt", res)
+            if (res.status === 200) {
                 setItemPercentage(res.data.percentage)
-                setNoOfItem(res.data.count)
-                setTotalItemCount(res.data.total)
+                setNoOfItem(res.data.activeItem)
+                setTotalItemCount(res.data.totalItem)
             }
+            // if (res.data.statuscode === 400) {
+            //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            // } else if (res.data.statuscode === 200 && res.data.percentage !== 0) {
+            //     setItemPercentage(res.data.percentage)
+            //     setNoOfItem(res.data.count)
+            //     setTotalItemCount(res.data.total)
+            // }
         }).catch((err) => {
             setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
         })
@@ -214,7 +223,7 @@ function DashBoard({ setNav }) {
     useEffect(() => {
         getUsersData()
         getStockCount()
-        // getItemCount()
+        getItemCount()
         // getBorrowCount()
         getRecentActivityData()
         // getWarrantyData()
@@ -222,7 +231,7 @@ function DashBoard({ setNav }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setStockCount(stockCount === stockPercentage ? stockCount : stockCount + 1)
+            setStockCount(stockCount === parseInt(stockPercentage) ? stockCount : stockCount + 1)
         }, 25)
         return () => clearInterval(interval)
 
@@ -230,7 +239,7 @@ function DashBoard({ setNav }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setItemCount(itemCount === itemPercentage ? itemCount : itemCount + 1)
+            setItemCount(itemCount === parseInt(itemPercentage) ? itemCount : itemCount + 1) //parseInt !!!!!!!!!!!
         }, 25)
         return () => clearInterval(interval)
 
