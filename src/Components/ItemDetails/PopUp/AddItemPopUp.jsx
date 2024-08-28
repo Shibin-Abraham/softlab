@@ -111,9 +111,7 @@ function AddItemPopUp(props) {
                         <p> Item Name</p>
                         <input type='text' {...register("name", { required: true, minLength: 2, maxLength: 10 })} onChange={(e) => {
                             setError('')
-                            props.allItemsData.forEach(element => {
-                                return element.name.toUpperCase() === e.target.value.toUpperCase() && setError(`${e.target.value} already taken, Please enter unique value`)
-                            });
+
                         }} />
                         <span>
                             {error}

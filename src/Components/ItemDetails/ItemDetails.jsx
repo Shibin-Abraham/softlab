@@ -29,7 +29,7 @@ function ItemDetails() {
   let [brandData, setBrandData] = useState([])
   let [itemsData, setItemsData] = useState([])
   let [itemsDataCopy, setItemsDataCopy] = useState([])
-  let [allItemsData, setAllItemsData] = useState([])
+
 
   let getBrandData = useCallback(() => {
     axios({
@@ -96,34 +96,6 @@ function ItemDetails() {
     })
   }, [authData.JWT, dispatch, navigate])
 
-  let getAllItemData = useCallback(() => {
-    axios({
-      method: 'POST',
-      url: 'http://localhost/soft-lab-api/route/services/all-items.php',
-      headers: {
-        'Content-type': 'application/json; charset=utf-8',
-        'Authorization': authData.JWT,
-      }
-    }).then((res) => {
-      console.log("active users 11111111", res)
-      if (res.data.length !== undefined) {
-        console.log("Alllllllitem data;;;;;;;;;;;;;", res.data)
-        setAllItemsData(res.data)
-        //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
-      } else if (res.data.statuscode === 401) { //token expired
-        localStorage.removeItem('token')
-        dispatch({ type: 'auth_logout' })
-        navigate('/login', { replace: true })
-        //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-      } else if (res.data.statuscode === 400) {
-        setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-      }
-    }).catch((err) => {
-      setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
-    })
-  }, [authData.JWT, dispatch, navigate])
-
-
   let getStockData = useCallback(() => {
     axios({
       method: 'GET',
@@ -184,9 +156,8 @@ function ItemDetails() {
   useEffect(() => {
     getBrandData()
     getItemData()
-    getStockData()
-    getAllItemData()//for checking unique item name
-  }, [getBrandData, getItemData, getStockData, getAllItemData])
+    getStockData()//for checking unique item name
+  }, [getBrandData, getItemData, getStockData])
   return (
     <div className='item-details'>
       {viewPopUp && <ViewItemPopUp setViewPopUp={setViewPopUp} setGlobalPopUp={setGlobalPopUp} itemRowData={itemRowData} allStockData={allStockData} brandData={brandData} getItemData={getItemData} />}
@@ -203,7 +174,6 @@ function ItemDetails() {
             getBrandData()
             getItemData()
             getStockData()
-            getAllItemData()
             setTimeout(() => {
               setRotate('')
             }, 1000)
@@ -413,7 +383,7 @@ function ItemDetails() {
         </div>
       </section>
       {addBrandPopUp && <AddBrand setAddBrandPopUp={setAddBrandPopUp} setGlobalPopUp={setGlobalPopUp} brandData={brandData} getBrandData={getBrandData} />}
-      {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp} allStockData={allStockData} brandData={brandData} getItemData={getItemData} allItemsData={allItemsData} />}
+      {addItemPopUp && <AddItemPopUp setAddItemPopUp={setAddItemPopUp} setGlobalPopUp={setGlobalPopUp} allStockData={allStockData} brandData={brandData} getItemData={getItemData} />}
     </div>
   )
 }
