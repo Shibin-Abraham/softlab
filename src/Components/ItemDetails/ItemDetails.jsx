@@ -71,26 +71,30 @@ function ItemDetails() {
 
   let getItemData = useCallback(() => {
     axios({
-      method: 'POST',
-      url: 'http://localhost/soft-lab-api/route/services/item-data.php',
+      method: 'GET',
+      url: 'http://localhost:4000/item/get/active',
       headers: {
         'Content-type': 'application/json; charset=utf-8',
-        'Authorization': authData.JWT,
-      }
+      },
+      withCredentials: true
     }).then((res) => {
       console.log("active users 11111111", res)
-      if (res.data.length !== undefined) {
-        console.log("item data;;;;;;;;;;;;;", res.data)
+      if (res.status === 200) {
         setItemsData(res.data)
-        //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
-      } else if (res.data.statuscode === 401) { //token expired
-        localStorage.removeItem('token')
-        dispatch({ type: 'auth_logout' })
-        navigate('/login', { replace: true })
-        //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-      } else if (res.data.statuscode === 400) {
-        setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
       }
+
+      // if (res.data.length !== undefined) {
+      //   console.log("item data;;;;;;;;;;;;;", res.data)
+      //   setItemsData(res.data)
+      //   //setAllUsersData(res.data.filter((data)=>data.r_id!=="1"))
+      // } else if (res.data.statuscode === 401) { //token expired
+      //   localStorage.removeItem('token')
+      //   dispatch({ type: 'auth_logout' })
+      //   navigate('/login', { replace: true })
+      //   //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+      // } else if (res.data.statuscode === 400) {
+      //   setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+      // }
     }).catch((err) => {
       setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
     })
@@ -285,7 +289,7 @@ function ItemDetails() {
                     return (
                       <tr key={index}>
                         <td>{data.name}</td>
-                        <td>{data.s_name}</td>
+                        <td>{data.stock.name}</td>
                         <td>{data.warranty}</td>
                         <td>{data.lab_location}</td>
                         <td className={status}>{data.status}</td>
@@ -295,8 +299,8 @@ function ItemDetails() {
                             setItemRowData({
                               id: data.id,
                               name: data.name,
-                              s_id: data.s_id,
-                              b_id: data.b_id,
+                              s_id: data.stock.id,
+                              b_id: data.brand.id,
                               model: data.model,
                               description: data.description,
                               warranty: data.warranty,
