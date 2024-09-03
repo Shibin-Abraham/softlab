@@ -146,8 +146,8 @@ function ItemDetails() {
       setItemsDataCopy(itemsData.filter((data) => {
         let name = data.name.toLowerCase()
         let warranty = data.warranty
-        let stcokName = data.s_name.toLowerCase()
-        let brandName = data.b_name.toLowerCase()
+        let stcokName = data.stock.name.toLowerCase()
+        let brandName = data.brand.name.toLowerCase()
         let labLocation = data.lab_location.toLowerCase()
         return (name.includes(searchData) || warranty.includes(searchData) || stcokName.includes(searchData) || brandName.includes(searchData) || labLocation.includes(searchData))
       }))
@@ -218,7 +218,7 @@ function ItemDetails() {
                   return (
                     <li key={index} onClick={(e) => {
                       console.log(e)
-                      setItemsDataCopy(itemsData.filter((data) => data.id === String(e.currentTarget.value)))
+                      setItemsDataCopy(itemsData.filter((data) => String(data.id) === String(e.currentTarget.value)))
                       //console.log(allStockDataCopy)
                       setSearchPopUp(0)
                     }} value={data.id}>
@@ -235,14 +235,14 @@ function ItemDetails() {
                           <path d="M8 8.5c1.84 0 3.579-.37 4.914-1.037A6.33 6.33 0 0 0 14 6.78V8c0 1.657-2.686 3-6 3S2 9.657 2 8V6.78c.346.273.72.5 1.087.683C4.42 8.131 6.16 8.5 8 8.5Z" />
                           <path d="M8 12.5c1.84 0 3.579-.37 4.914-1.037.366-.183.74-.41 1.086-.684V12c0 1.657-2.686 3-6 3s-6-1.343-6-3v-1.22c.346.273.72.5 1.087.683C4.42 12.131 6.16 12.5 8 12.5Z" />
                         </svg>
-                        {data.s_name}
+                        {data.stock.name}
                       </span>
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#ffbb55" className="w-4 h-4">
                           <path fillRule="evenodd" d="M2 3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v8.5a2.5 2.5 0 0 1-5 0V3Zm3.25 8.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" clipRule="evenodd" />
                           <path d="m8.5 11.035 3.778-3.778a1 1 0 0 0 0-1.414l-2.122-2.121a1 1 0 0 0-1.414 0l-.242.242v7.07ZM7.656 14H13a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-.344l-5 5Z" />
                         </svg>
-                        {data.b_name}
+                        {data.brand.name}
                       </span>
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#00af75d8" className="w-4 h-4">
@@ -330,7 +330,7 @@ function ItemDetails() {
                     return (
                       <tr key={index}>
                         <td>{data.name}</td>
-                        <td>{data.s_name}</td>
+                        <td>{data.stock.name}</td>
                         <td>{data.warranty}</td>
                         <td>{data.lab_location}</td>
                         <td className={status}>{data.status}</td>
@@ -340,8 +340,8 @@ function ItemDetails() {
                             setItemRowData({
                               id: data.id,
                               name: data.name,
-                              s_id: data.s_id,
-                              b_id: data.b_id,
+                              s_id: data.stock.id,
+                              b_id: data.brand.id,
                               model: data.model,
                               description: data.description,
                               warranty: data.warranty,
