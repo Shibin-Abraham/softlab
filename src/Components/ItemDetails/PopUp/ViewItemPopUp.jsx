@@ -19,39 +19,51 @@ function ViewItemPopUp(props) {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
+        console.log("submited data ", data)
         if (data) {
             axios({
-                method: 'POST',
-                url: 'http://localhost/soft-lab-api/route/services/update-item-details.php',
+                method: 'PATCH',
+                url: 'http://localhost:4000/item/update',
                 headers: {
                     'Content-type': 'application/json; charset=utf-8',
-                    'Authorization': authData.JWT,
                 },
+                withCredentials: true,
                 data: {
                     ...data,
-                    id: props.itemRowData.id,
+                    itemId: props.itemRowData.id,
                     current_date: getDate(),
                     current_time: getTime()
                 }
             }).then((res) => {
                 console.log("status code update stock", res)
-                if (res.data.statuscode === 200) {
+                if (res.status === 200) {
                     props.getItemData()
                     props.setViewPopUp(false)
                     props.setGlobalPopUp({ id: 2, header: 'Updated', message: 'Data has been updated' }) // show the success message
-                } else if (res.data.statuscode === 401) { //token expired
-                    localStorage.removeItem('token')
-                    dispatch({ type: 'auth_logout' })
-                    navigate('/login', { replace: true })
-                    //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-                } else if (res.data.statuscode === 400) {
-                    props.setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-                } else if (res.data.statuscode === 500) {
-                    props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 }
+                // if (res.data.statuscode === 200) {
+                //     props.getItemData()
+                //     props.setViewPopUp(false)
+                //     props.setGlobalPopUp({ id: 2, header: 'Updated', message: 'Data has been updated' }) // show the success message
+                // } else if (res.data.statuscode === 401) { //token expired
+                //     localStorage.removeItem('token')
+                //     dispatch({ type: 'auth_logout' })
+                //     navigate('/login', { replace: true })
+                //     //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+                // } else if (res.data.statuscode === 400) {
+                //     props.setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+                // } else if (res.data.statuscode === 500) {
+                //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
+                // }
             }).catch((err) => {
                 console.log(err)
-                props.setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+                if (err.response.status === 401) {
+                    props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                    dispatch({ type: 'auth_logout' })
+                    navigate('/login', { replace: true })
+                } else {
+                    props.setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data?.details ?? err.response.data?.error}` })
+                }
             })
         }
     }
