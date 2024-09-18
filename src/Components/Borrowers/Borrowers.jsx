@@ -32,7 +32,7 @@ function Borrowers() {
     }).then((res) => {
       console.log("borrowers data", res)
       if (res.status === 200) {
-        setBorrowersData(res.data)
+        setBorrowersData(res.data.filter((data) => !data.return_status))
       }
       // if(res.data.length !== undefined){
       //     console.log(res.data) 

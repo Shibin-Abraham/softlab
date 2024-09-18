@@ -199,24 +199,38 @@ function DashBoard({ setNav }) {
             //     setTotalItemCount(res.data.total)
             // }
         }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                dispatch({ type: 'auth_logout' })
+                navigate('/login', { replace: true })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
+            }
         })
     }, [setItemPercentage, setNoOfItem])
 
     let getBorrowCount = useCallback(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost/soft-lab-api/route/services/count-data.php?id=3',
+            url: 'http://localhost:4000/count/borrow',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8',
+            },
+            withCredentials: true
         }).then((res) => {
-            console.log("stock countttttt", res)
-            if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
-            } else if (res.data.statuscode === 200 && res.data.percentage !== 0) {
+            console.log("borrow count ", res)
+            if (res.status === 200) {
                 setBorrowPercentage(res.data.percentage)
-                setNoOfBorrow(res.data.count)
+                setNoOfBorrow(res.data.borrowereditem)
             }
         }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
+                dispatch({ type: 'auth_logout' })
+                navigate('/login', { replace: true })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
+            }
         })
     }, [setBorrowPercentage, setNoOfBorrow])
     /********* API call **********/
@@ -224,7 +238,7 @@ function DashBoard({ setNav }) {
         getUsersData()
         getStockCount()
         getItemCount()
-        // getBorrowCount()
+        getBorrowCount()
         getRecentActivityData()
         // getWarrantyData()
     }, [getUsersData, getStockCount, getItemCount, getBorrowCount, getRecentActivityData, getWarrantyData])
@@ -247,7 +261,7 @@ function DashBoard({ setNav }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setBorrowCount(borrowCount === borrowPercentage ? borrowCount : borrowCount + 1)
+            setBorrowCount(borrowCount === parseInt(borrowPercentage) ? borrowCount : borrowCount + 1)
         }, 25)
         return () => clearInterval(interval)
 
