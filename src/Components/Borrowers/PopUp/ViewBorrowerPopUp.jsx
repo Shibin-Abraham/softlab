@@ -30,7 +30,7 @@ function ViewBorrowerPopUp(props) {
                 if (res.status === 200) {
                     props.getBorrowersData()
                     props.setViewBorrowerPopUp(false)
-                    props.setGlobalPopUp({ id: 1, header: 'Updated', message: 'Data has been updated' })
+                    props.setGlobalPopUp({ id: 2, header: 'Updated', message: 'Data has been updated' })
                 }
 
                 // if (res.data.statuscode === 200) {

@@ -1,6 +1,6 @@
 @import url('../../../global.css');
 
-.item-view-popup{
+.item-view-popup {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -12,7 +12,8 @@
     justify-content: center;
     background: rgba(0, 0, 0, 0.8);
 }
-.item-view-popup .content{
+
+.item-view-popup .content {
     border-radius: var(--border-radius-2);
     width: 30rem;
     height: 85vh;
@@ -22,7 +23,8 @@
     flex-direction: column;
     align-items: center;
 }
-.item-view-popup .content .top-section{
+
+.item-view-popup .content .top-section {
     width: 100%;
     height: 10%;
     display: flex;
@@ -30,29 +32,36 @@
     justify-content: space-between;
     background: var(--color-primary);
 }
-.item-view-popup .content .top-section h2{
+
+.item-view-popup .content .top-section h2 {
     color: var(--color-white);
     margin-left: 1rem;
 }
-.item-view-popup .content .top-section span{
-    width: 5rem;
+
+.item-view-popup .content .top-section span {
+    width: auto;
+    padding: .5rem;
+    font-size: 11px;
     height: 1.2rem;
     border-radius: .5rem;
-    background: var(--pure-black);
+    background: var(--color-red);
     color: var(--color-white);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.item-view-popup .content .top-section svg{
+
+.item-view-popup .content .top-section svg {
     color: var(--color-dark);
     width: 2.5rem;
     height: 2.5rem;
 }
-.item-view-popup .content .top-section svg:hover{
+
+.item-view-popup .content .top-section svg:hover {
     color: var(--color-black);
 }
-.item-view-popup .content .data-section{
+
+.item-view-popup .content .data-section {
     width: 90%;
     height: 97%;
     color: var(--color-dark-variant);
@@ -60,10 +69,12 @@
     flex-direction: column;
     overflow-y: scroll;
 }
-.item-view-popup .content .data-section::-webkit-scrollbar{
+
+.item-view-popup .content .data-section::-webkit-scrollbar {
     display: none;
 }
-.item-view-popup .content .data-section .input{
+
+.item-view-popup .content .data-section .input {
     margin-bottom: .3rem;
     width: 100%;
     height: auto;
@@ -71,7 +82,9 @@
     flex-direction: column;
     align-items: flex-start;
 }
-.item-view-popup .content .data-section .input select,input{
+
+.item-view-popup .content .data-section .input select,
+input {
     border: none;
     border-radius: var(--border-radius-1);
     border: 1px solid var(--color-info-dark);
@@ -82,7 +95,8 @@
     color: var(--color-dark-variant);
     font-size: 1.1rem;
 }
-.item-view-popup .content .data-section .input input[type=number]{
+
+.item-view-popup .content .data-section .input input[type=number] {
     border: none;
     border-radius: var(--border-radius-1);
     border: 1px solid var(--color-info-dark);
@@ -93,23 +107,28 @@
     color: var(--color-white);
     font-size: 1.1rem;
 }
-.item-view-popup .content .data-section .input p{
+
+.item-view-popup .content .data-section .input p {
     color: var(--color-primary);
     font-size: 1rem;
 }
-.item-view-popup .content .data-section .input span{
+
+.item-view-popup .content .data-section .input span {
     color: var(--color-danger);
     font-size: .7rem;
-    
+
 }
-.item-view-popup .content .data-section .btn{
+
+.item-view-popup .content .data-section .btn {
     width: 100%;
     height: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.item-view-popup .content .data-section .btn input[type=button],input[type=submit]{
+
+.item-view-popup .content .data-section .btn input[type=button],
+input[type=submit] {
     width: 100%;
     height: 100%;
     outline: none;
@@ -118,23 +137,27 @@
     font-size: 1rem;
     margin-top: 2rem;
 }
-.item-view-popup .content .data-section .btn input[type=button]{
+
+.item-view-popup .content .data-section .btn input[type=button] {
     color: var(--color-danger);
     border: 2px solid var(--color-danger);
     border-radius: var(--border-radius-1);
     margin-right: .5rem;
 }
-.item-view-popup .content .data-section .btn input[type=button]:hover{
+
+.item-view-popup .content .data-section .btn input[type=button]:hover {
     color: var(--color-white);
     background: var(--color-danger);
 }
-.item-view-popup .content .data-section .btn input[type=submit]{
+
+.item-view-popup .content .data-section .btn input[type=submit] {
     width: 100%;
     color: var(--color-primary);
     border: 2px solid var(--color-primary);
     border-radius: var(--border-radius-1);
 }
-.item-view-popup .content .data-section .btn input[type=submit]:hover{
+
+.item-view-popup .content .data-section .btn input[type=submit]:hover {
     color: var(--color-white);
     background: var(--color-primary);
 }
