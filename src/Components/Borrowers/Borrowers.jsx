@@ -21,7 +21,7 @@ function Borrowers() {
   const dispatch = useContext(DispatchContext)
 
 
-  let getBorrowersData = useCallback(() => {
+  let getBorrowersData = useCallback((itemData) => {
     axios({
       method: 'GET',
       url: 'http://localhost:4000/borrowers',
@@ -32,7 +32,9 @@ function Borrowers() {
     }).then((res) => {
       console.log("borrowers data", res)
       if (res.status === 200) {
-        setBorrowersData(res.data.filter((data) => !data.return_status))
+        const filterdData = res.data.filter((data) => !data.return_status)
+        setBorrowersData(filterdData.filter((data) => itemData.find((d) => parseInt(d.id) === parseInt(data.itemId))))
+
       }
       // if(res.data.length !== undefined){
       //     console.log(res.data) 
@@ -69,6 +71,7 @@ function Borrowers() {
       console.log("items data", res)
       if (res.status === 200) {
         setItemsData(res.data)
+        getBorrowersData(res.data)
       }
 
       // if (res.data.length !== undefined) {
@@ -95,8 +98,8 @@ function Borrowers() {
   }, [dispatch, navigate])
 
   useEffect(() => {
-    getBorrowersData()
     getItemData()
+
   }, [getBorrowersData, getItemData])
 
   return (
