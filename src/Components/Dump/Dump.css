@@ -1,202 +1,242 @@
 @import url('../../global.css');
 
-.dump-data{
-    width: 80vw;
-    height: 100vh;
+.dump-data {
+  width: 80vw;
+  height: 100vh;
 }
-.dump-data section{
-    margin: 1rem 0rem 0rem 1rem;
-    width: 100%;
-    height: 95%;
-  }
-  .dump-data section .top h1{
-    font-size: 1.9rem;
-    color: var(--color-white);
-  }
-  .dump-data section .top{
-    width: 95%;
-    height: 10%;
-    border-radius: var(--border-radius-1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .dump-data section .container{
-    position: relative;
-    width: 95%;
-    height: 85%;
-    display: flex;
-    justify-content: flex-start;
-  }
-  .dump-data section .container::-webkit-scrollbar{
-    display: none;
-  }
-  .dump-data section .container .left-section{  /* !!!!!!! left-section and right-section are interchanged but className not changed*/
-    width: 60%;
-    height: 100%;
-    display: flex;
-    flex-flow: wrap;
-    overflow-y: scroll;
-  }
-  .dump-data section .container .left-section::-webkit-scrollbar{
-    display: none;
-  }
-  .dump-data section .container .left-section .card{
-    margin-left: 1rem;
-    margin-right: 2rem;
-    margin-top: 2rem;
-    width: 25%;
-    height: 10rem;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--color-white);
-    transition: all ease .5s;
-  }
-  .dump-data section .container .left-section .card .svg{
-    margin-top: -15px;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 26, 255, 0.573);
-  }
-  .dump-data section .container .left-section .card .svg svg{
-    width: 1.7rem;
-    height: 1.7rem;
-    display: flex;
-    color: #b2bac3;
-  }
-  .dump-data section .container .left-section .card h4{
-    margin-top: 20px;
-  }
-  .dump-data section .container .left-section .card .discription{
-    width: 90%;
-    height: 3rem;
-    text-align: center;
-    overflow-y: scroll;
-  }
-  .dump-data section .container .left-section .card .discription::-webkit-scrollbar{
-    display: none;
-  }
-  .dump-data section .container .left-section .card .discription span{
-    font-size: .8rem;
-    color: var(--color-info-dark);
-  }
-  .dump-data section .container .left-section .card .bottom{
-    width: 100%;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .dump-data section .container .left-section .card .bottom div{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .dump-data section .container .left-section .card .bottom div svg{
-    width: 1.2rem;
-    height: 1.2rem;
-    color: #ff006692;
-  }
-  .dump-data section .container .left-section .card .bottom div span{
-    margin-left: .2rem;
-    font-size: .7rem;
-    color: #b2bac3;
-  }
-  .dump-data section .container .left-section .card:hover{
-    width: 26%;
-    box-shadow: rgba(0, 26, 255, 0.573) 0px 5px 10px;
-  }
 
+.dump-data section {
+  margin: 1rem 0rem 0rem 1rem;
+  width: 100%;
+  height: 95%;
+}
 
-  .dump-data section .container .right-section{
-    width: 35%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    overflow-y: scroll;
-  }
-  .dump-data section .container .right-section::-webkit-scrollbar{
-    display: none;
-  }
-  .dump-data section .container .right-section .card{
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 2rem;
-    width: 80%;
-    height: 8rem;
-    box-shadow: var(--box-shadow-1);
-    border-radius: var(--border-radius-2);
-    background: var(--color-light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--color-white);
-    transition: all ease .5s;
-    position: sticky;
-    top: 2rem;
-    cursor: pointer;
-  }
-  .dump-data section .container .right-section .card .svg{
-    margin-top: -15px;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 0, 106, 0.573);
-  }
-  .dump-data section .container .right-section .card .empty{
-    margin-top: -15px;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 255, 102, 0.573);
-  }
-  .dump-data section .container .right-section .card .empty svg{
-    width: 1.7rem;
-    height: 1.7rem;
-    display: flex;
-    color: #b2bac3;
-  }
-  .dump-data section .container .right-section .card .svg svg{
-    width: 1.7rem;
-    height: 1.7rem;
-    display: flex;
-    color: #b2bac3;
-  }
-  .dump-data section .container .right-section .card h4{
-    margin-top: 20px;
-  }
-  .dump-data section .container .right-section .card .discription{
-    width: 90%;
-    height: 3rem;
-    text-align: center;
-    overflow-y: scroll;
-  }
-  .dump-data section .container .right-section .card .discription::-webkit-scrollbar{
-    display: none;
-  }
-  .dump-data section .container .right-section .card .discription span{
-    font-size: .8rem;
-    color: var(--color-info-dark);
-  }
-  .dump-data section .container .right-section .card:hover{
-    margin-top: 2.5rem;
-    box-shadow: rgba(255, 0, 106, 0.573) 0px 5px 10px;
-  }
+.dump-data section .top h1 {
+  font-size: 1.9rem;
+  color: var(--color-white);
+}
+
+.dump-data section .top {
+  width: 95%;
+  height: 10%;
+  border-radius: var(--border-radius-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dump-data section .container {
+  position: relative;
+  width: 95%;
+  height: 85%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dump-data section .container::-webkit-scrollbar {
+  display: none;
+}
+
+.dump-data section .container .left-section {
+  /* !!!!!!! left-section and right-section are interchanged but className not changed*/
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-flow: wrap;
+  overflow-y: scroll;
+}
+
+.dump-data section .container .left-section::-webkit-scrollbar {
+  display: none;
+}
+
+.dump-data section .container .left-section .card {
+  margin-left: 1rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  width: 25%;
+  height: 10rem;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-white);
+  transition: all ease .5s;
+}
+
+.dump-data section .container .left-section .card .svg {
+  margin-top: -15px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 26, 255, 0.573);
+}
+
+.dump-data section .container .left-section .card .svg svg {
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  color: #b2bac3;
+}
+
+.dump-data section .container .left-section .card h4 {
+  margin-top: 20px;
+}
+
+.dump-data section .container .left-section .card .discription {
+  width: 90%;
+  height: 3rem;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.dump-data section .container .left-section .card .discription::-webkit-scrollbar {
+  display: none;
+}
+
+.dump-data section .container .left-section .card .discription span {
+  font-size: .8rem;
+  color: var(--color-info-dark);
+}
+
+.dump-data section .container .left-section .card .bottom {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dump-data section .container .left-section .card .bottom div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dump-data section .container .left-section .card .bottom div svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #ff006692;
+}
+
+.dump-data section .container .left-section .card .bottom div span {
+  margin-left: .2rem;
+  font-size: .7rem;
+  color: #b2bac3;
+}
+
+.dump-data section .container .left-section .card:hover {
+  width: 26%;
+  box-shadow: rgba(0, 26, 255, 0.573) 0px 5px 10px;
+}
+
+.dump-data section .container .left-section .no-data {
+  margin-top: 2rem;
+  color: var(--color-danger);
+}
+
+.dump-data section .container .right-section {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+
+.dump-data section .container .right-section::-webkit-scrollbar {
+  display: none;
+}
+
+.dump-data section .container .right-section .card {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 2rem;
+  width: 80%;
+  height: 8rem;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+  background: var(--color-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-white);
+  transition: all ease .5s;
+  position: sticky;
+  top: 2rem;
+  cursor: pointer;
+}
+
+.dump-data section .container .right-section .card .svg {
+  margin-top: -15px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 0, 106, 0.573);
+}
+
+.dump-data section .container .right-section .card .empty {
+  margin-top: -15px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 255, 102, 0.573);
+}
+
+.dump-data section .container .right-section .card .empty svg {
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  color: #b2bac3;
+}
+
+.dump-data section .container .right-section .card .svg svg {
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  color: #b2bac3;
+}
+
+.dump-data section .container .right-section .card h4 {
+  margin-top: 20px;
+}
+
+.dump-data section .container .right-section .card .discription {
+  width: 90%;
+  height: 3rem;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.dump-data section .container .right-section .card .discription::-webkit-scrollbar {
+  display: none;
+}
+
+.dump-data section .container .right-section .card .discription span {
+  font-size: .8rem;
+  color: var(--color-info-dark);
+}
+
+.dump-data section .container .right-section .card:hover {
+  margin-top: 2.5rem;
+  box-shadow: rgba(255, 0, 106, 0.573) 0px 5px 10px;
+}
+
+.dump-data section .container .right-section .card.selected {
+  margin-top: 2.5rem;
+  box-shadow: rgba(255, 0, 106, 0.573) 0px 5px 10px;
+}
