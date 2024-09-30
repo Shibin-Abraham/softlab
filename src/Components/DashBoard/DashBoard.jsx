@@ -72,7 +72,7 @@ function DashBoard({ setNav }) {
     let getRecentActivityData = useCallback(() => {
         axios({
             method: 'GET',
-            url: 'http://localhost:4000/recent-activies',
+            url: 'http://localhost:4000/recent-activies/15',
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
             },
