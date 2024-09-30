@@ -49,7 +49,8 @@ function Borrowers() {
       //     setGlobalPopUp({id:3,header:'Bad request',message:'please check your request'})
       // }
     }).catch((err) => {
-      if (err.response.status === 401) {
+      console.log("error 99999999999999999999999999999999", err)
+      if (err?.response?.status === 401) {
         setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
         dispatch({ type: 'auth_logout' })
         navigate('/login', { replace: true })
@@ -104,8 +105,8 @@ function Borrowers() {
 
   return (
     <div className="borrower-details">
-      {addBorrowerPopUp && <AddBorrowerPopUp setAddBorrowerPopUp={setAddBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowersData={borrowersData} itemsData={itemsData} getBorrowersData={getBorrowersData} />}
-      {viewBorrowerPopUp && <ViewBorrowerPopUp setViewBorrowerPopUp={setViewBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowerRowData={borrowerRowData} getBorrowersData={getBorrowersData} />}
+      {addBorrowerPopUp && <AddBorrowerPopUp setAddBorrowerPopUp={setAddBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowersData={borrowersData} itemsData={itemsData} getItemData={getItemData} />}
+      {viewBorrowerPopUp && <ViewBorrowerPopUp setViewBorrowerPopUp={setViewBorrowerPopUp} setGlobalPopUp={setGlobalPopUp} borrowerRowData={borrowerRowData} getItemData={getItemData} />}
       {globalPopUp.id === 1 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}
       {globalPopUp.id === 2 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}
       {globalPopUp.id === 3 ? <GlobalPopUp setGlobalPopUp={setGlobalPopUp} data={globalPopUp} /> : null}

@@ -377,8 +377,8 @@ function DashBoard({ setNav }) {
                                         recentActivityData.length !== 0 ? recentActivityData.map((data) => {
                                             return (
                                                 <tr key={data.id}>
-                                                    <td>{data.name}</td>
-                                                    <td>{data.email}</td>
+                                                    <td>{data.user.name}</td>
+                                                    <td>{data.user.email}</td>
                                                     <td>{data.date}</td>
                                                     <td>{data.details}</td>
                                                     <td className={data.operation}>{data.operation}</td>

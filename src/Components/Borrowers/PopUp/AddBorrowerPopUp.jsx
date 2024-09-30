@@ -35,7 +35,7 @@ function AddBorrowerPopUp(props) {
                 }).then((res) => {
                     console.log("status of insertion 333333333333", res)
                     if (res.status === 200) {
-                        props.getBorrowersData()
+                        props.getItemData()
                         setPopUpActive('')//close AddStockPopUp 
                         props.setGlobalPopUp({ id: 1, header: 'SUCCESS', message: 'Data has been saved successfully' }) // show the success message
                         setTimeout(() => { props.setAddBorrowerPopUp(false) }, 300)
