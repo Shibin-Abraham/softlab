@@ -109,17 +109,17 @@ function DashBoard({ setNav }) {
 
     let getWarrantyData = useCallback(() => {
         axios({
-            method: 'POST',
-            url: 'http://localhost/soft-lab-api/route/services/warranty-data.php',
+            method: 'GET',
+            url: 'http://localhost:4000/item/get',
             headers: {
                 'Content-type': 'application/json; charset=utf-8',
-                'Authorization': authData.JWT,
-            }
+            },
+            withCredentials: true
         }).then((res) => {
-            console.log("all users", typeof (res))
-            if (res.data.length !== undefined) {
+            console.log("all users", res)
+            if (res.status === 200) {
                 console.log("WWWWWWWWWWWWWWWWWWWWWWyyyyyyy", res.data)
-                setWarrantyData(res.data.filter((value) => {
+                let filteredData = res.data.filter((value) => {
                     let string1 = getDate()
                     string1 = string1.split("-")
                     let c_date = parseInt(string1[0])
@@ -130,19 +130,33 @@ function DashBoard({ setNav }) {
                     return (
                         w_date - c_date <= 1
                     )
-                }))
-            } else if (res.data.statuscode === 401) { //token expired
-                localStorage.removeItem('token')
+                })
+                filteredData.sort((a, b) => {
+                    const warrantyA = new Date(a.warranty);
+                    const warrantyB = new Date(b.warranty);
+                    // Sort by warranty date in decending order
+                    return warrantyB - warrantyA;
+                })
+                setWarrantyData(filteredData)
+            }
+            // else if (res.data.statuscode === 401) { //token expired
+            //     localStorage.removeItem('token')
+            //     dispatch({ type: 'auth_logout' })
+            //     navigate('/login', { replace: true })
+            //     //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
+            // } else if (res.data.statuscode === 400) {
+            //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            // }
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
                 navigate('/login', { replace: true })
-                //setGlobalPopUp({id:3,header:'Token Expired',message:'You need to login again.'})
-            } else if (res.data.statuscode === 400) {
-                setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
+            } else {
+                setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
             }
-        }).catch((err) => {
-            setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
         })
-    }, [authData.JWT, dispatch, navigate])
+    }, [dispatch, navigate])
 
     let getStockCount = useCallback(() => {
         axios({
@@ -207,7 +221,7 @@ function DashBoard({ setNav }) {
                 setGlobalPopUp({ id: 4, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error}` })
             }
         })
-    }, [setItemPercentage, setNoOfItem])
+    }, [dispatch, navigate, setItemPercentage, setNoOfItem])
 
     let getBorrowCount = useCallback(() => {
         axios({
@@ -240,7 +254,7 @@ function DashBoard({ setNav }) {
         getItemCount()
         getBorrowCount()
         getRecentActivityData()
-        // getWarrantyData()
+        getWarrantyData()
     }, [getUsersData, getStockCount, getItemCount, getBorrowCount, getRecentActivityData, getWarrantyData])
 
     useEffect(() => {
@@ -374,7 +388,8 @@ function DashBoard({ setNav }) {
                                 </thead>
                                 <tbody>
                                     {
-                                        recentActivityData.length !== 0 ? recentActivityData.map((data) => {
+                                        recentActivityData.length !== 0 ? recentActivityData.map((data, index) => {
+
                                             return (
                                                 <tr key={data.id}>
                                                     <td>{data.user.name}</td>
@@ -388,6 +403,9 @@ function DashBoard({ setNav }) {
                                             <td style={{ color: 'var(--color-danger)' }}>No data</td>
                                         </tr>
                                     }
+                                    <tr>
+                                        <td id="load-more" onClick={() => navigate('/audit')}>Load More...</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -440,10 +458,15 @@ function DashBoard({ setNav }) {
                                                 </svg>
                                             </div>
                                             <div className="data">
-                                                <p>{data.brand_name}</p>
+                                                <p>{data.brand.name}</p>
                                                 <p>{data.name}</p>
                                                 <p>{data.warranty}</p>
+                                                {
+                                                    data.dump ? <span>dump</span> : null
+                                                }
+
                                             </div>
+
                                         </div>
                                     )
                                 }) : <div className="row">

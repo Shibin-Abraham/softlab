@@ -365,6 +365,14 @@
   color: var(--color-white);
 }
 
+.container-1 .table-container .table-section table tbody tr td.assigned {
+  color: var(--color-success)
+}
+
+.container-1 .table-container .table-section table tbody tr td.removed {
+  color: var(--color-danger);
+}
+
 /** dashboard recent activities section end **/
 
 /** dashboard container-2 section  **/
@@ -546,9 +554,18 @@
 }
 
 .main section .container-2 .bottom .card-section .row .data p {
-  font-size: .9rem;
+  font-size: .8rem;
   color: var(--color-info-dark);
-  margin-left: 1rem;
+  margin-left: .5rem;
+}
+
+.main section .container-2 .bottom .card-section .row .data span {
+  font-size: .6rem;
+  color: var(--color-info-light);
+  margin-left: .3rem;
+  padding: 0 .3rem 0 .3rem;
+  background: var(--color-red);
+  border-radius: var(--border-radius-1);
 }
 
 .main section .container-2 .bottom .card-section .row .data p:first-child {
@@ -557,6 +574,15 @@
 
 .main section .container-2 .bottom .card-section .row .data p::first-letter {
   text-transform: uppercase;
+}
+
+#load-more {
+  color: white;
+  cursor: pointer;
+}
+
+#load-more:hover {
+  color: var(--color-primary);
 }
 
 /** dashboard container-2 section  end **/
