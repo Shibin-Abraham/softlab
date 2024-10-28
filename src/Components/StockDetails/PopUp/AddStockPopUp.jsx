@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider'
 
 function AddStockPopUp(props) {
-    console.log("AddStockPopUp ", props)
+    //console.log("AddStockPopUp ", props)
 
     //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
@@ -61,7 +61,7 @@ function AddStockPopUp(props) {
                 //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 // }
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
                 if (err.response.status === 401) {
                     props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                     dispatch({ type: 'auth_logout' })

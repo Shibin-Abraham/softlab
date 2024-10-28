@@ -112,9 +112,9 @@ function StockDetails() {
                                 allStockDataCopy.length !== 0 ? allStockDataCopy.map((data, index) => {
                                     return (
                                         <li key={index} onClick={(e) => {
-                                            console.log(allStockDataCopy)
+                                            //console.log(allStockDataCopy)
                                             setAllStockDataCopy(allStockData.filter((data) => String(data.id) === String(e.currentTarget.value)))
-                                            console.log(allStockDataCopy)
+                                            //console.log(allStockDataCopy)
                                             setSearchPopUp(0)
                                         }} value={data.id}>
                                             <span>

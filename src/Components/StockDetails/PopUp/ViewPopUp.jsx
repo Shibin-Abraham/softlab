@@ -16,7 +16,7 @@ function ViewPopUp(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log("form dataaaaaaaaaaaattttttttt", data)
+        //console.log("form dataaaaaaaaaaaattttttttt", data)
         if (data) {
             axios({
                 method: 'PUT',
@@ -58,7 +58,7 @@ function ViewPopUp(props) {
                 //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 // }
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
                 if (err.response.status === 401) {
                     props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                     dispatch({ type: 'auth_logout' })
