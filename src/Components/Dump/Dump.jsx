@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './Dump.css'
 import { useNavigate } from 'react-router-dom'
-import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import { DispatchContext } from '../AuthProvider/AuthProvider'
 import axios from 'axios'
 import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 
@@ -13,8 +13,6 @@ function Dump() {
     let [stockName, setStockName] = useState('')
 
     const navigate = useNavigate()
-
-    const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     let getStockData = useCallback(() => {
@@ -26,9 +24,8 @@ function Dump() {
             },
             withCredentials: true
         }).then((res) => {
-            console.log("dump ---------------", res)
+            // console.log("dump ---------------", res)
             if (res.status === 200) {
-                console.log(res.data)
                 setStockName(res?.data[0]?.name?.toUpperCase())
                 setAllStockData(res.data.filter((data) => data?.category !== null))
                 //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
@@ -43,7 +40,7 @@ function Dump() {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
-            console.log("error ", err)
+            //console.log("error ", err)
             if (err.response.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
@@ -63,9 +60,8 @@ function Dump() {
             },
             withCredentials: true
         }).then((res) => {
-            console.log("active users 11111111", res)
+            //console.log("active users 11111111", res)
             if (res.status === 200) {
-                console.log("item data;;;;;;;;;;;;;", res.data)
                 const filterdData = res.data.filter((data) => data.dump === true)
                 setDumpItemsData(filterdData)
                 //setDumpItemsDataCopy(filterdData)
