@@ -78,7 +78,7 @@ function ItemDetails() {
       },
       withCredentials: true
     }).then((res) => {
-      console.log("active users 11111111", res)
+      //console.log("active users 11111111", res)
       if (res.status === 200) {
         setItemsData(res.data)
       }
@@ -223,7 +223,7 @@ function ItemDetails() {
                 itemsDataCopy.length !== 0 ? itemsDataCopy.map((data, index) => {
                   return (
                     <li key={index} onClick={(e) => {
-                      console.log(e)
+                      //console.log(e)
                       setItemsDataCopy(itemsData.filter((data) => String(data.id) === String(e.currentTarget.value)))
                       //console.log(allStockDataCopy)
                       setSearchPopUp(0)

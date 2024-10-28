@@ -3,23 +3,23 @@ import './ViewItemPopUp.css'
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider';
+import { DispatchContext } from '../../AuthProvider/AuthProvider';
 
 function ViewItemPopUp(props) {
 
     let [dumpBtn, setDumpBtn] = useState(0)
     let [borrwStatus, setBorrowStatus] = useState('')
 
-    console.log("row data", props.itemRowData)
+    //console.log("row data", props.itemRowData)
 
     let navigate = useNavigate()
 
-    const authData = useContext(StateContext)
+    //const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        console.log("submited data ", data)
+        //console.log("submited data ", data)
         if (data) {
             axios({
                 method: 'PATCH',
@@ -35,7 +35,7 @@ function ViewItemPopUp(props) {
                     current_time: getTime()
                 }
             }).then((res) => {
-                console.log("status code update stock", res)
+                // console.log("status code update stock", res)
                 if (res.status === 200) {
                     props.getItemData()
                     props.setViewPopUp(false)
@@ -56,7 +56,7 @@ function ViewItemPopUp(props) {
                 //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 // }
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
                 if (err.response.status === 401) {
                     props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                     dispatch({ type: 'auth_logout' })
@@ -81,11 +81,11 @@ function ViewItemPopUp(props) {
                 id: props.itemRowData.id,
             }
         }).then((res) => {
-            console.log("status code dump item", res)
+            //console.log("status code dump item", res)
             if (res.status === 200) {
                 const isBorrowed = res.data.filter((d) => props.itemRowData.id === d.itemId)
                 if (isBorrowed.length === 0) return setDumpBtn(0)
-                console.log("isborrowed", isBorrowed)
+                //console.log("isborrowed", isBorrowed)
                 if (isBorrowed[0].return_status) {
                     setDumpBtn(0)
                 } else {
@@ -134,7 +134,7 @@ function ViewItemPopUp(props) {
                 current_time: getTime()
             }
         }).then((res) => {
-            console.log("status code dump item", res)
+            //console.log("status code dump item", res)
             if (res.status === 200) {
                 props.getItemData()
                 props.setViewPopUp(false)
@@ -154,7 +154,7 @@ function ViewItemPopUp(props) {
             //     props.setGlobalPopUp({ id: 4, header: 'Item Borrowed', message: 'You cant dump this item' })
             // }
         }).catch((err) => {
-            console.log(err)
+            //console.log(err)
             if (err.response.status === 401) {
                 props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })

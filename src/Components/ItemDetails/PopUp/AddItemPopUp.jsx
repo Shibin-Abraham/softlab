@@ -34,7 +34,7 @@ function AddItemPopUp(props) {
                 withCredentials: true,
                 data: { ...datas, date: getDate(), time: getTime() }
             }).then((res) => {
-                console.log("status of insertion 333333333333", res)
+                //console.log("status of insertion 333333333333", res)
                 if (res.status === 200) {
                     props.getItemData()
                     setPopUpActive('')//close AddStockPopUp 
@@ -53,7 +53,7 @@ function AddItemPopUp(props) {
                 //     props.setGlobalPopUp({ id: 4, header: 'Oops', message: 'Internal server error' })
                 // }
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
                 if (err.response.status === 401) {
                     props.setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                     dispatch({ type: 'auth_logout' })

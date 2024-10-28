@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './AddBrand.css'
 import { useNavigate } from 'react-router-dom'
-import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider'
+import { DispatchContext } from '../../AuthProvider/AuthProvider'
 import axios from 'axios'
 
 function AddBrand(props) {
@@ -12,7 +12,7 @@ function AddBrand(props) {
 
   let navigate = useNavigate()
 
-  const authData = useContext(StateContext)
+  //const authData = useContext(StateContext)
   const dispatch = useContext(DispatchContext)
 
   function getDate() {
@@ -51,7 +51,7 @@ function AddBrand(props) {
         withCredentials: true,
         data: { name: value, date: getDate(), time: getTime() }
       }).then((res) => {
-        console.log("status of insertion 333333333333", res)
+        //console.log("status of insertion 333333333333", res)
         if (res.status === 200) {
           props.getBrandData()
           props.setGlobalPopUp({ id: 1, header: 'SUCCESS', message: 'Brand successfully added' })
