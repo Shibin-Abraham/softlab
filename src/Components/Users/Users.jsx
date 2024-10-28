@@ -29,7 +29,7 @@ function Users() {
     const dispatch = useContext(DispatchContext)
 
     let getUsersData = useCallback(() => {
-        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        //console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
         axios({
             method: 'GET',
             url: 'http://localhost:4000/users',
@@ -38,7 +38,7 @@ function Users() {
             },
             withCredentials: true
         }).then((res) => {
-            console.log("active users 11111111", res)
+            //console.log("active users 11111111", res)
             if (res.status === 200) {
                 setAllUsersData(res.data.filter((data) => data.r_name !== "HOD"))
                 setLoader(false)
@@ -56,7 +56,7 @@ function Users() {
             // }
         }).catch((err) => {
             //setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
-            console.log(err)
+            //console.log(err)
             if (err.response.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
@@ -68,7 +68,7 @@ function Users() {
     }, [dispatch, navigate])
 
     let getStockData = useCallback(() => {
-        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        //console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
         axios({
             method: 'GET',
             url: 'http://localhost:4000/stock/getall',
@@ -77,9 +77,9 @@ function Users() {
             },
             withCredentials: true
         }).then((res) => {
-            console.log("stock dataa 222222222", res)
-            if (res.status === 200) {
-                setAllStockData(res.data.filter((data) => !data.dump))
+            //console.log("stock dataa 222222222", res)
+            if (res?.status === 200) {
+                setAllStockData(res?.data?.filter((data) => !data.dump))
             }
             // if (res.data.length !== undefined) {
             //     console.log(res.data)
@@ -94,7 +94,7 @@ function Users() {
             // }
         }).catch((err) => {
             //setGlobalPopUp({ id: 4, header: `${err.message}!`, message: `${err.message}! please check your network` })
-            if (err.response.status === 401) {
+            if (err?.response?.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
                 navigate('/login', { replace: true })
@@ -105,7 +105,7 @@ function Users() {
     }, [dispatch, navigate])
 
     let getStockHandlingUsers = useCallback(() => {
-        console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        //console.log("userssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
         axios({
             // method: 'POST',
             // url: 'http://localhost/soft-lab-api/route/services/get-stock-handling-users-data.php',
@@ -121,7 +121,7 @@ function Users() {
             withCredentials: true
 
         }).then((res) => {
-            console.log("stock dataa 222222222", res)
+            //console.log("stock dataa 222222222", res)
             if (res.status === 200) {
                 setAllStockHandlingData(res.data)
             }

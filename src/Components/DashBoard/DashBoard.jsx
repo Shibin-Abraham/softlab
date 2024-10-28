@@ -403,9 +403,12 @@ function DashBoard({ setNav }) {
                                             <td style={{ color: 'var(--color-danger)' }}>No data</td>
                                         </tr>
                                     }
-                                    <tr>
-                                        <td id="load-more" onClick={() => navigate('/audit')}>Load More...</td>
-                                    </tr>
+                                    {
+                                        recentActivityData.length > 6 ? <tr>
+                                            <td id="load-more" onClick={() => navigate('/audit')}>Load More...</td>
+                                        </tr> : null
+                                    }
+
                                 </tbody>
                             </table>
                         </div>

@@ -29,8 +29,8 @@ function Dump() {
             console.log("dump ---------------", res)
             if (res.status === 200) {
                 console.log(res.data)
-                setStockName(res.data[0].name.toUpperCase())
-                setAllStockData(res.data.filter((data) => data.category !== null))
+                setStockName(res?.data[0]?.name?.toUpperCase())
+                setAllStockData(res.data.filter((data) => data?.category !== null))
                 //setStockDataEmpty(res.data.filter((data)=>data.category===''&&data.dump!=="1"))
                 //stockDataEmpty.length !== 0 && setGlobalPopUp({id:4,header:'Alert',message:'please fill the stock details'})
             }
@@ -43,6 +43,7 @@ function Dump() {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
+            console.log("error ", err)
             if (err.response.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
@@ -80,7 +81,7 @@ function Dump() {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
-            if (err.response.status === 401) {
+            if (err?.response?.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
                 navigate('/login', { replace: true })

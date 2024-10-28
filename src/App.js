@@ -40,7 +40,8 @@ function App() {
           <Route path='/items' element={<ItemDetails />} />
           <Route path='/borrowers' element={<Borrowers />} />
           <Route path='/dump' element={<Dump />} />
-          <Route path='/audit' element={<AuditLog />} />
+          {nav !== 'assistant' && <Route path='/audit' element={<AuditLog />} />}
+
           <Route path='/indent' element={<IndentLog />} />
           <Route path='/settings' element={<Settings />} />
         </Route>
