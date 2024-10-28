@@ -2,23 +2,22 @@ import React, { useContext, useEffect, useState } from 'react'
 import './AddIndentPopUp.css'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { DispatchContext, StateContext } from '../../AuthProvider/AuthProvider';
+import { DispatchContext } from '../../AuthProvider/AuthProvider';
 import axios from 'axios';
 
 function AddIndentPopUp(props) {
-    console.log(props)
+
     let [popUpActive, setPopUpActive] = useState('')
     const navigate = useNavigate()
     let [img, setImg] = useState('')
 
-    const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     let onSubmit = (d) => {
         if (d) {
-            console.log("d  ", d)
+            //console.log("d  ", d)
             const formData = new FormData()
             formData.append('indent-img', img)
             formData.append('stockId', d.stockid)
@@ -28,7 +27,7 @@ function AddIndentPopUp(props) {
                 },
                 withCredentials: true
             }).then((res) => {
-                console.log("indent response ------------", res)
+                //console.log("indent response ------------", res)
                 if (res.status === 200) {
                     props.getIndentData()
                     setPopUpActive('')//close AddStockPopUp 

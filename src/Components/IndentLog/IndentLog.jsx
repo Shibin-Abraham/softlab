@@ -3,7 +3,7 @@ import './IndentLog.css'
 import noDataAvailable from '../../assets/no-data-available.png'
 import AddIndentPopUp from './PopUp/AddIndentPopUp'
 import { useNavigate } from 'react-router-dom'
-import { DispatchContext, StateContext } from '../AuthProvider/AuthProvider'
+import { DispatchContext } from '../AuthProvider/AuthProvider'
 import GlobalPopUp from '../GlobalPopUp/GlobalPopUp'
 import axios from 'axios'
 import ViewIndentPopUp from './PopUp/ViewIndentPopUp'
@@ -18,7 +18,6 @@ function IndentLog() {
 
     const navigate = useNavigate()
 
-    const authData = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
 
     let getStockData = useCallback(() => {
@@ -72,7 +71,7 @@ function IndentLog() {
             //     setGlobalPopUp({ id: 3, header: 'Bad request', message: 'please check your request' })
             // }
         }).catch((err) => {
-            console.log(err)
+            //console.log(err)
             if (err.response.status === 401) {
                 setGlobalPopUp({ id: 3, header: `${err.response.status} ${err.response.data.error}!`, message: `${err.response.data.error} You need to Login again` })
                 dispatch({ type: 'auth_logout' })
@@ -109,7 +108,7 @@ function IndentLog() {
                 <div className="container">
                     {
                         allIndentData.length !== 0 ? allIndentData.map((data, index) => {
-                            console.log(data)
+                            //console.log(data)
                             return (
                                 <div className="card" key={index} onClick={() => {
                                     setViewIndentPopUp(true)
